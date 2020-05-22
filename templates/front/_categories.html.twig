@@ -1,0 +1,5 @@
+{% for category in categories %}
+
+    <a href="{{path('free_item_list', {'categoryname':category.name|lower|slugify, 'id':category.id})}}">{{category.name}}</a>
+    
+{% endfor %}
