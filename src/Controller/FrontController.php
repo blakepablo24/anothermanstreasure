@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
+use App\Entity\FreeItem;
 
 class FrontController extends AbstractController
 {
@@ -40,5 +41,17 @@ class FrontController extends AbstractController
         ]);
 
     }
+
+    public function allFreeItems()
+
+    {
+        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'ASC']);
+
+        return $this->render('front/_free-items.html.twig', [
+            'freeItems' => $freeItems
+        ]);
+
+    }
+
 
 }

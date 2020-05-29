@@ -4,30 +4,9 @@
 
     <main>
     
-        <div class="free-item-container">
-
-            <div class="free-item-info">
-                
-                <img class="free-item-info-image" src="assets\images\free-item-images\batmanlogo.jpg" alt="">
-                
-                <div class="free-item-info-upload">
-
-                    <h6 class="free-item-info-upload-user">Scirish89</h6>
-                    <h6 class="free-item-info-upload-date">21/05/20</h6>
-
-                </div>
-
-            </div>
-
-            <div class="free-item-details">
-
-                <h3 class="free-item-details-title">Batman VHS Tapes</h3>
-                <p class="free-item-details-description">All of the original batman Vhs tapes. Free to collector</p>
-                <h4 class="free-item-details-location"><i class="fas fa-map-marker-alt"></i> Headley Park</h4>
-
-            </div>
-
-        </div>
+        {{
+            render(controller("App\\Controller\\FrontController::allFreeItems"))
+        }}
     
     </main>
 

@@ -25,40 +25,50 @@
     <body>
 
         {% block header %}
-        
+            
             <header>
 
-                <h1>AMT</h1>
-                <h3>post free item</h3>
-                <i class="fas fa-bars fa-2x"></i>
+            {# top header section #}
 
-            </header>
-        
-        {% endblock %}
+                <div class="navigation-container">
 
-        {% block search %}
+                    <a href="{{path('main_page')}}"><h1>AMT</h1></a>
 
-            <div class="find-items-container">
+                        <button class="post-free-item-button">post free item</button>
+
+                    <i class="fas fa-bars fa-2x"></i>
+
+                </div>
+
+                {# lower header section #}
+
+                <div class="find-items-container">
                 
-                <div class="find-items-categories">
+                    <div class="find-items-categories">
 
-                    <a href="">Categories</a>
+                        <a href="">Categories</a>
+                            
+                    </div>
+
+                    <div class="find-items-categories-list">
+
                         {{
                             render(controller("App\\Controller\\FrontController::categories"))
                         }}
-                         
+
+                    </div>
+                    
+                    <div class="find-items-search">
+
+                        <input type="text">
+                        <i class="fas fa-search fa-2x"></i>
+
+                    </div>
 
                 </div>
-                
-                <div class="find-items-search">
 
-                    <span><input type="text">
-                    <i class="fas fa-search fa-2x"></i></span>
-
-                </div>
-
-            </div>
-
+            </header>
+        
         {% endblock %}
 
         {% block main %}{% endblock %}
