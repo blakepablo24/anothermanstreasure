@@ -32,11 +32,38 @@
 
                 <div class="navigation-container">
 
+                    <i onclick="openBurgerMenu()" id="burger-menu-icon" class="fas fa-bars fa-2x"></i>
+
+                    <button class="post-free-item-button">post free item</button>
+
                     <a href="{{path('main_page')}}"><h1>AMT</h1></a>
 
-                        <button class="post-free-item-button">post free item</button>
+                    <div id="burger-menu-overlay">
 
-                    <i class="fas fa-bars fa-2x"></i>
+                        <div class="burger-menu-headers">
+
+                            <div onclick="closeBurgerMenu()">
+                                <h4>Close Menu</h4>
+                                <i class="fas fa-times-circle fa-2x"></i>
+                            </div>
+
+                        </div>
+
+                        <div class="burger-menu-links">
+
+                            <a href=""><h3>login</h3></a>
+                            <a href=""><h3>Something</h3></a>
+                            <a href=""><h3>Something Else</h3></a>
+
+                        </div>
+
+                        <div class="burger-menu-footers">
+
+                            <a href=""><i class="fab fa-paypal"></i> Donate</a>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -46,24 +73,16 @@
                 
                     <div class="find-items-categories">
 
-                        <a href="">Categories</a>
+                        <a href="{{path('all_categories')}}">Categories</a>
                             
                     </div>
-
-                    <div class="find-items-categories-list">
-
-                        {{
-                            render(controller("App\\Controller\\FrontController::categories"))
-                        }}
-
-                    </div>
                     
-                    <div class="find-items-search">
+                    <form method="GET" class="find-items-search" action="{{path('search_results')}}">
 
-                        <input type="text">
-                        <i class="fas fa-search fa-2x"></i>
+                        <input name="search" type="text">
+                        <button><i class="fas fa-search fa-2x"></i></button>
 
-                    </div>
+                    </form>
 
                 </div>
 
@@ -84,6 +103,8 @@
             </footer>
 
         {% endblock %}
+
+        <script src="{{asset('assets/js/script.js')}}"></script>
         
         {% block javascripts %}{% endblock %}
 

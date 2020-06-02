@@ -19,32 +19,6 @@ class FreeItemRepository extends ServiceEntityRepository
         parent::__construct($registry, FreeItem::class);
     }
 
-    // /**
-    //  * @return FreeItem[] Returns an array of FreeItem objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    
 
-    /*
-    public function findOneBySomeField($value): ?FreeItem
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

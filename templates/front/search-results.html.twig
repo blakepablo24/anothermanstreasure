@@ -8,13 +8,28 @@
             
             <div class="all-categories-nav">
 
-                <a href="{{path('all_categories')}}"><i class="fas fa-arrow-circle-left"></i> Back to All Categories</a>
+                <a href="{{path('main_page')}}"><i class="fas fa-arrow-circle-left"></i> Go Back</a>
 
             </div>
-
-            <h2>{{category.name}}</h2>
     
-        {% for freeItem in freeItems %}
+        {% if freeItems|length < 1 %}
+
+            <h2>Sorry No results for "{{searchTerm}}"</h2>
+
+        {% else %}
+
+            {% if freeItems|length == 1 %}
+            
+                <h2>{{freeItems|length}} result for "{{searchTerm}}"</h2>
+
+            {% else %}
+                
+                <h2>{{freeItems|length}} results for "{{searchTerm}}"</h2>
+            
+            {% endif %}
+            
+
+            {% for freeItem in freeItems %}
 
             <div class="free-item-container">
 
@@ -42,6 +57,8 @@
             </div>
 
         {% endfor %}
+
+        {% endif %}
     
     </main>
 
