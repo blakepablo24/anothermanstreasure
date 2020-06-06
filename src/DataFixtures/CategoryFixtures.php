@@ -44,7 +44,10 @@ class CategoryFixtures extends Fixture
             ['Electronics', 5],
             ['Media', 6],
             ['Other', 7],
-            ['Food Items', 8]
+            ['Food Items', 8],
+            ['Vehicle Parts / Acessories', 9],
+            ['Tools', 10],
+            ['Packaging', 11]
 
         ];
 

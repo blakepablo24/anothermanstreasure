@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FreeItemRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index as Index;
 
@@ -48,6 +50,16 @@ class FreeItem
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="freeItems")
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=FreeItemPictures::class, mappedBy="freeitem")
+     */
+    private $freeItemPictures;
+
+    public function __construct()
+    {
+        $this->freeItemPictures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +134,37 @@ class FreeItem
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FreeItemPictures[]
+     */
+    public function getFreeItemPictures(): Collection
+    {
+        return $this->freeItemPictures;
+    }
+
+    public function addFreeItemPicture(FreeItemPictures $freeItemPicture): self
+    {
+        if (!$this->freeItemPictures->contains($freeItemPicture)) {
+            $this->freeItemPictures[] = $freeItemPicture;
+            $freeItemPicture->setFreeitem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFreeItemPicture(FreeItemPictures $freeItemPicture): self
+    {
+        if ($this->freeItemPictures->contains($freeItemPicture)) {
+            $this->freeItemPictures->removeElement($freeItemPicture);
+            // set the owning side to null (unless already changed)
+            if ($freeItemPicture->getFreeitem() === $this) {
+                $freeItemPicture->setFreeitem(null);
+            }
+        }
 
         return $this;
     }

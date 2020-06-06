@@ -88,7 +88,7 @@ class FrontController extends AbstractController
     public function allFreeItems()
 
     {
-        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'ASC']);
+        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'ASC'], 8);
 
         return $this->render('front/includes/_free-items.html.twig', [
             'freeItems' => $freeItems

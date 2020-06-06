@@ -40,16 +40,27 @@ h1, h2, h3, h4, h5, h6, i, button, a {
 a, button{
     text-decoration: none;
     font-weight: bold;
+    border: none;
 }
 
-/* Site wide buttons */
+.add {
+    color: green;
+    border: green;
+}
 
-.post-free-item-button {
-    background: #fcbf1e;
-    width: 85%;
-    height: 85%;
-    border: none;
-    font-size: 1.3rem;
+.edit {
+    color: orangered;
+    border: orangered;
+}
+
+.delete {
+    color: crimson;
+    border: crimson;
+}
+
+.flash-message-success {
+    background: #a8df65;
+    padding: 5px;
     border-radius: 2.5px;
 }
 
@@ -71,9 +82,22 @@ header {
     place-items: center center;
 }
 
-.navigation-container a {
+.navigation-container {
     place-self: start end;
     padding: 2.5px 2.5px 0 0;
+}
+
+.post-free-item-button {
+    background: #fcbf1e;
+    width: 85%;
+    height: 85%;
+    border: none;
+    font-size: 1.3rem;
+    border-radius: 2.5px;
+}
+
+.nav-logo {
+    place-self: start end;
 }
 
 /* Header Burger Menu */
@@ -139,14 +163,19 @@ header {
     text-align: center;
 }
 
-/* Main Section */
+.find-items-search-bar-button {
+    border: none;
+    background: #ffffff;
+}
 
 main {
     grid-area: main;
     display: grid;
-    place-items: center center;
+    place-items: start center;
     grid-row-gap: 3px;
 }
+
+/* Front Main Section */
 
 .free-item-container {
     display: grid;
@@ -175,30 +204,14 @@ main {
     border-radius: 5px;
 }
 
-.free-item-info-user {
-    
-}
-
-.free-item-info-date {
-    
-}
-
 .free-item-details {
     display: grid;
     grid: auto 1fr auto / 1fr;
     place-items: center center;
 }
 
-.free-item-details-title {
-
-}
-
 .free-item-details-description {
     font-size: 0.90rem;
-}
-
-.free-item-details-location {
-
 }
 
 /* All Categories Page */
@@ -217,9 +230,6 @@ main {
     width: 95%;
 }
 
-.all-categories-nav a {
-}
-
 .all-categories-list {
     display: grid;
     place-items: center center;
@@ -234,6 +244,46 @@ main {
     border-radius: 2.5px;
     background: #035aa6;
     color: #40bad5;
+}
+
+/* Admin Post Free Item */
+
+.post-free-item-container {
+    display: grid;
+    place-items: center center;
+    width: 99%;
+    border: solid #fcbf1e 3px;
+    border-radius: 2.5px;
+    padding-bottom: 2vh;
+}
+
+.post-free-item-field {
+    width: 95%;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 2.5px;
+    text-align: center;
+    margin-top: 2vh;
+    padding: 3px 0;
+}
+
+/* Edit Categories Page */
+
+.category-option-container {
+    place-self: start center;
+    display: grid;
+    width: 95%;
+    place-items: center center;
+}
+
+.category-option {
+    display: grid;
+    grid-row-gap: 5px;
+    width: 35%;
+    margin-top: 7.5vh;
+    border: solid 1px;
+    padding: 10px;
+    border-radius: 10px
 }
 
 footer {
