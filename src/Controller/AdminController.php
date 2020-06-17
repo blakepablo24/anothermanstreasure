@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Category;
 use App\Entity\FreeItem;
+use App\Entity\FreeItemPictures;
 use App\Form\NewFreeItemType;
 use App\Form\AddNewCategoryType;
 use App\Form\EditCategoryType;
@@ -74,11 +75,19 @@ class AdminController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                $freeItem->setPicture01($newFilename);
+                $freeItemPicture = new FreeItemPictures();
+
+                $freeItemPicture->setName($newFilename);
+
+                $freeItemPicture->setFreeItem($freeItem);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($freeItemPicture);
+
             }
 
             $picture02 = $form->get('picture02')->getData();
-
+            
             if ($picture02) {
                 $originalFilename = pathinfo($picture02->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
@@ -95,11 +104,19 @@ class AdminController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                $freeItem->setPicture02($newFilename);
+                $freeItemPicture = new FreeItemPictures();
+
+                $freeItemPicture->setName($newFilename);
+
+                $freeItemPicture->setFreeItem($freeItem);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($freeItemPicture);
+
             }
 
             $picture03 = $form->get('picture03')->getData();
-
+            
             if ($picture03) {
                 $originalFilename = pathinfo($picture03->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
@@ -116,11 +133,19 @@ class AdminController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                $freeItem->setPicture03($newFilename);
+                $freeItemPicture = new FreeItemPictures();
+
+                $freeItemPicture->setName($newFilename);
+
+                $freeItemPicture->setFreeItem($freeItem);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($freeItemPicture);
+
             }
 
             $picture04 = $form->get('picture04')->getData();
-
+            
             if ($picture04) {
                 $originalFilename = pathinfo($picture04->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
@@ -137,11 +162,19 @@ class AdminController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                $freeItem->setPicture04($newFilename);
+                $freeItemPicture = new FreeItemPictures();
+
+                $freeItemPicture->setName($newFilename);
+
+                $freeItemPicture->setFreeItem($freeItem);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($freeItemPicture);
+
             }
 
             $picture05 = $form->get('picture05')->getData();
-
+            
             if ($picture05) {
                 $originalFilename = pathinfo($picture05->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
@@ -158,11 +191,19 @@ class AdminController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                $freeItem->setPicture05($newFilename);
+                $freeItemPicture = new FreeItemPictures();
+
+                $freeItemPicture->setName($newFilename);
+
+                $freeItemPicture->setFreeItem($freeItem);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($freeItemPicture);
+
             }
 
             $picture06 = $form->get('picture06')->getData();
-
+            
             if ($picture06) {
                 $originalFilename = pathinfo($picture06->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
@@ -179,7 +220,15 @@ class AdminController extends AbstractController
                     // ... handle exception if something happens during file upload
                 }
 
-                $freeItem->setPicture06($newFilename);
+                $freeItemPicture = new FreeItemPictures();
+
+                $freeItemPicture->setName($newFilename);
+
+                $freeItemPicture->setFreeItem($freeItem);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($freeItemPicture);
+
             }
 
             $category = $request->request->get('new_free_item')['category'];

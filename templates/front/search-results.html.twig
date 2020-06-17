@@ -31,11 +31,15 @@
 
             {% for freeItem in freeItems %}
 
-            <div class="free-item-container">
+            <a href="{{path('free_item_single', {'id':freeItem.id})}}" class="free-item-container">
 
                 <div class="free-item-info">
                     
-                    <img class="free-item-info-image" src="{{asset('assets/images/free-item-images/' ~ freeItem.picture01)}}" alt="">
+                    {% for freeItemPicture in freeItem.freeItemPictures|slice(0, 1) %}
+
+                        <img class="free-item-info-image" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}" alt="No Image :(">
+
+                    {% endfor %}
                     
                     <div class="free-item-info-upload">
 
@@ -54,7 +58,7 @@
 
                 </div>
 
-            </div>
+            </a>
 
         {% endfor %}
 

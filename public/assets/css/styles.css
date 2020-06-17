@@ -260,7 +260,7 @@ main {
 
 .free-item-single-share {
     place-self: end end;
-    margin-right: 7.5px;
+    margin: 7.5px 7.5px 0 0;
     border: 2.5px solid #fcbf1e;
     border-radius: 7.5px;
     padding: 5px;
@@ -272,9 +272,42 @@ main {
     color: #035aa6;
 }
 
-.free-item-single-image {
+/* Single Free Item Slideshow container */
+
+.slideshow-container {
+    border-radius: 5px;
     width: 100%;
-    border-radius: 2.5px;
+    display: grid;
+    grid: 40vh 10vh / 1fr;
+}
+  
+  /* Hide the images by default */
+  .mySlides {
+    display: none;
+    place-items: center center;
+  }
+
+  .free-item-single-image {
+      margin-top: 2.5vh;
+      border-radius: 5px;
+      max-width: 95%;
+      max-height: 37.5vh;
+  }
+
+.image-control-container {
+    width: 100%;
+    display: grid;
+    grid: 1fr / 1fr 1fr;
+    place-items: center center;
+}
+
+.image-control-container a {
+    border-radius: 5px;
+    width: 50%;
+
+    color: #035aa6;
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 /* Post Free Item */

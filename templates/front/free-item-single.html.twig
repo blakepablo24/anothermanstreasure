@@ -8,15 +8,48 @@
             
         <div class="all-categories-nav">
 
-            <a href="{{path('all_categories')}}"><i class="fas fa-arrow-circle-left"></i> Back to All Free Items</a>
+            <a href="{{path('main_page')}}"><i class="fas fa-arrow-circle-left"></i> Back to All Free Items</a>
 
         </div>
 
         <div class="free-item-single-container">
 
-            <a class="free-item-single-share"><i class="fas fa-share-alt fa-2x"></i></a>
             <h1 class="free-item-single-title">{{freeItem.title}}</h1>
-            <img class="free-item-single-image" src="{{asset('assets/images/free-item-images/' ~ freeItem.picture01)}}" alt="No Images :(">
+
+            <a class="free-item-single-share"><i class="fas fa-share-alt fa-2x"></i></a>
+
+                <!-- Slideshow container -->
+                <div class="slideshow-container">
+
+                    {% if freeItem.freeItemPictures|length < 1 %}
+                    
+                        <img class="free-item-single-image" src="" alt="No Images for this Free Item :(">
+                    
+                    {% else %}
+                        
+                        {% for freeItemPicture in freeItem.freeItemPictures %}
+                            
+                            <div class="mySlides fade">
+                            <img class="free-item-single-image" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
+
+                        </div>
+
+                        {% endfor %}
+
+                        {% if freeItem.freeItemPictures|length > 1 %}
+                            
+                            <!-- Next and previous buttons -->
+                            <div class="image-control-container">
+                                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                            </div>
+
+                        {% endif %}
+
+                    {% endif %}
+
+                </div>
+
             <p class="free-item-single-description">{{freeItem.description}}</p>
             <h3 class="free-item-single-location">{{freeItem.location}}</h3>
             <a class="free-item-single-user">Contact Freebie User</a>
