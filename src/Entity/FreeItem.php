@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\FreeItemRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Index as Index;
 
@@ -52,14 +50,34 @@ class FreeItem
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=FreeItemPictures::class, mappedBy="freeitem")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $freeItemPictures;
+    private $picture01;
 
-    public function __construct()
-    {
-        $this->freeItemPictures = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture02;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture03;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture04;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture05;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $picture06;
 
     public function getId(): ?int
     {
@@ -138,33 +156,74 @@ class FreeItem
         return $this;
     }
 
-    /**
-     * @return Collection|FreeItemPictures[]
-     */
-    public function getFreeItemPictures(): Collection
+    public function getPicture01(): ?string
     {
-        return $this->freeItemPictures;
+        return $this->picture01;
     }
 
-    public function addFreeItemPicture(FreeItemPictures $freeItemPicture): self
+    public function setPicture01(?string $picture01): self
     {
-        if (!$this->freeItemPictures->contains($freeItemPicture)) {
-            $this->freeItemPictures[] = $freeItemPicture;
-            $freeItemPicture->setFreeitem($this);
-        }
+        $this->picture01 = $picture01;
 
         return $this;
     }
 
-    public function removeFreeItemPicture(FreeItemPictures $freeItemPicture): self
+    public function getPicture02(): ?string
     {
-        if ($this->freeItemPictures->contains($freeItemPicture)) {
-            $this->freeItemPictures->removeElement($freeItemPicture);
-            // set the owning side to null (unless already changed)
-            if ($freeItemPicture->getFreeitem() === $this) {
-                $freeItemPicture->setFreeitem(null);
-            }
-        }
+        return $this->picture02;
+    }
+
+    public function setPicture02(?string $picture02): self
+    {
+        $this->picture02 = $picture02;
+
+        return $this;
+    }
+
+    public function getPicture03(): ?string
+    {
+        return $this->picture03;
+    }
+
+    public function setPicture03(?string $picture03): self
+    {
+        $this->picture03 = $picture03;
+
+        return $this;
+    }
+
+    public function getPicture04(): ?string
+    {
+        return $this->picture04;
+    }
+
+    public function setPicture04(?string $picture04): self
+    {
+        $this->picture04 = $picture04;
+
+        return $this;
+    }
+
+    public function getPicture05(): ?string
+    {
+        return $this->picture05;
+    }
+
+    public function setPicture05(?string $picture05): self
+    {
+        $this->picture05 = $picture05;
+
+        return $this;
+    }
+
+    public function getPicture06(): ?string
+    {
+        return $this->picture06;
+    }
+
+    public function setPicture06(?string $picture06): self
+    {
+        $this->picture06 = $picture06;
 
         return $this;
     }

@@ -9,6 +9,11 @@ use App\Entity\Category;
 use App\Entity\FreeItem;
 use App\Form\NewFreeItemType;
 use App\Form\AddNewCategoryType;
+use App\Form\EditCategoryType;
+// Image uploads
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @Route("/admin")
@@ -21,13 +26,21 @@ class AdminController extends AbstractController
      */
     public function index()
     {
-        return $this->render('admin/index.html.twig');
+
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+
+        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findAll();
+
+        return $this->render('admin/index.html.twig', [
+            'freeItems' => $freeItems,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * @Route("/post-free-item", name="post_free-item", methods={"GET","POST"})
      */
-    public function postFreeItem(Request $request)
+    public function postFreeItem(Request $request, SluggerInterface $slugger)
 
     {
 
@@ -41,6 +54,133 @@ class AdminController extends AbstractController
 
             $freeItem->setTitle($request->request->get('new_free_item')['title']);
             $freeItem->setDescription($request->request->get('new_free_item')['description']);
+
+            // Does it have a picture attached to the free Item
+            $picture01 = $form->get('picture01')->getData();
+            
+            if ($picture01) {
+                $originalFilename = pathinfo($picture01->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$picture01->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $picture01->move(
+                        $this->getParameter('pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $freeItem->setPicture01($newFilename);
+            }
+
+            $picture02 = $form->get('picture02')->getData();
+
+            if ($picture02) {
+                $originalFilename = pathinfo($picture02->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$picture02->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $picture02->move(
+                        $this->getParameter('pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $freeItem->setPicture02($newFilename);
+            }
+
+            $picture03 = $form->get('picture03')->getData();
+
+            if ($picture03) {
+                $originalFilename = pathinfo($picture03->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$picture03->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $picture03->move(
+                        $this->getParameter('pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $freeItem->setPicture03($newFilename);
+            }
+
+            $picture04 = $form->get('picture04')->getData();
+
+            if ($picture04) {
+                $originalFilename = pathinfo($picture04->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$picture04->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $picture04->move(
+                        $this->getParameter('pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $freeItem->setPicture04($newFilename);
+            }
+
+            $picture05 = $form->get('picture05')->getData();
+
+            if ($picture05) {
+                $originalFilename = pathinfo($picture05->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$picture05->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $picture05->move(
+                        $this->getParameter('pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $freeItem->setPicture05($newFilename);
+            }
+
+            $picture06 = $form->get('picture06')->getData();
+
+            if ($picture06) {
+                $originalFilename = pathinfo($picture06->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$picture06->guessExtension();
+
+                // Move the file to the directory where brochures are stored
+                try {
+                    $picture06->move(
+                        $this->getParameter('pictures_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+
+                $freeItem->setPicture06($newFilename);
+            }
 
             $category = $request->request->get('new_free_item')['category'];
             $repository = $this->getDoctrine()->getManager()->getRepository(Category::class);
@@ -71,17 +211,7 @@ class AdminController extends AbstractController
     public function categories(Request $request)
 
     {
-
-        return $this->render('admin/categories.html.twig');
-
-    }
-
-    /**
-     * @Route("/categories-add-new-category", name="add_new_category", methods={"GET", "POST"})
-     */
-    Public function addNewCategory(Request $request)
-
-    {
+        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
         $newCategory = new Category();
         $form = $this->createForm(AddNewCategoryType::class, $newCategory);
@@ -103,9 +233,60 @@ class AdminController extends AbstractController
 
         }
 
-        return $this->render('admin/categories-add-new-category.html.twig', [
+        return $this->render('admin/categories.html.twig', [
+            'categories' => $categories,
             'form' => $form->createView()
         ]);
+
+    }
+
+    /**
+     * @Route("/edit-category/{id}", name="edit_category", methods={"GET","POST"})
+     */
+    public function editCategory(Request $request, Category $category)
+
+    {
+        $categoryToEdit = $this->getDoctrine()->getRepository(Category::class)->find($category);
+
+        $form = $this->createForm(EditCategoryType::class, $categoryToEdit);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        
+        {
+
+            $categoryToEdit->setName($request->request->get('edit_category')['name']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($categoryToEdit);
+            $entityManager->flush();
+
+            $this->addFlash('category_deleted', 'Category successfully Edited!');
+
+            return $this->redirectToRoute('categories');
+
+        }
+
+        return $this->render('admin/edit-category.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+    }
+
+    /**
+     * @Route("/delete-category/{id}", name="delete_category")
+     */
+    Public function deleteCategory(Category $category)
+
+    {
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($category);
+        $entityManager->flush();
+
+        $this->addFlash('category_deleted', 'Category successfully Deleted!');
+
+        return $this->redirectToRoute('categories');
 
     }
 }

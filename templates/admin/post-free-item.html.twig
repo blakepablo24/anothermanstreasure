@@ -14,6 +14,28 @@
             {{ form_widget(form.description, {'attr': {'class': 'post-free-item-field', 'cols': '30', 'rows': '10', 'placeholder': 'Description'}}) }}
             {{form_errors(form.description)}}
 
+            <div class="post-free-item-pic-upload-container">
+
+                {{ form_row(form.picture01, {'attr': {'class': 'post-free-item-pic-upload'}}) }}
+                {{form_errors(form.picture01)}}
+
+                {{ form_row(form.picture02, {'attr': {'class': 'post-free-item-pic-upload'}}) }}
+                {{form_errors(form.picture02)}}
+
+                {{ form_row(form.picture03, {'attr': {'class': 'post-free-item-pic-upload'}}) }}
+                {{form_errors(form.picture03)}}
+
+                {{ form_row(form.picture04, {'attr': {'class': 'post-free-item-pic-upload'}}) }}
+                {{form_errors(form.picture04)}}
+
+                {{ form_row(form.picture05, {'attr': {'class': 'post-free-item-pic-upload'}}) }}
+                {{form_errors(form.picture05)}}
+
+                {{ form_row(form.picture06, {'attr': {'class': 'post-free-item-pic-upload'}}) }}
+                {{form_errors(form.picture06)}}
+
+            </div>
+
             {{ form_widget(form.category, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.category)}}
 

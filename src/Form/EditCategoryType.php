@@ -9,13 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class AddNewCategoryType extends AbstractType
+class EditCategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, ['label' => false])         
-            ->add('addNewCategory', SubmitType::class, ['label' => 'Add +'])
+        ->add('name', TextType::class, ['label' => false])         
+        ->add('addNewCategory', SubmitType::class, ['label' => 'Complete Edit'])
         ;
     }
 

@@ -74,6 +74,19 @@ class FrontController extends AbstractController
 
     }
 
+    /**
+     * @Route("/free-item-single/{id}", name="free_item_single", methods={"GET"})
+     */
+    public function freeItemSingle(Request $request, FreeItem $freeItem)
+
+    {
+
+        return $this->render('front/free-item-single.html.twig', [
+            'freeItem' => $freeItem
+        ]);
+
+    }
+
     public function categories()
 
     {
@@ -88,7 +101,7 @@ class FrontController extends AbstractController
     public function allFreeItems()
 
     {
-        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'ASC'], 8);
+        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'DESC', 'time' => 'DESC'], 8);
 
         return $this->render('front/includes/_free-items.html.twig', [
             'freeItems' => $freeItems

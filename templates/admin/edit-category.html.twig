@@ -1,0 +1,25 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block main %}
+
+    <main>
+
+        <div class="category-option-container">
+
+            <h2>Edit Category</h2>
+
+            {{ form_start(form, {'attr':{'class': 'post-free-item-container'}}) }}
+
+                {{form_widget(form.name, {'attr': {'class': 'post-free-item-field'}}) }}
+                {{form_errors(form.name)}}
+
+                {{ form_widget(form.addNewCategory, {'attr': {'class': 'post-free-item-field', 'label': 'Add'}}) }}
+
+
+            {{ form_end(form) }}
+
+        </div>
+    
+    </main>
+
+{% endblock %}

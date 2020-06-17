@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block main %}
+
+    <main>
+            
+        <div class="all-categories-nav">
+
+            <a href="{{path('all_categories')}}"><i class="fas fa-arrow-circle-left"></i> Back to All Free Items</a>
+
+        </div>
+
+        <div class="free-item-single-container">
+
+            <a class="free-item-single-share"><i class="fas fa-share-alt fa-2x"></i></a>
+            <h1 class="free-item-single-title">{{freeItem.title}}</h1>
+            <img class="free-item-single-image" src="{{asset('assets/images/free-item-images/' ~ freeItem.picture01)}}" alt="No Images :(">
+            <p class="free-item-single-description">{{freeItem.description}}</p>
+            <h3 class="free-item-single-location">{{freeItem.location}}</h3>
+            <a class="free-item-single-user">Contact Freebie User</a>
+            <h4 class="free-item-single-date">{{freeItem.date|date('D d/m/y')}} | {{freeItem.time|date('H')}}:{{freeItem.time|date('i')}}</h4>
+
+        </div>
+    
+    </main>
+
+{% endblock %}
+

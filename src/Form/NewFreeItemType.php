@@ -34,9 +34,123 @@ class NewFreeItemType extends AbstractType
                 ]
             )
 
+            ->add('picture01', FileType::class, [
+                'label' => 'Main Picture',
+
+                'mapped' => false,
+
+                'required' => false,
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Image must be Jpeg/Png no more than 5mb',
+                    ])
+                ],
+            ])
+
+            ->add('picture02', FileType::class, [
+                'label' => 'Picture 2',
+
+                'mapped' => false,
+
+                'required' => false,
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Image must be Jpeg/Png no more than 5mb',
+                    ])
+                ],
+            ])
+
+            ->add('picture03', FileType::class, [
+                'label' => 'Picture 3',
+
+                'mapped' => false,
+
+                'required' => false,
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Image must be Jpeg/Png no more than 5mb',
+                    ])
+                ],
+            ])
+
+            ->add('picture04', FileType::class, [
+                'label' => 'Picture 4',
+
+                'mapped' => false,
+
+                'required' => false,
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Image must be Jpeg/Png no more than 5mb',
+                    ])
+                ],
+            ])
+
+            ->add('picture05', FileType::class, [
+                'label' => 'Picture 5',
+
+                'mapped' => false,
+
+                'required' => false,
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Image must be Jpeg/Png no more than 5mb',
+                    ])
+                ],
+            ])
+
+            ->add('picture06', FileType::class, [
+                'label' => 'Picture 6',
+
+                'mapped' => false,
+
+                'required' => false,
+
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Image must be Jpeg/Png no more than 5mb',
+                    ])
+                ],
+            ])
+
             ->add('location', TextType::class, ['label' => false])
             
-            ->add('addPost', SubmitType::class, ['label' => 'Add Post'])
+            ->add('addPost', SubmitType::class, ['label' => 'Add Free Item'])
         ;
     }
 
