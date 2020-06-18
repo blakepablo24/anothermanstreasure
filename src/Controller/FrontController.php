@@ -35,11 +35,11 @@ class FrontController extends AbstractController
     /**
      * @Route("/free-item-list/category/{categoryname},{id}", methods={"GET"}, name="free_item_list")
      */
-    public function freeItemlist($id, Category $category, Request $request)
+    public function freeItemlist(Category $category, Request $request)
 
     {
 
-        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'DESC', 'time' => 'DESC'], 8);
+        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy(['category' => $category], ['date' => 'DESC', 'time' => 'DESC'], 8);
 
         return $this->render('front/free-item-list.html.twig', [
             'category' => $category,

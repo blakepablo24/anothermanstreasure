@@ -30,9 +30,10 @@
                         {% for freeItemPicture in freeItem.freeItemPictures %}
                             
                             <div class="mySlides fade">
-                            <img class="free-item-single-image" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
 
-                        </div>
+                                <img id="myImg" class="myImages free-item-single-image" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
+
+                            </div>
 
                         {% endfor %}
 
@@ -49,6 +50,47 @@
                     {% endif %}
 
                 </div>
+
+                {# Modal for image enlargement #}
+
+                        <div id="myModal" class="modal">
+
+                                <i class="close fas fa-times fa-2x"></i>
+
+                                {% if freeItem.freeItemPictures|length > 1 %}
+
+                                    <div class="image-control-container">  
+
+                                        <a class="prev" onclick="plusEnlargedSlides(-1)">&#10094;</a>
+                                        <a class="next" onclick="plusEnlargedSlides(1)">&#10095;</a>
+
+                                    </div>
+
+                                {% else %}
+
+                                        <h2>1/1</h2>
+
+                                {% endif %}
+
+                                {% if freeItem.freeItemPictures|length < 1 %}
+                        
+                                    <img class="free-item-single-image" src="" alt="No Images for this Free Item :(">
+                                
+                                {% else %}
+                                    
+                                    {% for freeItemPicture in freeItem.freeItemPictures %}
+                                        
+                                        <div class="myEnlargedSlides fade">
+
+                                            <img class="myEnlargedImages modal-content" id="myImg" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                {% endif %}
+
+                        </div>
 
             <p class="free-item-single-description">{{freeItem.description}}</p>
             <h3 class="free-item-single-location">{{freeItem.location}}</h3>
