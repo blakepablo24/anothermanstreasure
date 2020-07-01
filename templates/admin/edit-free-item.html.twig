@@ -1,0 +1,68 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block main %}
+
+    <main>
+
+        <h2>Edit Freebie</h2>
+
+        {% for message in app.flashes('free_item_updated') %}
+
+            <div class="flash-message-success">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+        <div class="edit-free-item-picture-container">
+
+            {% for freeItemPicture in freeItem.freeItemPictures %}
+
+                <a class="edit-free-item-picture-mini-container" onclick="return confirm('Are you sure you want to delete this this Freebie?')" href="{{path('delete_free_item_picture', {'id':freeItemPicture.id})}}">
+
+                    <i class="fas fa-times-circle delete"></i>
+                    <img class="edit-free-item-picture" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
+
+                </a>
+
+            {% endfor %}
+
+            {% if freeItem.freeItemPictures|length < 6 %}
+
+                <a class="edit-free-item-picture-new-container" href="">
+
+                    {{ form_start(form_pic) }}
+
+                        {{ form_row(form_pic.newFreeItemPicture, {'attr': {'onchange': 'this.form.submit()'}}) }}
+                        {{form_errors(form_pic.newFreeItemPicture)}}
+
+                    {{ form_end(form_pic) }}
+
+                </a>
+
+            {% endif %}
+                
+
+        </div>
+    
+        {{ form_start(form, {'attr':{'class': 'post-free-item-container'}}) }}
+
+            {{ form_widget(form.title, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.title)}}
+
+            {{ form_widget(form.description, {'attr': {'class': 'post-free-item-field', 'cols': '30', 'rows': '10', 'placeholder': 'Description'}}) }}
+            {{form_errors(form.description)}}
+
+            {{ form_widget(form.category, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.category)}}
+
+            {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.location)}}
+
+            {{ form_widget(form.addPost, {'attr': {'class': 'post-free-item-field'}}) }}
+
+        {{ form_end(form) }}
+    
+    </main>
+
+{% endblock %}

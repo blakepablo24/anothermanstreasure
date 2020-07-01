@@ -52,7 +52,7 @@ class FreeItem
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=FreeItemPictures::class, mappedBy="FreeItem")
+     * @ORM\OneToMany(targetEntity=FreeItemPictures::class, mappedBy="FreeItem", orphanRemoval=true)
      */
     private $freeItemPictures;
 

@@ -254,7 +254,7 @@ main {
 .free-item-single-container {
     width: 95%;
     display: grid;
-    grid: 0.5fr 0.5fr 5fr 1fr 1fr 1.5fr 0.5fr/ 1fr;
+    grid: 0.5fr 0.5fr 6fr 1.5fr 0.5fr 0.5fr 0.5fr/ 1fr;
     place-items: center center;
 }
 
@@ -340,7 +340,7 @@ main {
     font-weight: bold;
   }
 
-/* Post Free Item */
+/* Post New Free Item */
 
 .post-free-item-container {
     display: grid;
@@ -369,6 +369,55 @@ main {
 
 .post-free-item-pic-upload {
     width: 95%;
+}
+
+.edit-delete-controls {
+    width: 100%;
+    display: grid;
+    grid: 1fr / 1fr 1fr;
+    place-items: center center;
+    font-size: 1.5rem                   ;
+}
+
+/* Edit New Free Item */
+
+.edit-free-item-picture-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    place-items: center center;
+}
+
+.edit-free-item-picture-mini-container {
+    display: grid;
+    grid: 1fr 20vh / 20vw;
+    place-items: center center;
+    border: 1px solid #035aa6;
+    padding: 5px;
+    margin-top: 3px;
+}
+
+.edit-free-item-picture {
+    max-width: 20vw;
+    max-height: 20vh;
+}
+
+.edit-free-item-picture-new-container {
+    width: 20vw;
+    max-height: 20vh;
+    border: 1px solid #035aa6;
+    padding: 5px;
+    margin-top: 3px;
+}
+
+.edit-free-item-picture-container input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: none;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
 
 /* Su Admin section */

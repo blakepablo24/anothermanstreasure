@@ -12,6 +12,22 @@
 
         </div>
 
+        <div class="edit-delete-controls">
+
+            <a href="{{path('edit_free_item', {'id':freeItem.id})}}" class="edit">
+            
+                Edit <i class="far fa-edit edit"></i>
+
+            </a>
+
+            <a href="{{path('delete_free_item', {'id':freeItem.id})}}" onclick="return confirm('Are you sure you want to delete this Freebie?')" class="delete">
+        
+                Delete <i class="fas fa-minus-circle delete"></i>
+
+            </a>
+
+        </div>
+        
         <div class="free-item-single-container">
 
             <h1 class="free-item-single-title">{{freeItem.title}}</h1>
@@ -100,6 +116,86 @@
         </div>
     
     </main>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+
+// Single Item Slide Show container
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+
+  slides[slideIndex-1].style.display = "grid";
+}
+
+// Modal for larger enlarged images
+
+// create references to the modal...
+var modal = document.getElementById('myModal');
+// to all images -- note I'm using a class!
+var images = document.getElementsByClassName('myImages');
+
+// Go through all of the images with our custom class
+for (var i = 0; i < images.length; i++) {
+  var img = images[i];
+  // and attach our click listener for this image.
+  img.onclick = function(evt) {
+    modal.style.display = "grid";
+  }
+}
+
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// Single Item Modal Slide Show container
+
+var slideEnlargedIndex = 1;
+showEnlargedSlides(slideEnlargedIndex);
+
+function plusEnlargedSlides(n) {
+  showEnlargedSlides(slideEnlargedIndex += n);
+}
+
+function currentEnlargedSlide(n) {
+  showEnlargedSlides(slideEnlargedIndex = n);
+}
+
+function showEnlargedSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("myEnlargedSlides");
+  if (n > slides.length) {slideEnlargedIndex = 1}
+  if (n < 1) {slideEnlargedIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+
+  slides[slideEnlargedIndex-1].style.display = "grid";
+}
+
+</script>
 
 {% endblock %}
 
