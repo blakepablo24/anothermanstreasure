@@ -4,27 +4,35 @@
 
     <main>
 
-        <div class="su-admin-main-page-container">
+        {% if not is_granted('ROLE_ADMIN')%}
 
-            <a href="{{path('main_page')}}" class="su-admin-main-page-option">
-                <i class="fas fa-tag fa-3x"></i>
-                <h3>{{freeItems|length}}</h3>
-                <h3>Free Items</h3>
-            </a>
+            <h2> You are not a super admin</h2>
 
-            <a href="{{path('categories')}}" class="su-admin-main-page-option">
-                <i class="fas fa-clipboard-list fa-3x"></i>
-                <h3>{{categories|length}}</h3>
-                <h3>Categories</h3>
-            </a>
+        {% else %}
+            
+            <div class="su-admin-main-page-container">
 
-            <a class="su-admin-main-page-option">
-                <i class="fas fa-users fa-3x"></i>
-                <h3>25</h3>
-                <h3>Users</h3>
-            </a>
+                <a href="{{path('main_page')}}" class="su-admin-main-page-option">
+                    <i class="fas fa-tag fa-3x"></i>
+                    <h3>{{freeItems|length}}</h3>
+                    <h3>Free Items</h3>
+                </a>
 
-        </div>
+                <a href="{{path('categories')}}" class="su-admin-main-page-option">
+                    <i class="fas fa-clipboard-list fa-3x"></i>
+                    <h3>{{categories|length}}</h3>
+                    <h3>Categories</h3>
+                </a>
+
+                <a class="su-admin-main-page-option">
+                    <i class="fas fa-users fa-3x"></i>
+                    <h3>25</h3>
+                    <h3>Users</h3>
+                </a>
+
+            </div>
+
+        {% endif %}
 
     </main>
 

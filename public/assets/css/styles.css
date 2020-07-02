@@ -66,6 +66,13 @@ a, button{
     margin-top: 10px;
 }
 
+.form-errors {
+    background: #dd3333;
+    color: #ffffff;
+    width: 100%;
+    padding: 10px 0;
+}
+
 /* Header */
 
 header {
@@ -99,7 +106,8 @@ header {
 }
 
 .nav-logo {
-    place-self: start end;
+    display: grid;
+    place-items: center center;
 }
 
 /* Header Burger Menu */
@@ -124,6 +132,17 @@ header {
 
 .burger-menu-links a {
     text-align: left;
+    padding: 2.5px;
+}
+
+.nav-option-container {
+    display: grid;
+    place-items: center start;
+    grid: 1fr / 1fr 9fr;
+}
+
+.nav-option-container i {
+    margin-right: 5px;
 }
 
 .find-items-container {
@@ -214,6 +233,13 @@ main {
 
 .free-item-details-description {
     font-size: 0.90rem;
+}
+
+.login-signup a {
+    background: #fcbf1e;
+    font-weight: bold;
+    padding: 2.5px;
+    border-radius: 2.5px;
 }
 
 /* All Categories Page */
@@ -350,14 +376,18 @@ main {
     padding-bottom: 2vh;
 }
 
-.post-free-item-field {
+.post-free-item-field, .post-free-item-field-sign-up, .post-free-item-field-sign-up-button {
     width: 95%;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     border: none;
     border-radius: 2.5px;
     text-align: center;
     margin-top: 2vh;
     padding: 3px 0;
+}
+
+.post-free-item-field-sign-up {
+    margin-top: 0;
 }
 
 .post-free-item-pic-upload-container {

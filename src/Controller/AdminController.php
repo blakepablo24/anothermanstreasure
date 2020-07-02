@@ -49,6 +49,8 @@ class AdminController extends AbstractController
 
     {
 
+        $user = $this->getUser();
+
         $freeItem = new FreeItem();
         $form = $this->createForm(NewFreeItemType::class, $freeItem);
         $form->handleRequest($request);
@@ -115,6 +117,7 @@ class AdminController extends AbstractController
             $freeItem->setCategory($category);
             
             $freeItem->setLocation($request->request->get('new_free_item')['location']);
+            $freeItem->setUser($user);
             $freeItem->setDate(new \DateTime());
             $freeItem->setTime(new \DateTime());
 

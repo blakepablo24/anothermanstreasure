@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+{% endblock %}
+
+{% block main %}
+
+    <main style="grid-row: 1 / 4; place-self: start center; margin-top: 10vh;">
+
+        <a class="nav-logo" href="{{path('main_page')}}"><img style="width: 25%; border-radius: 5px;" src="assets/images/site-images/amt-logo.jpg" alt=""></a>
+
+        {{ form_start(form, {'attr':{'class': 'post-free-item-container'}}) }}
+
+            <h2>Another Man's Treasure</h2>
+            <h3>Sign Up Form</h3>
+
+            <br>
+            
+            <label for="user_name">Name</label>
+
+            {{ form_widget(form.name, {'attr': {'class': 'post-free-item-field-sign-up'}}) }}
+            {{form_errors(form.name)}}
+
+            <br>
+
+            <label for="user_last_name">Last Name</label>
+
+            {{ form_widget(form.last_name, {'attr': {'class': 'post-free-item-field-sign-up'}}) }}
+            {{form_errors(form.last_name)}}
+
+            <br>
+
+            <label for="user_email">Email</label>
+
+            {{ form_widget(form.email, {'attr': {'class': 'post-free-item-field-sign-up'}}) }}
+            {{form_errors(form.email)}}
+
+            <br>
+
+            <label for="user_password_first">Password</label>
+
+            {{ form_widget(form.password.first, {'attr': {'class': 'post-free-item-field-sign-up'}}) }}
+            {{form_errors(form.password.first)}}
+
+            <br>
+
+            <label for="user_password_second">Confirm Password</label>
+            {{ form_widget(form.password.second, {'attr': {'class': 'post-free-item-field-sign-up'}}) }}
+            {{form_errors(form.password.second)}}
+
+            {{ form_widget(form.sign_up, {'attr': {'class': 'post-free-item-field'}}) }}
+
+        {{ form_end(form) }}
+    
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+    var password = document.getElementById("user_password_first"), confirm_password = document.getElementById("user_password_second");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+    }
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+</script>
+{% endblock %}

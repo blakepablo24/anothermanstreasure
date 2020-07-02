@@ -1,8 +1,17 @@
 {% extends 'admin/base.html.twig' %}
 
+{% block header %}
+{% endblock %}
+
 {% block main %}
 
-    <main>
+    <main style="grid-row: 1 / 4; place-self: center center;">
+
+        <div class="all-categories-nav">
+
+            <a href="{{path('main_page')}}"><i class="fas fa-arrow-circle-left"></i> Back to All Free Items</a>
+
+        </div>
     
         {{ form_start(form, {'attr':{'class': 'post-free-item-container'}}) }}
 
@@ -48,4 +57,7 @@
     
     </main>
 
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

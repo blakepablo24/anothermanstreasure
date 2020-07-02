@@ -36,7 +36,7 @@
 
                     <a href="{{path('post_free_item')}}" class="post-free-item-button">post free item</a>
 
-                    <a class="nav-logo" href="{{path('main_page')}}"><h1>AMT</h1></a>
+                    <a class="nav-logo" href="{{path('main_page')}}"><img width="75%" src="{{asset('assets/images/site-images/amt-logo.jpg')}}" alt=""></a>
 
                     <div id="burger-menu-overlay">
 
@@ -50,11 +50,20 @@
                         </div>
 
                         <div class="burger-menu-links">
+                        
+                        {% if not app.user %}
 
-                            <a href="{{path('admin_main_page')}}"><h3>Login</h3></a>
-                            <a href=""><h3>Sign Up</h3></a>
-                            <a href=""><h3>Reduce, Reuse, Recycle</h3></a>
-                            <a href=""><h3>Contact</h3></a>
+                            <a class="nav-option-container" href="{{path('login')}}"><i class="fas fa-sign-in-alt"></i><h3> Login</h3></a>
+                            <a class="nav-option-container" href="{{path('sign_up')}}"><i class="fas fa-user-plus"></i><h3> Sign Up</h3></a>
+
+                        {% else %}
+                            <a class="nav-option-container" href="{{path('admin_main_page')}}"><i class="fas fa-user"></i><h3> My Profile</h3></a>
+                            <a class="nav-option-container" href="{{path('logout')}}"><i class="fas fa-sign-out-alt"></i><h3> Logout</h3></a>
+
+                        {% endif %}
+
+                            <a class="nav-option-container" href=""><i class="fas fa-recycle"></i><h3> Reduce, Reuse, Recycle</h3></a>
+                            <a class="nav-option-container" href=""><i class="far fa-envelope"></i><h3> Contact</h3></a>
 
                         </div>
 

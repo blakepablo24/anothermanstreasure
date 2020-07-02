@@ -34,9 +34,9 @@
 
                     <i onclick="openBurgerMenu()" id="burger-menu-icon" class="fas fa-bars fa-2x"></i>
 
-                    <a class="post-free-item-button">post free item</a>
+                    <a href="{{path('post_free_item')}}" class="post-free-item-button">post free item</a>
 
-                    <a class="nav-logo" href="{{path('main_page')}}"><h1>AMT</h1></a>
+                    <a class="nav-logo" href="{{path('main_page')}}"><img width="75%" src="{{asset('assets/images/site-images/amt-logo.jpg')}}" alt=""></a>
 
                     <div id="burger-menu-overlay">
 
@@ -51,10 +51,10 @@
 
                         <div class="burger-menu-links">
 
-                            <a href="{{path('admin_main_page')}}"><h3>Login</h3></a>
-                            <a href=""><h3>Sign Up</h3></a>
-                            <a href=""><h3>Reduce, Reuse, Recycle</h3></a>
-                            <a href=""><h3>Contact</h3></a>
+                        <a class="nav-option-container" href="{{path('admin_main_page')}}"><i class="fas fa-user"></i><h3> My Profile</h3></a>
+                        <a class="nav-option-container" href="{{path('logout')}}"><i class="fas fa-sign-out-alt"></i><h3> Logout</h3></a>
+                        <a class="nav-option-container" href=""><i class="fas fa-recycle"></i><h3> Reduce, Reuse, Recycle</h3></a>
+                        <a class="nav-option-container" href=""><i class="far fa-envelope"></i><h3> Contact</h3></a>
 
                         </div>
 
@@ -74,7 +74,8 @@
                 
                     <div class="find-items-categories">
 
-                        <a href="">Something Here</a>
+                        <a href="{{path('logout')}}"><i style="color:#40bad5;" class="fas fa-sign-out-alt"></i> Logout</a>
+                        
                             
                     </div>
                     

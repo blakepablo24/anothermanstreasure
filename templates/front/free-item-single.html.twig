@@ -12,21 +12,33 @@
 
         </div>
 
-        <div class="edit-delete-controls">
+        {% if app.user %}
 
-            <a href="{{path('edit_free_item', {'id':freeItem.id})}}" class="edit">
-            
-                Edit <i class="far fa-edit edit"></i>
+            {% if is_granted('ROLE_ADMIN') or freeItem.user.id == app.user.id %}
 
-            </a>
+                <div class="edit-delete-controls">
 
-            <a href="{{path('delete_free_item', {'id':freeItem.id})}}" onclick="return confirm('Are you sure you want to delete this Freebie?')" class="delete">
-        
-                Delete <i class="fas fa-minus-circle delete"></i>
+                    <a href="{{path('edit_free_item', {'id':freeItem.id})}}" class="edit">
+                    
+                        Edit <i class="far fa-edit edit"></i>
 
-            </a>
+                    </a>
 
-        </div>
+                    <a href="{{path('delete_free_item', {'id':freeItem.id})}}" onclick="return confirm('Are you sure you want to delete this Freebie?')" class="delete">
+                
+                        Delete <i class="fas fa-minus-circle delete"></i>
+
+                    </a>
+
+                </div>
+
+            {% else %}
+
+            {# No admin options if the user is not admin or the original poster #}
+
+            {% endif %}
+
+        {% endif %}
         
         <div class="free-item-single-container">
 
@@ -110,8 +122,19 @@
 
             <p class="free-item-single-description">{{freeItem.description}}</p>
             <h3 class="free-item-single-location">{{freeItem.location}}</h3>
-            <a class="free-item-single-user">Contact Freebie User</a>
-            <h4 class="free-item-single-date">{{freeItem.date|date('D d/m/y')}} | {{freeItem.time|date('H')}}:{{freeItem.time|date('i')}}</h4>
+            <h4 class="free-item-single-date">Listed By: {{freeItem.user.name}} on {{freeItem.date|date('D d/m/y')}} @ {{freeItem.time|date('H')}}:{{freeItem.time|date('i')}}</h4>
+            
+            {% if not app.user %}
+
+                <h3 class="login-signup"><a href="{{path('login')}}">Login</a> or <a href="{{path('sign_up')}}">Sign Up</a> to contact {{freeItem.user.name}}</h3>    
+
+            {% else %}
+
+                <a class="free-item-single-user">Contact {{freeItem.user.name}}</a>
+
+                <input class="post-free-item-field" value="Hi, when can I collect?">
+                
+            {% endif %}
 
         </div>
     

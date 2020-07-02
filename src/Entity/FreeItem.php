@@ -56,6 +56,12 @@ class FreeItem
      */
     private $freeItemPictures;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="freeItems")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->freeItemPictures = new ArrayCollection();
@@ -165,6 +171,18 @@ class FreeItem
                 $freeItemPicture->setFreeItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+{% endblock %}
+
+{% block main %}
+
+    <main style="grid-row: 1 / 4; place-self: start center; margin-top: 10vh;">
+
+        <a class="nav-logo" href="{{path('main_page')}}"><img style="width: 25%; border-radius: 5px;" src="assets/images/site-images/amt-logo.jpg" alt=""></a>
+
+        <form class="post-free-item-container" method="POST" action="{{path('login')}}">
+
+            <h3>Please Login</h3>
+
+            {% if error %}
+
+            
+
+                <div class="form-errors">
+                
+                    {{error.messageKey|trans(error.messageData, 'security')}}
+                    
+                </div>
+
+            
+        
+            {% endif %}
+            
+            <input class="post-free-item-field" name="_email" type="text" placeholder="username">
+            <input class="post-free-item-field" name="_password" type="password" placeholder="password">
+            <br>
+            <div>
+                <label>
+                    <input name="_remember_me" type="checkbox">    
+                    Remember me
+                </label>
+            </div>
+            <button class="post-free-item-field" type="submit">Login</button>
+            <input name="_csrf_token" type="hidden" value="{{csrf_token('authenticate')}}">
+        </form>
+
+        <h3>Don't have a login? </h3>
+        <h3 class="login-signup"><a href="{{path('sign_up')}}">Sign Up Here!</a></h3>
+    
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
