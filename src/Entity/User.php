@@ -61,6 +61,11 @@ class User implements UserInterface
      */
     private $freeItems;
 
+    /**
+     * @ORM\OneToOne(targetEntity=UserContact::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $userContact;
+
     public function __construct()
     {
         $this->freeItems = new ArrayCollection();
@@ -194,6 +199,23 @@ class User implements UserInterface
             if ($freeItem->getUser() === $this) {
                 $freeItem->setUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getUserContact(): ?UserContact
+    {
+        return $this->userContact;
+    }
+
+    public function setUserContact(UserContact $userContact): self
+    {
+        $this->userContact = $userContact;
+
+        // set the owning side of the relation if necessary
+        if ($userContact->getUser() !== $this) {
+            $userContact->setUser($this);
         }
 
         return $this;

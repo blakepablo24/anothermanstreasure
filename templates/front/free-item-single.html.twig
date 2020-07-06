@@ -44,7 +44,12 @@
 
             <h1 class="free-item-single-title">{{freeItem.title}}</h1>
 
-            <a class="free-item-single-share"><i class="fas fa-share-alt fa-2x"></i></a>
+            <div class="free-item-single-share">
+                
+                <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share"><i class="fab fa-whatsapp-square fa-3x"></i></a>
+                <a href="fb-messenger://share/?link= https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fsharing%2Freference%2Fsend-dialog&app_id=123456789"><i class="fab fa-facebook-messenger fa-3x"></i></a>
+
+            </div>
 
                 <!-- Slideshow container -->
                 <div class="slideshow-container">
@@ -122,7 +127,7 @@
 
             <p class="free-item-single-description">{{freeItem.description}}</p>
             <h3 class="free-item-single-location">{{freeItem.location}}</h3>
-            <h4 class="free-item-single-date">Listed By: {{freeItem.user.name}} on {{freeItem.date|date('D d/m/y')}} @ {{freeItem.time|date('H')}}:{{freeItem.time|date('i')}}</h4>
+            <a href="{{path('free_item_list_user', {'id':freeItem.user.id})}}"><h4 class="free-item-single-date">Listed By: {{freeItem.user.name}} on {{freeItem.date|date('D d/m/y')}} @ {{freeItem.time|date('H')}}:{{freeItem.time|date('i')}}</h4></a>
             
             {% if not app.user %}
 
@@ -130,9 +135,13 @@
 
             {% else %}
 
-                <a class="free-item-single-user">Contact {{freeItem.user.name}}</a>
+                {% if freeItem.user.id == app.user.id %}
+                
+                {% else %}
+                    <a class="free-item-single-user">Contact {{freeItem.user.name}}</a>
+                    <input class="post-free-item-field" value="Hi, when can I collect?">
 
-                <input class="post-free-item-field" value="Hi, when can I collect?">
+                {% endif %}
                 
             {% endif %}
 

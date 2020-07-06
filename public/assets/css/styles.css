@@ -286,10 +286,9 @@ main {
 
 .free-item-single-share {
     place-self: end end;
-    margin: 7.5px 7.5px 0 0;
-    border-radius: 7.5px;
-    padding: 5px;
+    width: 30%;
     display: grid;
+    grid: 1fr / 1fr 1fr;
     place-items: center center;
 }
 
@@ -448,6 +447,80 @@ main {
     display: none;
     border: 1px solid #ccc;
     cursor: pointer;
+}
+
+/* Profile section */
+
+.profile-container {
+    width: 100%;
+    display: grid;
+}
+
+.profile-contact-container {
+    background: rgb(252, 191, 30);
+    width: 100%;
+    min-height: 40vh;
+    padding: 10px;
+}
+
+.profile-title {
+    width: 100%;
+    display: grid;
+    grid: 1fr / 2fr 8fr;
+    place-items: center center;
+    border-bottom: 2px solid #035aa6;
+    margin-bottom: 10px;
+}
+
+.profile-contact-details-container {
+    width: 100%;
+    display: grid;
+}
+
+.profile-contact-detail {
+    display: grid;
+    grid: 1fr / 2fr 8fr;
+    place-items: center start;
+}
+
+.profile-contact-detail-address {
+    display: grid;
+    place-items: center start;
+}
+
+.profile-free-items-container {
+    width: 100%;
+    min-height: 40vh;
+    padding: 10px;
+}
+
+.profile-free-item-stats-container {
+    display: grid;
+    grid: 1fr / 1fr 1fr;
+    place-items: center center;
+}
+
+.profile-free-item-stat {
+    display: grid;
+    grid: 1fr 1fr / 1fr;
+    place-items: center center;
+}
+
+.rating-container {
+    display: grid;
+    place-items: center center;
+    margin: 10px 0;
+    padding: 10px 0;
+    border: 2px solid #035aa6;
+}
+
+.rating {
+    width: 95%;
+    color: #40bad5;
+    background: #035aa6;
+    border-radius: 5px;
+    padding: 5px 0;
+    margin: 5px 0;
 }
 
 /* Su Admin section */

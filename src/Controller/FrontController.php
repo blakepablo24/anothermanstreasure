@@ -131,6 +131,22 @@ class FrontController extends AbstractController
     }
 
     /**
+     * @Route("/free-item-list-user/{id}", methods={"GET"}, name="free_item_list_user")
+     */
+    public function freeItemlistUser(User $user, Request $request)
+
+    {
+
+        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy(['user' => $user], ['date' => 'DESC', 'time' => 'DESC'], 8);
+
+        return $this->render('front/free-item-list-user.html.twig', [
+            'user' => $user,
+            'freeItems' => $freeItems
+        ]);
+
+    }
+
+    /**
      *  @Route("/search-results", methods={"GET"}, name="search_results")
      */
     public function searchResults(Request $request)

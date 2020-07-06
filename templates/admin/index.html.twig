@@ -6,28 +6,122 @@
 
         {% if not is_granted('ROLE_ADMIN')%}
 
-            <h2> You are not a super admin</h2>
+            <div class="profile-container">
+
+                <div class="profile-free-items-container">
+
+                    <div class="profile-title">
+                    
+                        <i class="fas fa-recycle fa-3x"></i>
+                        <h2>My Free Items</h2>
+                    
+                    </div>
+
+                    <div class="profile-free-items">
+
+                        <div class="rating-container">
+                            <h2>32Collect Level:</h2>
+                            <h1 class="rating">Reuse Apprentice</h1>
+                            <h3>Next Level: Reuse Regular</h3>
+                        </div>
+
+                        <div class="profile-free-item-stats-container"> 
+
+                            <a href="{{path('free_item_list_user', {'id':app.user.id})}}" class="profile-free-item-stat"> 
+
+                                <h2>Active</h2>
+                                <h1>({{app.user.freeItems|length}})</h1>
+
+                            </a>
+                            
+                            <div class="profile-free-item-stat"> 
+                                <h2>All Time Total</h2>
+                                <h1>(87)</h1>
+                            </div>
+
+                        </div>
+
+                    </div>
+                
+                </div>
+
+                <div class="profile-contact-container">
+
+                    <div class="profile-title">
+                    
+                        <i class="fas fa-home fa-3x"></i>
+                        <h2>My Contact  Details</h2>
+                    
+                    </div>
+
+                    <div class="profile-contact-details-container">
+
+                        <div class="profile-contact-detail">
+
+                            <i class="far fa-user"></i>
+                            <h3>{{app.user.name}} {{app.user.lastName}}</h3>
+
+                        </div>
+
+                        <div class="profile-contact-detail">
+
+                            <i class="fas fa-at"></i>
+                            <h3>{{app.user.email}}</h3>
+
+                        </div>
+
+                        <div class="profile-contact-detail">
+
+                            <i class="fas fa-phone"></i>
+                            <h3>{{app.user.userContact.number}}</h3>
+
+                        </div>
+
+                        <div class="profile-contact-detail">
+
+                            <i class="fas fa-home"></i>
+
+                            <div class="profile-contact-detail-address">
+                                <h3>{{app.user.userContact.addressLine1}}</h3>
+                                <h3>{{app.user.userContact.addressLine2}}</h3>
+                                <h3>{{app.user.userContact.addressLine3}}</h3>
+                                <h3>{{app.user.userContact.addressPostCode}}</h3>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         {% else %}
             
             <div class="su-admin-main-page-container">
 
                 <a href="{{path('main_page')}}" class="su-admin-main-page-option">
+
                     <i class="fas fa-tag fa-3x"></i>
                     <h3>{{freeItems|length}}</h3>
                     <h3>Free Items</h3>
+
                 </a>
 
                 <a href="{{path('categories')}}" class="su-admin-main-page-option">
+
                     <i class="fas fa-clipboard-list fa-3x"></i>
                     <h3>{{categories|length}}</h3>
                     <h3>Categories</h3>
+
                 </a>
 
                 <a class="su-admin-main-page-option">
+
                     <i class="fas fa-users fa-3x"></i>
                     <h3>25</h3>
                     <h3>Users</h3>
+
                 </a>
 
             </div>
