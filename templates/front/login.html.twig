@@ -7,7 +7,7 @@
 
     <main style="grid-row: 1 / 4; place-self: start center; margin-top: 10vh;">
 
-        <a class="nav-logo" href="{{path('main_page')}}"><img style="width: 25%; border-radius: 5px;" src="assets/images/site-images/amt-logo.jpg" alt=""></a>
+        <a class="nav-logo" href="{{path('main_page')}}"><img style="width: 25%; border-radius: 5px;" src="assets/images/site-images/32collect-logo.png" alt=""></a>
 
         <form class="post-free-item-container" method="POST" action="{{path('login')}}">
 
@@ -36,7 +36,7 @@
                     Remember me
                 </label>
             </div>
-            <button class="post-free-item-field" type="submit">Login</button>
+            <button class="post-free-item-button" type="submit">Login</button>
             <input name="_csrf_token" type="hidden" value="{{csrf_token('authenticate')}}">
         </form>
 

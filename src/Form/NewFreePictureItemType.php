@@ -20,7 +20,7 @@ class NewFreePictureItemType extends AbstractType
 
         $builder
             ->add('newFreeItemPicture', FileType::class, [
-                'label' => 'Select New Image',
+                'label' => 'Add New Image',
 
                 'mapped' => false,
 

@@ -14,9 +14,9 @@
 }
 
 html {
-    background: #40bad5;
+    background: #ccedd2;
     height: 100%;
-    color: #120136;
+    color: #655c56;
     text-align: center;
 }
 
@@ -34,13 +34,17 @@ body {
 
 h1, h2, h3, h4, h5, h6, i, button, a {
     font-family: 'Quicksand', sans-serif;
-    color: #035aa6;
+    color: #655c56;
 }
 
 a, button{
     text-decoration: none;
     font-weight: bold;
     border: none;
+}
+
+label {
+    margin-top: 1vh;;
 }
 
 .add {
@@ -81,7 +85,7 @@ header {
     grid: 10vh 7vh / 100vw;
     place-items: center center;
     position: fixed;
-    background: #40bad5;
+    background: #ccedd2;
 }
 
 .navigation-container {
@@ -97,12 +101,22 @@ header {
 }
 
 .post-free-item-button {
-    background: #fcbf1e;
-    width: 85%;
-    height: 85%;
+    background: #a0c334;
+    width: 60%;
     border: none;
     font-size: 1.3rem;
     border-radius: 2.5px;
+    margin-top: 25px;
+    padding: 10px 0;
+}
+
+.post-free-item-main-button {
+    background: #a0c334;
+    border: none;
+    font-size: 1.3rem;
+    border-radius: 2.5px;
+    width: 80%;
+    height: 90%;
 }
 
 .nav-logo {
@@ -117,7 +131,7 @@ header {
     height: 100%;
     position: fixed;
     z-index: 1;
-    background: #40bad5;
+    background: #ccedd2;
     transition: 0.5s;
     overflow-x: hidden;
     display: grid;
@@ -156,14 +170,14 @@ header {
 .find-items-categories {
     display: grid;
     place-items: center center;
-    background: #035aa6;
+    background: #655c56;
     width: 95%;
     height: 85%;
     border-radius: 2.5px;
 }
 
 .find-items-categories a {
-    color: #40bad5;
+    color: #ccedd2;
 }
 
 .find-items-search {
@@ -271,8 +285,8 @@ main {
     width: 100%;
     padding: 10px 0;
     border-radius: 2.5px;
-    background: #035aa6;
-    color: #40bad5;
+    background: #655c56;
+    color: #effcef;
 }
 
 /* Single Free Item display page */
@@ -293,7 +307,7 @@ main {
 }
 
 .free-item-single-share i {
-    color: #035aa6;
+    color: #655c56;
 }
 
 /* Single Free Item Slideshow container */
@@ -328,11 +342,10 @@ main {
 .image-control-container a {
     border-radius: 5px;
     width: 50%;
-    color: #035aa6;
     font-size: 2.5rem;
     font-weight: bold;
-    background: #035aa6;
-    color: #40bad5;
+    background: #655c56;
+    color: #effcef;
 }
 
 /* Slide Show Modal for larger image */
@@ -377,12 +390,12 @@ main {
 
 .post-free-item-field, .post-free-item-field-sign-up, .post-free-item-field-sign-up-button {
     width: 95%;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     border: none;
     border-radius: 2.5px;
     text-align: center;
-    margin-top: 2vh;
-    padding: 3px 0;
+    margin-top: 1vh;
+    padding: 5px 0;
 }
 
 .post-free-item-field-sign-up {
@@ -421,7 +434,7 @@ main {
     display: grid;
     grid: 1fr 20vh / 20vw;
     place-items: center center;
-    border: 1px solid #035aa6;
+    border: 1px solid #655c56;
     padding: 5px;
     margin-top: 3px;
 }
@@ -434,7 +447,7 @@ main {
 .edit-free-item-picture-new-container {
     width: 20vw;
     max-height: 20vh;
-    border: 1px solid #035aa6;
+    border: 1px solid #655c56;
     padding: 5px;
     margin-top: 3px;
 }
@@ -457,19 +470,9 @@ main {
 }
 
 .profile-contact-container {
-    background: rgb(252, 191, 30);
     width: 100%;
     min-height: 40vh;
     padding: 10px;
-}
-
-.profile-title {
-    width: 100%;
-    display: grid;
-    grid: 1fr / 2fr 8fr;
-    place-items: center center;
-    border-bottom: 2px solid #035aa6;
-    margin-bottom: 10px;
 }
 
 .profile-contact-details-container {
@@ -509,18 +512,37 @@ main {
 .rating-container {
     display: grid;
     place-items: center center;
-    margin: 10px 0;
-    padding: 10px 0;
-    border: 2px solid #035aa6;
 }
 
 .rating {
-    width: 95%;
-    color: #40bad5;
-    background: #035aa6;
-    border-radius: 5px;
-    padding: 5px 0;
-    margin: 5px 0;
+    
+    width: 75%;
+    color: #655c56;
+    background: #ffffff;
+    border: 5px solid #a0c334;
+    border-radius: 15px;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+.profile-title {
+    width: 100%;
+    display: grid;
+    grid: 1fr / 2fr 8fr;
+    place-items: center center;
+    padding-bottom: 5px;
+}
+
+.profile-messages {
+    background: #ffffff;
+    width: 100%;
+    display: grid;
+    grid: 1fr / 4fr 6fr;
+    place-items: center center;
+    padding: 10px 0;
+    margin: 10px 0;
+    border-top: 2px solid #655c56;
+    border-bottom: 2px solid #655c56;
 }
 
 /* Su Admin section */
@@ -534,8 +556,8 @@ main {
 }
 
 .su-admin-main-page-option {
-    background: rgb(252, 191, 30);
-    border: 2px solid #035aa6;
+    background: #a0c334;
+    border: 2px solid #655c56;
     border-radius: 7.5px;
     width: 50%;
     height: 85%;
@@ -555,23 +577,32 @@ main {
 }
 
 .category-edit-delete-container {
-    width: 95%;
+    width: 100%;
     height: 10vh;;
     display: grid;
     grid: 1fr / 7fr 3fr;
     place-items: center center;
     margin-top: 2.5px;
-    border-bottom: solid 2px #035aa6;
+    border-bottom: solid 2px #655c56;
 }
 
 .category-edit-delete-container h3 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 }
 
 .category-edit-delete-container-icons {
     width: 100%;
     display: grid;
     grid: 1fr / 1fr 1fr;
+}
+
+.user-stats {
+    width: 95%;
+    background: #a0c334;
+    border: 1px solid #655c56;
+    border-radius: 15px;
+    padding: 10px 0;
+    font-size: 1.5rem;
 }
 
 footer {

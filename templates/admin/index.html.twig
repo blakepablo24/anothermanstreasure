@@ -10,17 +10,26 @@
 
                 <div class="profile-free-items-container">
 
-                    <div class="profile-title">
-                    
-                        <i class="fas fa-recycle fa-3x"></i>
-                        <h2>My Free Items</h2>
-                    
-                    </div>
+                    {% for message in app.flashes('free_item_deleted') %}
+
+                        <div class="flash-message-success">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                    {% for message in app.flashes('user_details_updated') %}
+
+                        <div class="flash-message-success">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
 
                     <div class="profile-free-items">
 
                         <div class="rating-container">
-                            <h2>32Collect Level:</h2>
+                            <h2>My Level:</h2>
                             <h1 class="rating">Reuse Apprentice</h1>
                             <h3>Next Level: Reuse Regular</h3>
                         </div>
@@ -29,14 +38,14 @@
 
                             <a href="{{path('free_item_list_user', {'id':app.user.id})}}" class="profile-free-item-stat"> 
 
-                                <h2>Active</h2>
+                                <h2>Active Ads</h2>
                                 <h1>({{app.user.freeItems|length}})</h1>
 
                             </a>
                             
                             <div class="profile-free-item-stat"> 
-                                <h2>All Time Total</h2>
-                                <h1>(87)</h1>
+                                <h2>All Ads</h2>
+                                <h1>{{app.user.totalFreeAds}}</h1>
                             </div>
 
                         </div>
@@ -45,11 +54,18 @@
                 
                 </div>
 
+                <div class="profile-messages">
+                    
+                    <i class="fas fa-clipboard-list fa-3x"></i>
+                    <h2>My Messages</h2>
+                    
+                </div>
+
                 <div class="profile-contact-container">
 
                     <div class="profile-title">
                     
-                        <i class="fas fa-home fa-3x"></i>
+                        <a href="{{path('edit_user_details', {'id':app.user.id})}}" class="edit">Edit <i class="far fa-edit edit"></i></a>
                         <h2>My Contact  Details</h2>
                     
                     </div>
@@ -73,7 +89,7 @@
                         <div class="profile-contact-detail">
 
                             <i class="fas fa-phone"></i>
-                            <h3>{{app.user.userContact.number}}</h3>
+                            <h3>{{app.user.number}}</h3>
 
                         </div>
 
@@ -82,10 +98,17 @@
                             <i class="fas fa-home"></i>
 
                             <div class="profile-contact-detail-address">
-                                <h3>{{app.user.userContact.addressLine1}}</h3>
-                                <h3>{{app.user.userContact.addressLine2}}</h3>
-                                <h3>{{app.user.userContact.addressLine3}}</h3>
-                                <h3>{{app.user.userContact.addressPostCode}}</h3>
+                                <h3>{{app.user.addressLine1}}</h3>
+                                <h3>{{app.user.addressLine2}}</h3>
+
+                                {% if app.user.addressLine3 %}
+
+                                    <h3>{{app.user.addressLine3}}</h3>
+
+                                {% endif %}
+                                
+                                <h3>{{app.user.addressArea}}</h3>
+                                <h3>{{app.user.addressPostCode}}</h3>
                             </div>
 
                         </div>
@@ -103,7 +126,7 @@
                 <a href="{{path('main_page')}}" class="su-admin-main-page-option">
 
                     <i class="fas fa-tag fa-3x"></i>
-                    <h3>{{freeItems|length}}</h3>
+                    <h2>{{freeItems|length}}</h2>
                     <h3>Free Items</h3>
 
                 </a>
@@ -111,15 +134,15 @@
                 <a href="{{path('categories')}}" class="su-admin-main-page-option">
 
                     <i class="fas fa-clipboard-list fa-3x"></i>
-                    <h3>{{categories|length}}</h3>
+                    <h2>{{categories|length}}</h2>
                     <h3>Categories</h3>
 
                 </a>
 
-                <a class="su-admin-main-page-option">
+                <a href="{{path('users')}}" class="su-admin-main-page-option">
 
                     <i class="fas fa-users fa-3x"></i>
-                    <h3>25</h3>
+                    <h2>{{users|length}}</h2>
                     <h3>Users</h3>
 
                 </a>

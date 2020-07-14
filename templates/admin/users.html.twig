@@ -1,0 +1,56 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block main %}
+
+    <main>
+
+        <div class="all-categories-nav">
+
+            <a href="{{path('admin_main_page')}}"><i class="fas fa-arrow-circle-left"></i> Go Back</a>
+
+        </div>
+
+        <div class="category-option-container">
+
+            <h2>32collect Users</h2>
+
+            <div class="category-edit-delete-container">
+                    
+                    <h4>User-name</h4> 
+
+                    <div class="category-edit-delete-container-icons">
+
+                        <h4>Live Ads</h4>
+                        <h4>Total Ads</h4>
+
+                    </div>
+
+                </div>
+
+            {% for user in users %}
+
+                <div class="category-edit-delete-container">
+                    
+                    <h3>{{user.email}}</h3>
+
+                    <div class="category-edit-delete-container-icons">
+
+                        <a href="{{path('free_item_list_user', {'id':user.id})}}" class="user-stats">
+                            {{user.freeItems|length}}
+                        </a>
+
+                        <a href="{{path('free_item_list_user', {'id':user.id})}}" class="user-stats">
+                            {{user.totalFreeAds}}
+                        </a>
+
+                    </div>
+
+                </div>
+    
+            {% endfor %}
+
+        </div>
+    
+    </main>
+
+{% endblock %}

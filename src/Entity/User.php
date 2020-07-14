@@ -62,9 +62,49 @@ class User implements UserInterface
     private $freeItems;
 
     /**
-     * @ORM\OneToOne(targetEntity=UserContact::class, mappedBy="user", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=11, nullable=true)
      */
-    private $userContact;
+    private $number;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address_line_1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address_line_2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address_line_3;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address_area;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address_post_code;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $total_free_ads;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $start_date;
+
+    /**
+     * @ORM\Column(type="time")
+     */
+    private $start_time;
 
     public function __construct()
     {
@@ -204,20 +244,112 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getUserContact(): ?UserContact
+    public function getNumber(): ?string
     {
-        return $this->userContact;
+        return $this->number;
     }
 
-    public function setUserContact(UserContact $userContact): self
+    public function setNumber(?string $number): self
     {
-        $this->userContact = $userContact;
-
-        // set the owning side of the relation if necessary
-        if ($userContact->getUser() !== $this) {
-            $userContact->setUser($this);
-        }
+        $this->number = $number;
 
         return $this;
     }
+
+    public function getAddressLine1(): ?string
+    {
+        return $this->address_line_1;
+    }
+
+    public function setAddressLine1(?string $address_line_1): self
+    {
+        $this->address_line_1 = $address_line_1;
+
+        return $this;
+    }
+
+    public function getAddressLine2(): ?string
+    {
+        return $this->address_line_2;
+    }
+
+    public function setAddressLine2(?string $address_line_2): self
+    {
+        $this->address_line_2 = $address_line_2;
+
+        return $this;
+    }
+
+    public function getAddressLine3(): ?string
+    {
+        return $this->address_line_3;
+    }
+
+    public function setAddressLine3(?string $address_line_3): self
+    {
+        $this->address_line_3 = $address_line_3;
+
+        return $this;
+    }
+
+    public function getAddressArea(): ?string
+    {
+        return $this->address_area;
+    }
+
+    public function setAddressArea(?string $address_area): self
+    {
+        $this->address_area = $address_area;
+
+        return $this;
+    }
+
+    public function getAddressPostCode(): ?string
+    {
+        return $this->address_post_code;
+    }
+
+    public function setAddressPostCode(?string $address_post_code): self
+    {
+        $this->address_post_code = $address_post_code;
+
+        return $this;
+    }
+
+    public function getTotalFreeAds(): ?int
+    {
+        return $this->total_free_ads;
+    }
+
+    public function setTotalFreeAds(int $total_free_ads): self
+    {
+        $this->total_free_ads = $total_free_ads;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->start_date;
+    }
+
+    public function setStartDate(\DateTimeInterface $start_date): self
+    {
+        $this->start_date = $start_date;
+
+        return $this;
+    }
+
+    public function getStartTime(): ?\DateTimeInterface
+    {
+        return $this->start_time;
+    }
+
+    public function setStartTime(\DateTimeInterface $start_time): self
+    {
+        $this->start_time = $start_time;
+
+        return $this;
+    }
+
 }

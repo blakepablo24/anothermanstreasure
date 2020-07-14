@@ -5,15 +5,15 @@
 
 {% block main %}
 
-    <main style="grid-row: 1 / 4; place-self: center center;">
-
-        <div class="all-categories-nav">
-
-            <a href="{{path('main_page')}}"><i class="fas fa-arrow-circle-left"></i> Back to All Free Items</a>
-
-        </div>
+    <main style="grid-row: 1 / 4; place-self: start center; margin-top: 2vh;">
     
         {{ form_start(form, {'attr':{'class': 'post-free-item-container'}}) }}
+            
+            <div class="all-categories-nav">
+
+                <a href="{{path('admin_main_page')}}"><i class="fas fa-arrow-circle-left"></i> Back to profile</a>
+
+            </div>
 
             <h2>Free Item Listing</h2>
 
@@ -48,10 +48,10 @@
             {{ form_widget(form.category, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.category)}}
 
-            {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field', 'placeholder': 'Location'}}) }}
+            {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field', 'value': app.user.addressLine2}}) }}
             {{form_errors(form.location)}}
 
-            {{ form_widget(form.addPost, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{ form_widget(form.addPost, {'attr': {'class': 'post-free-item-button'}}) }}
 
         {{ form_end(form) }}
     

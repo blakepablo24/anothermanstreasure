@@ -71,6 +71,10 @@ class FrontController extends AbstractController
 
             $user->setRoles(['ROLE_USER']);
 
+            $user->setTotalFreeAds(0);
+            $user->setStartDate(new \DateTime());
+            $user->setStartTime(new \DateTime());
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

@@ -1,0 +1,65 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block header %}
+{% endblock %}
+
+{% block main %}
+
+    <main style="grid-row: 1 / 4;">
+
+        {{ form_start(form, {'attr':{'novalidate':'novalidate',  'class': 'post-free-item-container'}}) }}
+
+            <div class="all-categories-nav">
+
+                <a href="{{path('admin_main_page')}}"><i class="fas fa-arrow-circle-left"></i> Back to profile</a>
+
+            </div>
+
+            <h2>My Contact Details</h2>
+
+            <label><h3>Email</h3></label>
+            {{ form_widget(form.email, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.email)}}
+
+            <label><h3>Name</h3></label>
+            {{ form_widget(form.name, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.name)}}
+
+            <label><h3>Last Name</h3></label>
+            {{ form_widget(form.last_name, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.last_name)}}
+
+            <label><h3>Contact Number</h3></label>
+            {{ form_widget(form.number, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.number)}}
+
+            <label><h3>Address</h3></label>
+            {{ form_widget(form.address_line_1, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.address_line_1)}}
+
+            {{ form_widget(form.address_line_2, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.address_line_2)}}
+
+            {{ form_widget(form.address_line_3, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.address_line_3)}}
+
+            {{ form_widget(form.address_area, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.address_area)}}
+
+            {{ form_widget(form.address_post_code, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{form_errors(form.address_post_code)}}
+
+            {{ form_widget(form.submitChanges, {'attr': {'class': 'post-free-item-button'}}) }}
+
+        {{ form_end(form) }}
+    
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

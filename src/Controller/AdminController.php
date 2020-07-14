@@ -8,11 +8,13 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Category;
 use App\Entity\FreeItem;
 use App\Entity\FreeItemPictures;
+use App\Entity\User;
 use App\Form\NewFreeItemType;
 use App\Form\NewFreePictureItemType;
 use App\Form\EditFreeItemType;
 use App\Form\AddNewCategoryType;
 use App\Form\EditCategoryType;
+use App\Form\EditUserDetailsType;
 // Image uploads and removals
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -32,13 +34,16 @@ class AdminController extends AbstractController
     public function index()
     {
 
+        $users = $this->getDoctrine()->getRepository(User::class)->findUsers();
+
         $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
         $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findAll();
 
         return $this->render('admin/index.html.twig', [
             'freeItems' => $freeItems,
-            'categories' => $categories
+            'categories' => $categories,
+            'users' => $users
         ]);
     }
 
@@ -62,7 +67,20 @@ class AdminController extends AbstractController
             $freeItem->setTitle($request->request->get('new_free_item')['title']);
             $freeItem->setDescription($request->request->get('new_free_item')['description']);
 
-            // Does it have a picture attached to the free Item
+            $category = $request->request->get('new_free_item')['category'];
+            $repository = $this->getDoctrine()->getManager()->getRepository(Category::class);
+            $category = $repository->find($category);
+            $freeItem->setCategory($category);
+            
+            $freeItem->setLocation($request->request->get('new_free_item')['location']);
+            $freeItem->setUser($user);
+            $freeItem->setDate(new \DateTime());
+            $freeItem->setTime(new \DateTime());
+
+            $numberOfAds = $user->getTotalFreeAds() + 1;
+            $user->setTotalFreeAds($numberOfAds);
+
+            // Does it have any pictures attached to the free Item
             $picture01 = $form->get('picture01')->getData();
             
             if ($picture01) {
@@ -110,16 +128,6 @@ class AdminController extends AbstractController
                 $this->uploadFreeItemPicture($picture06, $freeItem, $slugger);
 
             }
-
-            $category = $request->request->get('new_free_item')['category'];
-            $repository = $this->getDoctrine()->getManager()->getRepository(Category::class);
-            $category = $repository->find($category);
-            $freeItem->setCategory($category);
-            
-            $freeItem->setLocation($request->request->get('new_free_item')['location']);
-            $freeItem->setUser($user);
-            $freeItem->setDate(new \DateTime());
-            $freeItem->setTime(new \DateTime());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($freeItem);
@@ -231,7 +239,7 @@ class AdminController extends AbstractController
 
         $this->addFlash('free_item_deleted', 'Free Item successfully Deleted!');
 
-        return $this->redirectToRoute('categories');
+        return $this->redirectToRoute('admin_main_page');
 
     }
 
@@ -263,6 +271,83 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('edit_free_item', ['id' => $freeItem->getId()]);
 
     }
+
+    // User Contact details
+
+    /**
+     * @Route("/edit-user-details/{id}", name="edit_user_details", methods={"GET","POST"})
+     */
+    public function editUserDetails(Request $request, User $user)
+
+    {
+        $userToEdit = $this->getDoctrine()->getRepository(User::class)->find($user);
+
+        $form = $this->createForm(EditUserDetailsType::class, $userToEdit);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        
+        {
+
+            $userToEdit->setEmail($request->request->get('edit_user_details')['email']);
+            $userToEdit->setName($request->request->get('edit_user_details')['name']);
+            $userToEdit->setLastName($request->request->get('edit_user_details')['last_name']);
+            $userToEdit->setNumber($request->request->get('edit_user_details')['number']);
+            $userToEdit->setAddressLine1($request->request->get('edit_user_details')['address_line_1']);
+            $userToEdit->setAddressLine2($request->request->get('edit_user_details')['address_line_2']);
+            $userToEdit->setAddressLine3($request->request->get('edit_user_details')['address_line_3']);
+            $userToEdit->setAddressArea($request->request->get('edit_user_details')['address_area']);
+            $userToEdit->setAddressPostCode($request->request->get('edit_user_details')['address_post_code']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($userToEdit);
+            $entityManager->flush();
+
+            $this->addFlash('user_details_updated', 'Your details have been updated successfully');
+
+            return $this->redirectToRoute('admin_main_page');
+
+        }
+
+        return $this->render('admin/edit-user-details.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+    }
+
+    // Function to deal with picture uploads
+
+    public function uploadFreeItemPicture($picture, $freeItem, $slugger) 
+    
+    {
+
+        $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
+        // this is needed to safely include the file name as part of the URL
+        $safeFilename = $slugger->slug($originalFilename);
+        $newFilename = $safeFilename.'-'.uniqid().'.'.$picture->guessExtension();
+
+        // Move the file to the directory where brochures are stored
+        try {
+            $picture->move(
+                $this->getParameter('pictures_directory'),
+                $newFilename
+            );
+        } catch (FileException $e) {
+            // ... handle exception if something happens during file upload
+        }
+
+        $freeItemPicture = new FreeItemPictures();
+
+        $freeItemPicture->setName($newFilename);
+
+        $freeItemPicture->setFreeItem($freeItem);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($freeItemPicture);
+
+    }
+
+// *******Super admin area*******
 
     /**
      * @Route("/categories", name="categories", methods={"GET","POST"})
@@ -349,35 +434,17 @@ class AdminController extends AbstractController
 
     }
 
-    // Function to deal with picture uploads
+    /**
+     * @Route("/users", name="users", methods={"GET","POST"})
+     */
+    public function users(Request $request)
 
-    public function uploadFreeItemPicture($picture, $freeItem, $slugger) 
-    
     {
+        $users = $this->getDoctrine()->getRepository(User::class)->findUsers();
 
-        $originalFilename = pathinfo($picture->getClientOriginalName(), PATHINFO_FILENAME);
-        // this is needed to safely include the file name as part of the URL
-        $safeFilename = $slugger->slug($originalFilename);
-        $newFilename = $safeFilename.'-'.uniqid().'.'.$picture->guessExtension();
-
-        // Move the file to the directory where brochures are stored
-        try {
-            $picture->move(
-                $this->getParameter('pictures_directory'),
-                $newFilename
-            );
-        } catch (FileException $e) {
-            // ... handle exception if something happens during file upload
-        }
-
-        $freeItemPicture = new FreeItemPictures();
-
-        $freeItemPicture->setName($newFilename);
-
-        $freeItemPicture->setFreeItem($freeItem);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($freeItemPicture);
+        return $this->render('admin/users.html.twig', [
+            'users' => $users
+        ]);
 
     }
 
