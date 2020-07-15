@@ -3,11 +3,26 @@
 {% block main %}
 
     <main>
-    
+
         {{
             render(controller("App\\Controller\\FrontController::allFreeItems"))
         }}
-    
+
+        <div class="user-review">
+
+            <h3>Susan from Bristol says:</h3>
+            <p>"I am so happy to have found 32collect. I absolutely hate waste. With this site I have managed to save many things from land-fill and saved money in the process on things I would otherwsie have had to buy"</p>
+            <p>"Thank you 32collect"</p>
+
+        </div>
+
+        <div class="main-page-section">
+
+            <img width="50%" src="{{asset('assets/images/site-images/rrr.png')}}" alt="">
+            <img width="95%" src="{{asset('assets/images/site-images/no-landfill.png')}}" alt="">
+            
+        </div>
+
     </main>
 
 {% endblock %}

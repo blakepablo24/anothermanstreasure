@@ -39,6 +39,14 @@
             {% endif %}
 
         {% endif %}
+
+        {% for message in app.flashes('free_item_updated') %}
+
+            <div class="flash-message-success">
+                {{ message }}
+            </div>
+
+        {% endfor %}
         
         <div class="free-item-single-container">
 
@@ -47,7 +55,7 @@
             <div class="free-item-single-share">
                 
                 <h4>Share</h4>
-                <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share"><img width="150%" src="{{asset('assets/images/site-images/whatsapp-icon.png')}}" alt=""></a>
+                <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share"><img width="100%" src="{{asset('assets/images/site-images/whatsapp-icon.png')}}" alt=""></a>
 
             </div>
 
@@ -88,20 +96,19 @@
 
                         <div id="myModal" class="modal">
 
-                                <i class="close fas fa-times fa-2x"></i>
-
                                 {% if freeItem.freeItemPictures|length > 1 %}
 
-                                    <div class="image-control-container">  
+                                    <div class="modal-image-control-container">  
 
                                         <a class="prev" onclick="plusEnlargedSlides(-1)">&#10094;</a>
+                                        <i class="close fas fa-times fa-2x"></i>
                                         <a class="next" onclick="plusEnlargedSlides(1)">&#10095;</a>
 
                                     </div>
 
                                 {% else %}
 
-                                        <h2>1/1</h2>
+                                        <i class="close fas fa-times fa-2x"></i>
 
                                 {% endif %}
 
@@ -113,7 +120,7 @@
                                     
                                     {% for freeItemPicture in freeItem.freeItemPictures %}
                                         
-                                        <div class="myEnlargedSlides fade">
+                                        <div class="myEnlargedSlides">
 
                                             <img class="myEnlargedImages modal-content" id="myImg" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
 

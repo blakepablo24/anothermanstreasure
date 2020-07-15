@@ -20,6 +20,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Filesystem\Filesystem;
+use Intervention\Image\ImageManagerStatic as Image;
 
 /**
  * @Route("/admin")
@@ -168,7 +169,7 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
-            $this->addFlash('free_item_updated', 'Free Item successfully Updated!');
+            $this->addFlash('free_item_updated', 'New Image added successfully');
 
             return $this->redirectToRoute('edit_free_item', ['id' => $freeItem->getId()]);
 
@@ -199,7 +200,7 @@ class AdminController extends AbstractController
 
             $this->addFlash('free_item_updated', 'Free Item successfully Updated!');
 
-            return $this->redirectToRoute('edit_free_item', ['id' => $freeItem->getId()]);
+            return $this->redirectToRoute('free_item_single', ['id' => $freeItem->getId()]);
 
         }
 
@@ -266,7 +267,7 @@ class AdminController extends AbstractController
         $entityManager->remove($freeItemPicture);
         $entityManager->flush();
 
-        $this->addFlash('free_item_image_removed', 'Free Item successfully Removed!');
+        $this->addFlash('free_item_updated', 'Image successfully Removed!');
 
         return $this->redirectToRoute('edit_free_item', ['id' => $freeItem->getId()]);
 
@@ -326,11 +327,13 @@ class AdminController extends AbstractController
         $safeFilename = $slugger->slug($originalFilename);
         $newFilename = $safeFilename.'-'.uniqid().'.'.$picture->guessExtension();
 
+        $img = Image::make($picture);
+
         // Move the file to the directory where brochures are stored
         try {
-            $picture->move(
-                $this->getParameter('pictures_directory'),
-                $newFilename
+            $directory = $this->getParameter('pictures_directory');
+            $img->save(
+                $directory.'/'.$newFilename, 60
             );
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload

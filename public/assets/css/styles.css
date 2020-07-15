@@ -124,6 +124,12 @@ header {
     place-items: center center;
 }
 
+.main-page-section {
+    display: grid;
+    grid: 1fr / 1fr 1fr;
+    place-items: center center;
+}
+
 /* Header Burger Menu */
 
 #burger-menu-overlay {
@@ -208,6 +214,27 @@ main {
     display: grid;
     place-items: start center;
     grid-row-gap: 3px;
+}
+
+.user-review {
+    margin-top: 10px;
+    border: 0.5px solid #655c56;
+    background: #ffffff;
+    width: 99%;
+    display: grid;
+    place-items: center center;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+
+.user-review h3 {
+    place-self: start start;
+    margin: 5px 0 5px 5px;
+}
+
+.user-review p {
+    width: 85%;
+    letter-spacing: 1px;
 }
 
 /* Front Main Section */
@@ -316,7 +343,7 @@ main {
     border-radius: 5px;
     width: 100%;
     display: grid;
-    grid: 40vh 10vh / 1fr;
+    grid: 35vh 8vh / 1fr;
 }
   
   /* Hide the images by default */
@@ -326,23 +353,22 @@ main {
   }
 
   .free-item-single-image {
-      margin-top: 2.5vh;
       border-radius: 5px;
-      max-width: 95%;
-      max-height: 37.5vh;
+      max-width: 100%;
+      max-height: 35vh;
   }
 
-.image-control-container {
+.image-control-container, .modal-image-control-container {
     width: 100%;
     display: grid;
     grid: 1fr / 1fr 1fr;
     place-items: center center;
 }
 
-.image-control-container a {
+.image-control-container a, .modal-image-control-container a {
     border-radius: 5px;
-    width: 50%;
-    font-size: 2.5rem;
+    width: 40%;
+    font-size: 2rem;
     font-weight: bold;
     background: #655c56;
     color: #effcef;
@@ -353,7 +379,7 @@ main {
   /* The Modal (background) */
   .modal {
     display: none; /* Hidden by default */
-    grid: 5vh 5vh 90vh / 1fr;
+    grid: 7.5vh 92.5vh / 1fr;
     place-items: center center;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -363,11 +389,22 @@ main {
     height: 100%; /* Full height */
     background-color: rgb(0,0,0); /* Fallback color */
   }
+
+  .modal-image-control-container {
+    grid: 1fr / 1fr 1fr 1fr;
+  }
+ .modal-image-control-container a {
+    background: none;
+  }
+
+  .myEnlargedSlides {
+    height: 92.5vh;
+  }
   
   /* Modal Content (Image) */
   .modal-content {
-    max-width: 90%;
-    max-height: 95%;
+    max-width: 99vw;
+    max-height: 92vh;
     place-self: center center;
   }
   

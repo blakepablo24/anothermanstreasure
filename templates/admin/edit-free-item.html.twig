@@ -18,7 +18,7 @@
 
             {% for freeItemPicture in freeItem.freeItemPictures %}
 
-                <a class="edit-free-item-picture-mini-container" onclick="return confirm('Are you sure you want to delete this this Freebie?')" href="{{path('delete_free_item_picture', {'id':freeItemPicture.id})}}">
+                <a class="edit-free-item-picture-mini-container" onclick="return confirm('Are you sure you want to delete this this Image?')" href="{{path('delete_free_item_picture', {'id':freeItemPicture.id})}}">
 
                     <i class="fas fa-times-circle delete"></i>
                     <img class="edit-free-item-picture" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
