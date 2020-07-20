@@ -4,6 +4,11 @@
 {% endblock %}
 
 {% block main %}
+    <div id="loader-background">
+    <img width="50%" src="{{asset('assets/images/site-images/32collect-logo.png')}}" alt="">
+        <div id="loader"></div>
+        <h2>Uploading your Free Item</h2>
+    </div>
 
     <main style="grid-row: 1 / 4; place-self: start center; margin-top: 2vh;">
     
@@ -51,7 +56,7 @@
             {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field', 'value': app.user.addressLine2}}) }}
             {{form_errors(form.location)}}
 
-            {{ form_widget(form.addPost, {'attr': {'class': 'post-free-item-button'}}) }}
+            {{ form_widget(form.addPost, {'attr': {'class': 'post-free-item-button', 'onclick': 'loader()'}}) }}
 
         {{ form_end(form) }}
     

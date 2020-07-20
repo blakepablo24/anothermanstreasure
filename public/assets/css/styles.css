@@ -319,10 +319,10 @@ main {
 /* Single Free Item display page */
 
 .free-item-single-container {
-    width: 95%;
     display: grid;
     grid: 0.5fr 0.5fr 6fr 1.5fr 0.5fr 0.5fr 0.5fr/ 1fr;
     place-items: center center;
+    padding: 10px 0;
 }
 
 .free-item-single-share {
@@ -498,6 +498,38 @@ main {
     border: 1px solid #ccc;
     cursor: pointer;
 }
+
+#loader-background {
+    display: none;
+    place-items: center center;
+    background: rgb(204, 237, 210);
+    position: fixed;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+}
+
+#loader {
+    display: none;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #a0c334;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
 /* Profile section */
 
