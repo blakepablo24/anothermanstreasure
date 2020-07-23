@@ -8,10 +8,14 @@ use App\Entity\Category;
 use App\Entity\FreeItem;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 class FrontController extends AbstractController
 {
@@ -179,7 +183,7 @@ class FrontController extends AbstractController
     /**
      * @Route("/free-item-single/{id}", name="free_item_single", methods={"GET"})
      */
-    public function freeItemSingle(Request $request, FreeItem $freeItem)
+    public function freeItemSingle(Request $request, MailerInterface $mailer)
 
     {
 
@@ -187,6 +191,47 @@ class FrontController extends AbstractController
             'freeItem' => $freeItem
         ]);
 
+    }
+
+    /**
+     * @Route("/contact", name="contact")
+     */
+    public function contact(Request $request, MailerInterface $mailer)
+    {
+
+        
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        
+        {
+
+            $formData = $form->getData();
+
+            $email = (new TemplatedEmail())
+            ->from($formData['email'])
+            ->to('info@32collect.djbagsofun.co.uk')
+            ->subject('New Message')
+            ->htmlTemplate('emails/contact_form.html.twig')
+            ->context([
+                'name' => $formData['name'],
+                'senders_email' => $formData['email'],
+                'message' => $formData['message']
+            ]);
+
+            /** @var Symfony\Component\Mailer\SentMessage $sentEmail */
+            $sentEmail = $mailer->send($email);
+            
+            $this->addFlash('message_sent', 'Thank you for your message. It has successfully been sent');
+
+            return $this->redirectToRoute('contact');
+
+        }
+
+        return $this->render('front/contact.html.twig', [
+        'form' => $form->createView()
+        ]);
     }
 
     public function categories()

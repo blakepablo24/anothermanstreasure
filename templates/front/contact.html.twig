@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+{% endblock %}
+
+{% block main %}
+
+    <main style="grid-row: 1 / 4; place-self: start center; margin-top: 10vh;">
+
+        <a class="nav-logo" href="{{path('main_page')}}"><img style="width: 25%; border-radius: 5px;" src="assets/images/site-images/32collect-logo.png" alt=""></a>
+
+        {% for message in app.flashes('message_sent') %}
+
+            <div class="flash-message-success">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+        {% for message in app.flashes('error') %}
+
+            <div class="form_errors">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+        {{ form_start(form, {'attr':{'novalidate':'novalidate', 'class': 'post-free-item-container'}}) }}
+
+        <h3>Contact 32Collect</h3>
+        <h4>Please fill in your details below</h4>
+        
+        <br>
+
+            {% if app.user %}
+                                
+                {{ form_widget(form.name, {'attr': {'value': app.user.name~' '~app.user.lastName, 'readonly': 'true', 'class': 'post-free-item-field-sign-up'}}) }}
+                
+                {% if form_errors(form.name) %}
+                    <div class="form-errors">{{form_errors(form.name)}}</div>
+                {% endif %}
+
+                <br>
+
+                {{ form_widget(form.email, {'attr': {'value': app.user.email, 'readonly': 'true', 'class': 'post-free-item-field-sign-up'}}) }}
+                <div class="form-errors">{{form_errors(form.email)}}</div>
+            
+            {% else %}
+                
+                {{ form_widget(form.name, {'attr': {'class': 'post-free-item-field-sign-up', 'placeholder': 'Name'}}) }}
+                {% if form_errors(form.name) %}
+                    <div class="form-errors">{{form_errors(form.name)}}</div>
+                {% endif %}
+
+                <br>
+
+                {{ form_widget(form.email, {'attr': {'class': 'post-free-item-field-sign-up', 'placeholder': 'Email'}}) }}
+                {% if form_errors(form.email) %}
+                    <div class="form-errors">{{form_errors(form.email)}}</div>
+                {% endif %}
+
+            {% endif %}
+            
+            <br>
+
+            {{ form_widget(form.message, {'attr': {'class': 'post-free-item-field-sign-up', 'cols': '30', 'rows': '7', 'placeholder': 'Your Message'}}) }}
+            {% if form_errors(form.message) %}
+                    <div class="form-errors">{{form_errors(form.message)}}</div>
+                {% endif %}
+            {{ form_widget(form.send, {'attr': {'class': 'post-free-item-button', 'placeholder': 'Name'}}) }}       
+
+        {{form_end(form)}}
+    
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

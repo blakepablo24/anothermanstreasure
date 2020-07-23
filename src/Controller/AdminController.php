@@ -334,7 +334,7 @@ class AdminController extends AbstractController
             $directory = $this->getParameter('pictures_directory');
             $img->save(
                 $directory.'/'.$newFilename, 60
-            );
+            )->orientate();
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload
         }
