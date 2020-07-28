@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use JustSteveKing\LaravelPostcodes\Service\PostcodeService;
 
 class FrontController extends AbstractController
 {
@@ -53,7 +54,7 @@ class FrontController extends AbstractController
     /**
      * @Route("/sign-up", name="sign_up")
      */
-    public function signUp(Request $request, UserPasswordEncoderInterface $password_encoder)
+    public function signUp(Request $request, UserPasswordEncoderInterface $password_encoder, MailerInterface $mailer)
     {
 
         $user = new User;
@@ -78,10 +79,24 @@ class FrontController extends AbstractController
             $user->setTotalFreeAds(0);
             $user->setStartDate(new \DateTime());
             $user->setStartTime(new \DateTime());
+            
+            // Welcome email
+            
+            $email = (new TemplatedEmail())
+            ->from('info@32collect.djbagsofun.co.uk')
+            ->to($request->request->get('user')['email'])
+            ->subject('Welcome to 32collect')
+            ->htmlTemplate('emails/welcome_email.html.twig')
+            ->context([
+                'name' => $request->request->get('user')['name']
+            ]);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+
+            /** @var Symfony\Component\Mailer\SentMessage $sentEmail */
+            $sentEmail = $mailer->send($email);
 
             $this->loginUserAutomatically($user, $password);
 
@@ -183,7 +198,7 @@ class FrontController extends AbstractController
     /**
      * @Route("/free-item-single/{id}", name="free_item_single", methods={"GET"})
      */
-    public function freeItemSingle(Request $request, MailerInterface $mailer)
+    public function freeItemSingle(FreeItem $freeItem, Request $request, MailerInterface $mailer)
 
     {
 

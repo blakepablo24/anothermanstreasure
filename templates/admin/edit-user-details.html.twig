@@ -33,6 +33,12 @@
             {{ form_widget(form.number, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.number)}}
 
+            <div class="address-lookup">
+                <a id="address-lookup-template" class="post-free-item-button-address-lookup-change" onclick="changeAddress()">Change address</a>
+                <input id="address-lookup-change-postcode" class="post-free-item-field-address-lookup" type="text" placeholder="postcode">
+                <button id="address-lookup-change-postcode-button" class="post-free-item-button-address-lookup">Find Address</button>
+            </div>
+
             <label><h3>Address</h3></label>
             {{ form_widget(form.address_line_1, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.address_line_1)}}
@@ -61,5 +67,17 @@
 {% endblock %}
 
 {% block javascripts %}
+
+<script>
+    
+    function changeAddress() {
+
+        document.getElementById("address-lookup-template").style.display = "none";
+        document.getElementById("address-lookup-change-postcode").style.display = "block";
+        document.getElementById("address-lookup-change-postcode-button").style.display = "block";
+
+    }
+
+</script>
 
 {% endblock %}

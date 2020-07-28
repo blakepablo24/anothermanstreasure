@@ -95,7 +95,7 @@ header {
     padding: 2.5px 2.5px 0 0;
 }
 
-.post-free-item-button {
+.post-free-item-button , .post-free-item-button-address-lookup, .post-free-item-button-address-lookup-change {
     background: #a0c334;
     width: 60%;
     border: none;
@@ -422,7 +422,7 @@ main {
     padding-bottom: 2vh;
 }
 
-.post-free-item-field, .post-free-item-field-sign-up, .post-free-item-field-sign-up-button {
+.post-free-item-field, .post-free-item-field-sign-up, .post-free-item-field-sign-up-button, .post-free-item-field-address-lookup {
     width: 95%;
     font-size: 1.1rem;
     border: none;
@@ -557,6 +557,37 @@ main {
 .profile-contact-detail-address {
     display: grid;
     place-items: center start;
+}
+
+.address-lookup {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: #655c56 2.5px solid;
+    width: 100%;
+    display: grid;
+    grid: 1fr / 7fr 3fr;
+    place-items: center center;
+}
+
+.post-free-item-field-address-lookup {
+    margin: 0;
+    display: none;
+}
+
+.post-free-item-button-address-lookup {
+    width: 95%;
+    margin: 0;
+    font-size: 1rem;
+    display: none;
+}
+
+.post-free-item-button-address-lookup-change {
+    grid-column: 1/3;
+    width: 50%;
+    padding: 2.5px;
+    margin: 0;
+    color: #ccedd2;
+    background: #655c56;
 }
 
 .profile-free-items-container {
