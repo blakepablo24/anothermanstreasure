@@ -16,7 +16,6 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use JustSteveKing\LaravelPostcodes\Service\PostcodeService;
 
 class FrontController extends AbstractController
 {
@@ -79,26 +78,26 @@ class FrontController extends AbstractController
             $user->setTotalFreeAds(0);
             $user->setStartDate(new \DateTime());
             $user->setStartTime(new \DateTime());
-            
-            // Welcome email
-            
-            $email = (new TemplatedEmail())
-            ->from('info@32collect.djbagsofun.co.uk')
-            ->to($request->request->get('user')['email'])
-            ->subject('Welcome to 32collect')
-            ->htmlTemplate('emails/welcome_email.html.twig')
-            ->context([
-                'name' => $request->request->get('user')['name']
-            ]);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
+            $this->loginUserAutomatically($user, $password);
+
+            // Welcome email
+            
+            $email = (new TemplatedEmail())
+            ->from('no-reply@32collect.djbagsofun.co.uk')
+            ->to($user->getEmail())
+            ->subject('Welcome to 32collect')
+            ->htmlTemplate('emails/welcome_email.html.twig')
+            ->context([
+                'name' => $user->getName()
+            ]);
+
             /** @var Symfony\Component\Mailer\SentMessage $sentEmail */
             $sentEmail = $mailer->send($email);
-
-            $this->loginUserAutomatically($user, $password);
 
             return $this->redirectToRoute('admin_main_page');
 

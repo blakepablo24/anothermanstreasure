@@ -62,6 +62,11 @@ class FreeItem
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $state;
+
     public function __construct()
     {
         $this->freeItemPictures = new ArrayCollection();
@@ -183,6 +188,18 @@ class FreeItem
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

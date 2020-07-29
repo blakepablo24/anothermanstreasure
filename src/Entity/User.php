@@ -84,7 +84,12 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $address_area;
+    private $address_town;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $address_county;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -292,14 +297,26 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getAddressArea(): ?string
+    public function getAddressTown(): ?string
     {
-        return $this->address_area;
+        return $this->address_town;
     }
 
-    public function setAddressArea(?string $address_area): self
+    public function setAddressTown(?string $address_town): self
     {
-        $this->address_area = $address_area;
+        $this->address_town = $address_town;
+
+        return $this;
+    }
+
+    public function getAddressCounty(): ?string
+    {
+        return $this->address_county;
+    }
+
+    public function setAddressCounty(?string $address_county): self
+    {
+        $this->address_county = $address_county;
 
         return $this;
     }
