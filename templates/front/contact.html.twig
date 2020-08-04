@@ -43,7 +43,9 @@
                 <br>
 
                 {{ form_widget(form.email, {'attr': {'value': app.user.email, 'readonly': 'true', 'class': 'post-free-item-field-sign-up'}}) }}
-                <div class="form-errors">{{form_errors(form.email)}}</div>
+                {% if form_errors(form.email) %}
+                    <div class="form-errors">{{form_errors(form.email)}}</div>
+                {% endif %}
             
             {% else %}
                 

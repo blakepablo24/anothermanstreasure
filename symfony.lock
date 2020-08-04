@@ -105,6 +105,9 @@
     "intervention/image": {
         "version": "2.5.1"
     },
+    "kinglozzer/tinypng": {
+        "version": "0.1.0"
+    },
     "nikic/php-parser": {
         "version": "v4.6.0"
     },

@@ -22,6 +22,7 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
             $free_item->setDescription($description);
             $free_item->setCategory($category);
             $free_item->setLocation($location);
+            $free_item->setState('Draft');
             $free_item->setUser($user_id);
             $free_item->setDate(new \DateTime());
             $free_item->setTime(new \DateTime());

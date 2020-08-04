@@ -17,7 +17,7 @@ body {
     height: 100%;
     display: grid;
     grid: 
-        'header header header header header header' 17vh
+        'header header header header header header' 24vh
         'main main main main main main' 1fr
         'footer footer footer footer footer footer' 10vh
         / 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -72,12 +72,49 @@ label {
     padding: 10px 0;
 }
 
+* { box-sizing: border-box; }
+body {
+  font: 16px Arial;
+}
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
 /* Header */
 
 header {
     grid-area: header;
     display: grid;
-    grid: 10vh 7vh / 100vw;
+    grid: 10vh 7vh 7vh / 100vw;
     place-items: center center;
     position: fixed;
     background: #ccedd2;
@@ -95,7 +132,7 @@ header {
     padding: 2.5px 2.5px 0 0;
 }
 
-.post-free-item-button , .post-free-item-button-address-lookup, .post-free-item-button-address-lookup-change {
+.post-free-item-button , .post-free-item-button-address-lookup, .post-free-item-button-address-lookup-change, #getaddress_button {
     background: #a0c334;
     width: 60%;
     border: none;
@@ -422,7 +459,7 @@ main {
     padding-bottom: 2vh;
 }
 
-.post-free-item-field, .post-free-item-field-sign-up, .post-free-item-field-sign-up-button, .post-free-item-field-address-lookup {
+.post-free-item-field, .post-free-item-field-sign-up, .post-free-item-field-sign-up-button, #getaddress_input, #getaddress_dropdown {
     width: 95%;
     font-size: 1.1rem;
     border: none;
@@ -569,15 +606,11 @@ main {
     place-items: center center;
 }
 
-.post-free-item-field-address-lookup {
-    margin: 0;
-    display: none;
-}
-
-.post-free-item-button-address-lookup {
-    width: 95%;
-    margin: 0;
-    font-size: 1rem;
+#postcode_lookup {
+    grid-column: 1/3;
+    grid: 1fr / 7fr 3fr;
+    place-items: center center;
+    width: 100%;
     display: none;
 }
 
@@ -588,6 +621,18 @@ main {
     margin: 0;
     color: #ccedd2;
     background: #655c56;
+}
+
+#getaddress_input {
+    width: 95%;
+    margin: 0;
+    font-size: 1rem;
+}
+
+#getaddress_button {
+    width: 95%;
+    margin: 0;
+    font-size: 1rem;
 }
 
 .profile-free-items-container {

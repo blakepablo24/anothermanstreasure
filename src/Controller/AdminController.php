@@ -21,6 +21,9 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Filesystem\Filesystem;
 use Intervention\Image\ImageManagerStatic as Image;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 
 /**
  * @Route("/admin")
@@ -51,7 +54,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/post-free-item", name="post_free_item", methods={"GET","POST"})
      */
-    public function postFreeItem(Request $request, SluggerInterface $slugger)
+    public function postFreeItem(Request $request, SluggerInterface $slugger, MailerInterface $mailer)
 
     {
 
@@ -74,6 +77,7 @@ class AdminController extends AbstractController
             $freeItem->setCategory($category);
             
             $freeItem->setLocation($request->request->get('new_free_item')['location']);
+            $freeItem->setState('Draft');
             $freeItem->setUser($user);
             $freeItem->setDate(new \DateTime());
             $freeItem->setTime(new \DateTime());
@@ -297,7 +301,8 @@ class AdminController extends AbstractController
             $userToEdit->setAddressLine1($request->request->get('edit_user_details')['address_line_1']);
             $userToEdit->setAddressLine2($request->request->get('edit_user_details')['address_line_2']);
             $userToEdit->setAddressLine3($request->request->get('edit_user_details')['address_line_3']);
-            $userToEdit->setAddressArea($request->request->get('edit_user_details')['address_area']);
+            $userToEdit->setAddressTown($request->request->get('edit_user_details')['address_town']);
+            $userToEdit->setAddressCounty($request->request->get('edit_user_details')['address_county']);
             $userToEdit->setAddressPostCode($request->request->get('edit_user_details')['address_post_code']);
 
             $entityManager = $this->getDoctrine()->getManager();
@@ -326,22 +331,26 @@ class AdminController extends AbstractController
         // this is needed to safely include the file name as part of the URL
         $safeFilename = $slugger->slug($originalFilename);
         $newFilename = $safeFilename.'-'.uniqid().'.'.$picture->guessExtension();
+        
+        $img = Image::make($picture)->orientate();
 
-        $img = Image::make($picture);
-
-        // Move the file to the directory where brochures are stored
         try {
             $directory = $this->getParameter('pictures_directory');
+            $img->resize(600, 600, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
             $img->save(
-                $directory.'/'.$newFilename, 60
-            )->orientate();
+                $directory.'/'.$newFilename.'.jpg'
+            );    
+
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload
         }
 
         $freeItemPicture = new FreeItemPictures();
 
-        $freeItemPicture->setName($newFilename);
+        $freeItemPicture->setName($newFilename.'.jpg');
 
         $freeItemPicture->setFreeItem($freeItem);
 

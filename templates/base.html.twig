@@ -95,6 +95,24 @@
 
                 </div>
 
+                <div class="find-items-container">
+                
+                    <div class="">
+
+                        <h3>Location</h3>
+                            
+                    </div>  
+
+                    <div class="find-items-search autocomplete">
+
+                        <input id="myInput" type="text" name="myLocation">
+                        <button type="submit" class="find-items-search-bar-button"><i class="fas fa-map-marker-alt fa-2x"></i></button>
+
+                    </div>
+
+                </div>
+                <!--Make sure the form has the autocomplete function switched off:-->
+
             </header>
         
         {% endblock %}
@@ -113,9 +131,28 @@
 
         {% endblock %}
 
-        <script src="{{asset('assets/js/script.js')}}"></script>
-        
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+
+            <script src="{{asset('assets/js/script.js')}}"></script>
+
+            <script>
+
+                {% if freeItems %}
+                    {% set locations = [] %}
+                {% for item in freeItems %}
+                    {% if item.location not in locations %}
+                        {% set locations = locations|merge([item.location]) %}
+                    {% endif %}
+                {% endfor %}
+
+                var locations = {{ locations|json_encode()|raw }}
+                autocomplete(document.getElementById("myInput"), locations);
+                
+                {% endif %}
+                
+            </script>
+
+        {% endblock %}
 
     </body>
 

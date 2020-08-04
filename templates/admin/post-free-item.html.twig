@@ -53,7 +53,7 @@
             {{ form_widget(form.category, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.category)}}
 
-            {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field', 'value': app.user.addressLine2}}) }}
+            {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field', 'value': app.user.addressTown}}) }}
             {{form_errors(form.location)}}
 
             {{ form_widget(form.addPost, {'attr': {'class': 'post-free-item-button', 'onclick': 'loader()'}}) }}

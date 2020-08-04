@@ -1,6 +1,10 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block header %}
+
+<script data-require="jquery@*" data-semver="3.2.1" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="https://getaddress-cdn.azureedge.net/scripts/jquery.getAddress-3.0.4.min.js"></script>
+
 {% endblock %}
 
 {% block main %}
@@ -34,31 +38,38 @@
             {{form_errors(form.number)}}
 
             <div class="address-lookup">
-                <a id="address-lookup-template" class="post-free-item-button-address-lookup-change" onclick="changeAddress()">Change address</a>
-                <input id="address-lookup-change-postcode" class="post-free-item-field-address-lookup" type="text" placeholder="postcode">
-                <button id="address-lookup-change-postcode-button" class="post-free-item-button-address-lookup">Find Address</button>
+                <a id="change_address_button" class="post-free-item-button-address-lookup-change" onclick="changeAddress()">Change address</a>
+                <div id="postcode_lookup" placeholder="postcode"></div>
             </div>
 
-            <label><h3>Address</h3></label>
+            <label><h3>First Address Line</h3></label>
             {{ form_widget(form.address_line_1, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.address_line_1)}}
 
+            <label><h3>Second Address Line</h3></label>
             {{ form_widget(form.address_line_2, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.address_line_2)}}
 
+            <label><h3>Third Address Line</h3></label>
             {{ form_widget(form.address_line_3, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.address_line_3)}}
 
-            {{ form_widget(form.address_area, {'attr': {'class': 'post-free-item-field'}}) }}
-            {{form_errors(form.address_area)}}
+            <label><h3>Town</h3></label>
+            {{ form_widget(form.address_town, {'attr': {'class': 'post-free-item-field', 'readonly': 'true'}}) }}
+            {{form_errors(form.address_town)}}
 
-            {{ form_widget(form.address_post_code, {'attr': {'class': 'post-free-item-field'}}) }}
+            <label><h3>County</h3></label>
+            {{ form_widget(form.address_county, {'attr': {'class': 'post-free-item-field', 'readonly': 'true'}}) }}
+            {{form_errors(form.address_county)}}
+
+            <label><h3>Postcode</h3></label>
+            {{ form_widget(form.address_post_code, {'attr': {'class': 'post-free-item-field', 'readonly': 'true'}}) }}
             {{form_errors(form.address_post_code)}}
 
             {{ form_widget(form.submitChanges, {'attr': {'class': 'post-free-item-button'}}) }}
 
         {{ form_end(form) }}
-    
+
     </main>
 
 {% endblock %}
@@ -72,12 +83,27 @@
     
     function changeAddress() {
 
-        document.getElementById("address-lookup-template").style.display = "none";
-        document.getElementById("address-lookup-change-postcode").style.display = "block";
-        document.getElementById("address-lookup-change-postcode-button").style.display = "block";
+        document.getElementById("change_address_button").style.display = "none";
+        document.getElementById("postcode_lookup").style.display = "grid";
 
     }
 
+</script>
+
+<script>
+$('#postcode_lookup').getAddress({
+    api_key: 'FPCZ2OCoNEGLh7dM_f-c1Q27402', 
+    output_fields:{
+        line_1: '#edit_user_details_address_line_1',
+        line_2: '#edit_user_details_address_line_2',
+        line_3: '#edit_user_details_address_line_3',
+        post_town: '#edit_user_details_address_town',
+        county: '#edit_user_details_address_county',
+        postcode: '#edit_user_details_address_post_code',
+        latitude: '#latitude',
+        longitude:'#longitude'
+    }
+});
 </script>
 
 {% endblock %}
