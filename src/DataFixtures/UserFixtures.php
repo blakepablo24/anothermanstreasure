@@ -46,7 +46,7 @@ class UserFixtures extends Fixture
         return [
             ['Paul', 'Robson', 'blakepablo24@gmail.com', '12345', ['ROLE_ADMIN'], '', '', '', '', '', '', '', 0],
             ['Claire', 'Harvey', 'ionaharvey89@outlook.com', '12345', ['ROLE_USER'], '07787406501', '61 Headley Park Avenue', 'Headley Park', '', 'Bristol', 'Avon', 'BS137NW', 15],
-            ['Lucky', 'Singh', 'lionsingh89@hotmail.com', '12345', ['ROLE_USER'], '07775516275', '89 Memorial Road', 'Hanham', '', 'Bristol', 'Avon', 'BS153JW', 18]
+            ['Lucky', 'Singh', 'lionsingh89@hotmail.com', '12345', ['ROLE_USER'], '07775516275', '56 Buccleuch Road', '', '', 'Selkirk', '', 'TD75DN', 18]
         ];
 
     }

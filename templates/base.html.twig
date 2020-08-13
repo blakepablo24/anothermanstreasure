@@ -55,6 +55,7 @@
 
                             <a class="nav-option-container" href="{{path('login')}}"><i class="fas fa-sign-in-alt"></i><h3> Login</h3></a>
                             <a class="nav-option-container" href="{{path('sign_up')}}"><i class="fas fa-user-plus"></i><h3> Sign Up</h3></a>
+                            <a class="nav-option-container" href="{{path('reuse_tips')}}"><i class="fas fa-recycle"></i><h3> Reuse Tips</h3></a>
 
                         {% else %}
                             <a class="nav-option-container" href="{{path('admin_main_page')}}"><i class="fas fa-user"></i><h3> My Profile</h3></a>
@@ -103,12 +104,21 @@
                             
                     </div>  
 
-                    <div class="find-items-search autocomplete">
+                    <form method="GET" class="find-items-search" action="{{path('user_selected_location')}}">
 
-                        <input id="myInput" type="text" name="myLocation">
-                        <button type="submit" class="find-items-search-bar-button"><i class="fas fa-map-marker-alt fa-2x"></i></button>
+                        {% if app.session.get('location') %}
 
-                    </div>
+                            <input id="myInput" type="text" name="myLocation" value="{{app.session.get('location')}}" autocomplete="off">
+
+                        {% else %}
+                            
+                            <input id="myInput" type="text" name="myLocation" autocomplete="off">
+
+                        {% endif %}
+                        
+                        <button class="find-items-search-bar-button"><i class="fas fa-map-marker-alt fa-2x"></i></button>
+
+                    </form>
 
                 </div>
                 <!--Make sure the form has the autocomplete function switched off:-->
@@ -137,18 +147,8 @@
 
             <script>
 
-                {% if freeItems %}
-                    {% set locations = [] %}
-                {% for item in freeItems %}
-                    {% if item.location not in locations %}
-                        {% set locations = locations|merge([item.location]) %}
-                    {% endif %}
-                {% endfor %}
-
-                var locations = {{ locations|json_encode()|raw }}
+                var locations = {{ allLocations|json_encode()|raw }}
                 autocomplete(document.getElementById("myInput"), locations);
-                
-                {% endif %}
                 
             </script>
 

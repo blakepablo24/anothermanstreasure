@@ -19,6 +19,34 @@ class FreeItemRepository extends ServiceEntityRepository
         parent::__construct($registry, FreeItem::class);
     }
 
-    
+    /**
+    * @return FreeItems[]
+    */
+    public function findSearchResultsWithLocation($data, $location)
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.title LIKE :data')
+            ->andWhere('f.location = :location')
+            ->setParameter('data', '%'.$data.'%')
+            ->setParameter('location', $location)
+            ->orderBy('f.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return FreeItems[]
+    */
+    public function findSearchResults($data)
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.title LIKE :data')
+            ->setParameter('data', '%'.$data.'%')
+            ->orderBy('f.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 }

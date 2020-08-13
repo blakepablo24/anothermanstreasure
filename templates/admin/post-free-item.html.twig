@@ -53,7 +53,14 @@
             {{ form_widget(form.category, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.category)}}
 
-            {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field', 'value': app.user.addressTown}}) }}
+            {% if app.user.addressTown %}
+                <div class="address-lookup">
+                    <a href="{{path('edit_user_details', {'id':app.user.id})}}" class="post-free-item-button-address-lookup-change">Change address</a>
+                    <div id="postcode_lookup" placeholder="postcode"></div>
+                </div>
+            {% endif %}
+
+            {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field', 'value': app.user.addressTown, 'readonly': 'true'}}) }}
             {{form_errors(form.location)}}
 
             {{ form_widget(form.addPost, {'attr': {'class': 'post-free-item-button', 'onclick': 'loader()'}}) }}

@@ -16,20 +16,50 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use App\Service\ItemLocations;
 
 class FrontController extends AbstractController
 {
+
     /**
      * @Route("/", name="main_page")
      */
-    public function index()
+    public function index(ItemLocations $itemLocations)
 
     {
-        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findAll();
+
+        $allLocations = $itemLocations->locations();
+
+        $location = $this->get('session')->get('location');
+
+        if ($location) 
+        {
+            $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy(['location' => $location], ['date' => 'DESC', 'time' => 'DESC'], 5);
+        }
+        else
+        {
+            $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'DESC', 'time' => 'DESC'], 5);
+        }
 
         return $this->render('front/index.html.twig', [
-            'freeItems' => $freeItems
-        ]);
+        'freeItems' => $freeItems,
+        'allLocations' => $allLocations]);
+    }
+
+    /**
+     * @Route("/user-selected-location", name="user_selected_location", methods={"GET"})
+     */
+
+    public function userSelectedLocation(Request $request)
+    {
+
+        $userSelectedLocation = $request->get('myLocation');
+        
+        $session = $this->get('session');
+
+        $session->set('location', $userSelectedLocation);
+
+        return $this->redirectToRoute('main_page');
 
     }
 
@@ -131,26 +161,40 @@ class FrontController extends AbstractController
     /**
      * @Route("/all-categories", name="all_categories")
      */
-    public function allCategories()
+    public function allCategories(ItemLocations $itemLocations)
 
     {
+        $allLocations = $itemLocations->locations();
 
-        return $this->render('front/categories.html.twig');
+        return $this->render('front/categories.html.twig', [
+            'allLocations' => $allLocations
+        ]);
 
     }
 
     /**
      * @Route("/free-item-list/category/{categoryname},{id}", methods={"GET"}, name="free_item_list")
      */
-    public function freeItemlist(Category $category, Request $request)
+    public function freeItemlist(ItemLocations $itemLocations, Category $category, Request $request)
 
     {
+        $allLocations = $itemLocations->locations();
 
-        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy(['category' => $category], ['date' => 'DESC', 'time' => 'DESC'], 8);
+        $location = $this->get('session')->get('location');
+
+        if ($location) 
+        {
+            $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy(['location' => $location,'category' => $category], ['date' => 'DESC', 'time' => 'DESC']);
+        }
+        else
+        {
+            $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'DESC', 'time' => 'DESC'], 5);
+        }
 
         return $this->render('front/free-item-list.html.twig', [
             'category' => $category,
-            'freeItems' => $freeItems
+            'freeItems' => $freeItems,
+            'allLocations' => $allLocations
         ]);
 
     }
@@ -158,15 +202,17 @@ class FrontController extends AbstractController
     /**
      * @Route("/free-item-list-user/{id}", methods={"GET"}, name="free_item_list_user")
      */
-    public function freeItemlistUser(User $user, Request $request)
+    public function freeItemlistUser(ItemLocations $itemLocations, User $user, Request $request)
 
     {
+        $allLocations = $itemLocations->locations();
 
         $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy(['user' => $user], ['date' => 'DESC', 'time' => 'DESC'], 8);
 
         return $this->render('front/free-item-list-user.html.twig', [
             'user' => $user,
-            'freeItems' => $freeItems
+            'freeItems' => $freeItems,
+            'allLocations' => $allLocations
         ]);
 
     }
@@ -174,25 +220,31 @@ class FrontController extends AbstractController
     /**
      *  @Route("/search-results", methods={"GET"}, name="search_results")
      */
-    public function searchResults(Request $request)
+    public function searchResults(ItemLocations $itemLocations, Request $request)
 
     {
+        $allLocations = $itemLocations->locations();
 
         $data = $request->get('search');
 
-        $em = $this->getDoctrine()->getManager();
+        $location = $this->get('session')->get('location');
 
-        $query = $em->createQuery
-        (
-            'SELECT f FROM App\Entity\FreeItem f WHERE f.title LIKE :data'
-        )
-        ->setParameter('data', '%'.$data.'%');
+        if ($location) 
+        {
+            $results = $this->getDoctrine()->getRepository(FreeItem::class)->findSearchResultsWithLocation($data, $location);
 
-        $results = $query->getResult();
+        }
+        else
+        {
+
+            $results = $this->getDoctrine()->getRepository(FreeItem::class)->findSearchResults($data);
+
+        }
 
         return $this->render('front/search-results.html.twig', [
             'freeItems' => $results,
-            'searchTerm' => $data
+            'searchTerm' => $data,
+            'allLocations' => $allLocations
         ]);
 
     }
@@ -200,12 +252,14 @@ class FrontController extends AbstractController
     /**
      * @Route("/free-item-single/{id}", name="free_item_single", methods={"GET"})
      */
-    public function freeItemSingle(FreeItem $freeItem, Request $request, MailerInterface $mailer)
+    public function freeItemSingle(ItemLocations $itemLocations, FreeItem $freeItem, Request $request, MailerInterface $mailer)
 
     {
+        $allLocations = $itemLocations->locations();
 
         return $this->render('front/free-item-single.html.twig', [
-            'freeItem' => $freeItem
+            'freeItem' => $freeItem,
+            'allLocations' => $allLocations
         ]);
 
     }
@@ -213,9 +267,10 @@ class FrontController extends AbstractController
     /**
      * @Route("/contact", name="contact")
      */
-    public function contact(Request $request, MailerInterface $mailer)
+    public function contact(ItemLocations $itemLocations, Request $request, MailerInterface $mailer)
     {
 
+        $allLocations = $itemLocations->locations();
         
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
@@ -247,8 +302,22 @@ class FrontController extends AbstractController
         }
 
         return $this->render('front/contact.html.twig', [
-        'form' => $form->createView()
+        'form' => $form->createView(),
+        'allLocations' => $allLocations
         ]);
+    }
+
+    /**
+     * @Route("/reuse-tips", name="reuse_tips")
+     */
+    public function reuseTips(ItemLocations $itemLocations)
+    {
+        $allLocations = $itemLocations->locations();
+
+        return $this->render('front/reuse-tips.html.twig', [
+            'allLocations' => $allLocations
+        ]);
+
     }
 
     public function categories()
@@ -262,17 +331,6 @@ class FrontController extends AbstractController
 
     }
 
-    public function allFreeItems()
-
-    {
-        $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'DESC', 'time' => 'DESC'], 5);
-
-        return $this->render('front/includes/_free-items.html.twig', [
-            'freeItems' => $freeItems
-        ]);
-
-    }
-
     private function prepareQuery(string $query): array
 
     {
@@ -280,5 +338,4 @@ class FrontController extends AbstractController
         return explode(' ', $query);
 
     }
-
 }

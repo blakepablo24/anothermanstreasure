@@ -35,18 +35,18 @@ class NewFreeItemNotifier
         if($user)
         {
             
-            $email = (new TemplatedEmail())
-            ->from('info@32collect.djbagsofun.co.uk')
-            ->to($user->getEmail())
-            ->subject('Your new 32collect ad '.$freeItem->getTitle().' is now live')
-            ->htmlTemplate('emails/new_32_collect_post_email.html.twig')
-            ->context([
-                'name' => $user->getName(),
-                'freeItemTitle' => $freeItem->getTitle(),
-                'totalFreeAds' => $user->getTotalFreeAds()
-            ]);
+            // $email = (new TemplatedEmail())
+            // ->from('info@32collect.djbagsofun.co.uk')
+            // ->to($user->getEmail())
+            // ->subject('Your new 32collect ad '.$freeItem->getTitle().' is now live')
+            // ->htmlTemplate('emails/new_32_collect_post_email.html.twig')
+            // ->context([
+            //     'name' => $user->getName(),
+            //     'freeItemTitle' => $freeItem->getTitle(),
+            //     'totalFreeAds' => $user->getTotalFreeAds()
+            // ]);
 
-            $this->mailer->send($email);
+            // $this->mailer->send($email);
 
         } 
 

@@ -13,10 +13,11 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        foreach($this->FreeItemData() as [$title, $description, $location, $user_id, $category_id])
+        foreach($this->FreeItemData() as [$title, $description, $user_id, $category_id])
         {
             $category = $manager->getRepository(Category::class)->find($category_id);
             $user_id = $manager->getRepository(User::class)->find($user_id);
+            $location = $user_id->getAddressTown();
             $free_item = new FreeItem();
             $free_item->setTitle($title);
             $free_item->setDescription($description);
@@ -36,49 +37,49 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
 
-            ['Single Bed', 'blah blah blah', 'Bedminster', 2, 1],
-            ['Wardrobe', 'blah blah blah', 'Knowle', 2, 1],
-            ['Chest of Draws', 'blah blah blah', 'Wells', 2, 1],
+            ['Single Bed', 'blah blah blah', 2, 1],
+            ['Wardrobe', 'blah blah blah', 2, 1],
+            ['Chest of Draws', 'blah blah blah', 2, 1],
 
-            ['Compost', 'blah blah blah', 'Clifton', 2, 2],
-            ['Green House', 'blah blah blah', 'Clifton', 2, 2],
-            ['Shed', 'blah blah blah', 'Redcliffe', 2, 2],
+            ['Compost', 'blah blah blah', 2, 2],
+            ['Green House', 'blah blah blah', 2, 2],
+            ['Shed', 'blah blah blah', 2, 2],
 
-            ['Lego', 'blah blah blah', 'Clifton', 2, 3],
-            ['Board games', 'blah blah blah', 'Clifton', 2, 3],
-            ['Action Fugures', 'blah blah blah', 'Southmead', 2, 3],
+            ['Lego', 'blah blah blah', 2, 3],
+            ['Board games', 'blah blah blah', 2, 3],
+            ['Action Fugures', 'blah blah blah', 2, 3],
 
-            ['Boxing Stuff', 'blah blah blah', 'Totterdown', 2, 4],
-            ['Bicycle', 'blah blah blah', 'Brislington', 2, 4],
-            ['Weights Bench', 'blah blah blah', 'St Annes', 2, 4],
+            ['Boxing Stuff', 'blah blah blah', 2, 4],
+            ['Bicycle', 'blah blah blah', 2, 4],
+            ['Weights Bench', 'blah blah blah', 2, 4],
 
-            ['DVD Player', 'blah blah blah', 'Keynsham', 2, 5],
-            ['Stereo', 'blah blah blah', 'Redfield', 2, 5],
-            ['AV Receiver', 'blah blah blah', 'Hanham', 2, 5],
+            ['DVD Player', 'blah blah blah', 2, 5],
+            ['Stereo', 'blah blah blah', 2, 5],
+            ['AV Receiver', 'blah blah blah', 2, 5],
 
-            ['Blu Rays', 'blah blah blah', 'St george', 3, 6],
-            ['Cds', 'blah blah blah', 'Hartcliffe', 3, 6],
-            ['Books', 'blah blah blah', 'Longwell Green', 3, 6],
+            ['Blu Rays', 'blah blah blah', 3, 6],
+            ['Cds', 'blah blah blah', 3, 6],
+            ['Books', 'blah blah blah', 3, 6],
 
-            ['Collectables', 'blah blah blah', 'Gloucester Road', 3, 7],
-            ['Porcelain', 'blah blah blah', 'Redfield', 3, 7],
-            ['Garage Door', 'blah blah blah', 'Redfield', 3, 7],
+            ['Collectables', 'blah blah blah', 3, 7],
+            ['Porcelain', 'blah blah blah', 3, 7],
+            ['Garage Door', 'blah blah blah', 3, 7],
 
-            ['Cheese', 'blah blah blah', 'Bedminster', 3, 8],
-            ['Chocolate', 'blah blah blah', 'Henleaze', 3, 8],
-            ['Tins of Beans', 'blah blah blah', 'Filton', 3, 8],
+            ['Cheese', 'blah blah blah', 3, 8],
+            ['Chocolate', 'blah blah blah', 3, 8],
+            ['Tins of Beans', 'blah blah blah', 3, 8],
 
-            ['Roof Rack', 'blah blah blah', 'Portishead', 3, 9],
-            ['Corsa Bumper', 'blah blah blah', 'Thornbury', 3, 9],
-            ['Windcreen Wipers', 'blah blah blah', 'Almondsbury', 3, 9],
+            ['Roof Rack', 'blah blah blah', 3, 9],
+            ['Corsa Bumper', 'blah blah blah', 3, 9],
+            ['Windcreen Wipers', 'blah blah blah', 3, 9],
 
-            ['Work Bench', 'blah blah blah', 'Bedminster', 3, 10],
-            ['Tool Box', 'blah blah blah', 'Henleaze', 3, 10],
-            ['Old Hammers', 'blah blah blah', 'Filton', 3, 10],
+            ['Work Bench', 'blah blah blah', 3, 10],
+            ['Tool Box', 'blah blah blah', 3, 10],
+            ['Old Hammers', 'blah blah blah', 3, 10],
 
-            ['Jiffy Bags', 'blah blah blah', 'Westbury-On-Trym', 3, 11],
-            ['Bubble Wrap', 'blah blah blah', 'Horfield', 3, 11],
-            ['Very Bags', 'blah blah blah', 'Eastville', 3, 11]
+            ['Jiffy Bags', 'blah blah blah', 3, 11],
+            ['Bubble Wrap', 'blah blah blah', 3, 11],
+            ['Very Bags', 'blah blah blah', 3, 11]
 
         ];
     }
