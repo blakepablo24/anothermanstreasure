@@ -1,7 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block main %}
 
     <main>
@@ -51,14 +49,7 @@
         <div class="free-item-single-container">
 
             <h1 class="free-item-single-title">{{freeItem.title}}</h1>
-
-            <div class="free-item-single-share">
-                
-                <h4>Share</h4>
-                <a href="whatsapp://send?text=The text to share!" data-action="share/whatsapp/share"><img width="100%" src="{{asset('assets/images/site-images/whatsapp-icon.png')}}" alt=""></a>
-
-            </div>
-
+            
                 <!-- Slideshow container -->
                 <div class="slideshow-container">
 
@@ -134,6 +125,7 @@
 
             <p class="free-item-single-description">{{freeItem.description}}</p>
             <h3 class="free-item-single-location">{{freeItem.location}}</h3>
+            <div class="sharethis-inline-share-buttons" style="z-index: 0;"></div>
             <a href="{{path('free_item_list_user', {'id':freeItem.user.id})}}"><h4 class="free-item-single-date">Listed By: {{freeItem.user.name}} on {{freeItem.date|date('D d/m/y')}} @ {{freeItem.time|date('H')}}:{{freeItem.time|date('i')}}</h4></a>
             
             {% if not app.user %}
@@ -158,11 +150,13 @@
 
 {% endblock %}
 
-{% block javascripts %}
+{% block customJavascripts %}
 
 <script>
 
 // Single Item Slide Show container
+
+{% if freeItem.freeItemPictures|length > 0 %}
 
 var slideIndex = 1;
 showSlides(slideIndex);
@@ -233,6 +227,8 @@ function showEnlargedSlides(n) {
 
   slides[slideEnlargedIndex-1].style.display = "grid";
 }
+
+{% endif %}
 
 </script>
 

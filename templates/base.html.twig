@@ -16,6 +16,9 @@
         <!-- Font Awesome -->
         <link rel="stylesheet" href="{{asset('https://use.fontawesome.com/releases/v5.8.1/css/all.css')}}" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
+        {# For share buttons #}
+        <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5f351bbcc125530012b63cf4&product=inline-share-buttons" async="async"></script>
+
         <title>{% block title %}32Collect{% endblock %}</title>
         
         {% block stylesheets %}{% endblock %}
@@ -152,6 +155,9 @@
                 
             </script>
 
+        {% endblock %}
+
+        {% block customJavascripts %}
         {% endblock %}
 
     </body>

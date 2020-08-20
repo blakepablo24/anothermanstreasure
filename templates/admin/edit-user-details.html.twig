@@ -22,28 +22,39 @@
             <h2>My Contact Details</h2>
 
             <label><h3>Email</h3></label>
-            {{ form_widget(form.email, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{ form_widget(form.email, {'attr': {'class': 'post-free-item-field', 'autocomplete':'new-password'}}) }}
             {{form_errors(form.email)}}
 
             <label><h3>Name</h3></label>
-            {{ form_widget(form.name, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{ form_widget(form.name, {'attr': {'class': 'post-free-item-field', 'autocomplete':'new-password'}}) }}
             {{form_errors(form.name)}}
 
             <label><h3>Last Name</h3></label>
-            {{ form_widget(form.last_name, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{ form_widget(form.last_name, {'attr': {'class': 'post-free-item-field', 'autocomplete':'new-password'}}) }}
             {{form_errors(form.last_name)}}
 
             <label><h3>Contact Number</h3></label>
-            {{ form_widget(form.number, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{ form_widget(form.number, {'attr': {'class': 'post-free-item-field', 'autocomplete':'new-password'}}) }}
             {{form_errors(form.number)}}
 
-            <div class="address-lookup">
-                <a id="change_address_button" class="post-free-item-button-address-lookup-change" onclick="changeAddress()">Change address</a>
-                <div id="postcode_lookup" placeholder="postcode"></div>
-            </div>
+
+            {% if app.user.addressTown %}
+            
+                <div class="address-lookup">
+                    <a id="change_address_button" class="post-free-item-button-address-lookup-change" onclick="changeAddress()">Change address</a>
+                    <div id="postcode_lookup" placeholder="postcode"></div>
+                </div>
+
+                {% else %}
+                    
+                <div class="address-lookup">
+                    <div id="postcode_lookup" style="display: grid;" placeholder="postcode"></div>
+                </div>
+
+            {% endif %}
 
             <label><h3>First Address Line</h3></label>
-            {{ form_widget(form.address_line_1, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{ form_widget(form.address_line_1, {'attr': {'class': 'post-free-item-field', 'readonly': 'true'}}) }}
             {{form_errors(form.address_line_1)}}
 
             <label><h3>Second Address Line</h3></label>
@@ -104,6 +115,8 @@ $('#postcode_lookup').getAddress({
         longitude:'#longitude'
     }
 });
+
+
 </script>
 
 {% endblock %}

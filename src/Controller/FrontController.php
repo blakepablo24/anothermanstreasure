@@ -47,6 +47,31 @@ class FrontController extends AbstractController
     }
 
     /**
+     * @Route("/free-item-lis-all", name="free_item_list_all")
+     */
+    public function freeItemListAll(ItemLocations $itemLocations)
+
+    {
+
+        $allLocations = $itemLocations->locations();
+
+        $location = $this->get('session')->get('location');
+
+        if ($location) 
+        {
+            $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy(['location' => $location], ['date' => 'DESC', 'time' => 'DESC']);
+        }
+        else
+        {
+            $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'DESC', 'time' => 'DESC']);
+        }
+
+        return $this->render('front/free-item-list-all.html.twig', [
+        'freeItems' => $freeItems,
+        'allLocations' => $allLocations]);
+    }
+
+    /**
      * @Route("/user-selected-location", name="user_selected_location", methods={"GET"})
      */
 
@@ -59,7 +84,7 @@ class FrontController extends AbstractController
 
         $session->set('location', $userSelectedLocation);
 
-        return $this->redirectToRoute('main_page');
+        return $this->redirectToRoute('all_categories');
 
     }
 
@@ -166,16 +191,16 @@ class FrontController extends AbstractController
     {
         $allLocations = $itemLocations->locations();
 
-        return $this->render('front/categories.html.twig', [
+        return $this->render('front/all-categories.html.twig', [
             'allLocations' => $allLocations
         ]);
 
     }
 
     /**
-     * @Route("/free-item-list/category/{categoryname},{id}", methods={"GET"}, name="free_item_list")
+     * @Route("/free-item-list-category/category/{categoryname},{id}", methods={"GET"}, name="free_item_list_category")
      */
-    public function freeItemlist(ItemLocations $itemLocations, Category $category, Request $request)
+    public function freeItemListCategory(ItemLocations $itemLocations, Category $category, Request $request)
 
     {
         $allLocations = $itemLocations->locations();
@@ -191,7 +216,7 @@ class FrontController extends AbstractController
             $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findBy([], ['date' => 'DESC', 'time' => 'DESC'], 5);
         }
 
-        return $this->render('front/free-item-list.html.twig', [
+        return $this->render('front/free-item-list-category.html.twig', [
             'category' => $category,
             'freeItems' => $freeItems,
             'allLocations' => $allLocations
@@ -322,8 +347,31 @@ class FrontController extends AbstractController
 
     public function categories()
 
-    {
-        $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+    {   
+
+        $location = $this->get('session')->get('location');
+
+        if ($location) 
+        {
+            
+            $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findFreeItemsInLocation($location);
+
+            $categories = [];
+
+            foreach ($freeItems as $freeItem) {
+                
+                if (!in_array($freeItem->getCategory(), $categories)) {
+                    array_push($categories, $freeItem->getCategory());
+                }
+            }
+
+        }
+        else
+        {
+
+            $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
+
+        }
 
         return $this->render('front/includes/_categories.html.twig', [
             'categories' => $categories

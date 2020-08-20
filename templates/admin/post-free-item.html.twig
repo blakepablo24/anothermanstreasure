@@ -1,6 +1,10 @@
 {% extends 'admin/base.html.twig' %}
 
 {% block header %}
+
+<script data-require="jquery@*" data-semver="3.2.1" src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script src="https://getaddress-cdn.azureedge.net/scripts/jquery.getAddress-3.0.4.min.js"></script>
+
 {% endblock %}
 
 {% block main %}
@@ -12,7 +16,7 @@
 
     <main style="grid-row: 1 / 4; place-self: start center; margin-top: 2vh;">
     
-        {{ form_start(form, {'attr':{'class': 'post-free-item-container'}}) }}
+        {{ form_start(form, {'attr':{'class': 'post-free-item-container', 'onsubmit': 'loader()'}}) }}
             
             <div class="all-categories-nav">
 
@@ -54,16 +58,27 @@
             {{form_errors(form.category)}}
 
             {% if app.user.addressTown %}
+
                 <div class="address-lookup">
                     <a href="{{path('edit_user_details', {'id':app.user.id})}}" class="post-free-item-button-address-lookup-change">Change address</a>
                     <div id="postcode_lookup" placeholder="postcode"></div>
                 </div>
+                {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field', 'value': app.user.addressTown, 'readonly': 'true', 'autocomplete': 'off'}}) }}
+                {{form_errors(form.location)}}
+
+                {% else %}
+
+                <div class="address-lookup">
+                    <a href="{{path('edit_user_details', {'id':app.user.id})}}" id="add-address-button" class="post-free-item-button-address-lookup-change" style="display: none;">Add address here</a>
+                    <div id="postcode_lookup" placeholder="postcode"></div>
+                </div>
+                <label>Location</label>
+                {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field readonly', 'required': 'true', 'onclick': 'highlightAddAddress()', 'autocomplete': 'off'}}) }}
+                {{form_errors(form.location)}}    
+
             {% endif %}
 
-            {{ form_widget(form.location, {'attr': {'class': 'post-free-item-field', 'value': app.user.addressTown, 'readonly': 'true'}}) }}
-            {{form_errors(form.location)}}
-
-            {{ form_widget(form.addPost, {'attr': {'class': 'post-free-item-button', 'onclick': 'loader()'}}) }}
+            {{ form_widget(form.addPost, {'attr': {'class': 'post-free-item-button'}}) }}
 
         {{ form_end(form) }}
     
@@ -72,4 +87,21 @@
 {% endblock %}
 
 {% block footer %}
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+$(".readonly").keydown(function(e){
+e.preventDefault();
+});
+
+function highlightAddAddress()
+{
+    document.getElementById("add-address-button").style.display = "block";
+    document.getElementById("add-address-button").style.border = "3px solid green";
+}
+
+</script>
+
 {% endblock %}

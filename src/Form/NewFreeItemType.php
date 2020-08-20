@@ -148,7 +148,7 @@ class NewFreeItemType extends AbstractType
                 ],
             ])
 
-            ->add('location', TextType::class, ['label' => false])
+            ->add('location', TextType::class, ['label' => false, 'required' => true])
             
             ->add('addPost', SubmitType::class, ['label' => 'Add Free Item'])
         ;

@@ -134,7 +134,7 @@ header {
 
 .post-free-item-button , .post-free-item-button-address-lookup, .post-free-item-button-address-lookup-change, #getaddress_button {
     background: #a0c334;
-    width: 60%;
+    width: 70%;
     border: none;
     font-size: 1.3rem;
     border-radius: 2.5px;
@@ -354,7 +354,7 @@ main {
 
 .free-item-single-container {
     display: grid;
-    grid: 0.5fr 0.5fr 6fr 1.5fr 0.5fr 0.5fr 0.5fr/ 1fr;
+    grid: 0.5fr 6fr 1.5fr 0.5fr 0.5fr 0.5fr 0.5fr/ 1fr;
     place-items: center center;
     padding: 10px 0;
 }
@@ -696,6 +696,7 @@ main {
     height: 100%;
     width: 100%;
     display: grid;
+    grid: 1fr 1fr / 1fr 1fr;
     place-items: center center;
 }
 
@@ -703,12 +704,18 @@ main {
     background: #a0c334;
     border: 2px solid #655c56;
     border-radius: 7.5px;
-    width: 50%;
+    width: 85%;
     height: 85%;
     display: grid;
     grid: 5fr 2.5fr 2.5fr / 1fr;
     place-items: center center;
     font-size: 1.2rem;
+}
+
+.su-admin-main-page-option-section {
+    display: grid;
+    grid: 1fr / 1fr 1fr;
+    place-items: center center;
 }
 
 /* Categories Page */

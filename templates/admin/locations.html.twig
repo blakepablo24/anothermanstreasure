@@ -1,0 +1,56 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block main %}
+
+    <main>
+
+        <div class="all-categories-nav">
+
+            <a href="{{path('admin_main_page')}}"><i class="fas fa-arrow-circle-left"></i> Go Back</a>
+
+        </div>
+
+        <div class="category-option-container">
+
+            <h2>32collect Locations</h2>
+
+            <div class="category-edit-delete-container">
+                    
+                    <h4>City/Town</h4> 
+
+                    <div class="category-edit-delete-container-icons">
+
+                        <h4>Live Ads</h4>
+                        <h4>Total Ads</h4>
+
+                    </div>
+
+                </div>
+
+            {% for location in locations %}
+
+                <div class="category-edit-delete-container">
+                    
+                    <h3>{{location.location}}</h3>
+
+                    <div class="category-edit-delete-container-icons">
+
+                        <a class="user-stats">
+                            {{location.liveAds}}
+                        </a>
+
+                        <a class="user-stats">
+                            {{location.totalAds}}
+                        </a>
+
+                    </div>
+
+                </div>
+    
+            {% endfor %}
+
+        </div>
+    
+    </main>
+
+{% endblock %}

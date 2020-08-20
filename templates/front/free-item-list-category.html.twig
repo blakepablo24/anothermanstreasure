@@ -12,7 +12,7 @@
 
             </div>
 
-            <h2>{{category.name}}</h2>
+            <h2>{{category.name}} {% if app.session.get('location') %}in {{app.session.get('location')}} {% endif %}({{freeItems|length}})</h2>
     
         {% for freeItem in freeItems %}
 

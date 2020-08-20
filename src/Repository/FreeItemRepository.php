@@ -38,6 +38,19 @@ class FreeItemRepository extends ServiceEntityRepository
     /**
     * @return FreeItems[]
     */
+    public function findFreeItemsInLocation($location)
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.location = :location')
+            ->setParameter('location', $location)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+    * @return FreeItems[]
+    */
     public function findSearchResults($data)
     {
         return $this->createQueryBuilder('f')

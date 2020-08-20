@@ -16,6 +16,16 @@
 
             </div>
 
+            {% if app.session.get('location') %}
+
+                <h2>Categories for {{app.session.get('location')}}</h2>
+
+            {% else %}
+                
+                <h2>32 Collect Categories</h2>
+
+            {% endif %}
+
             <div class="all-categories-list">
 
                 {{

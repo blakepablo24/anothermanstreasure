@@ -4,16 +4,15 @@
 
     <main>
 
-        <h1>Welcome to 32 collect</h1>
-        <br>
-        <h2>Avoid landfills, reuse as much as possible.</h2>
-        <br>
-        <h2>"One person's rubbish is another person's treasure"</h2>
-        <br>
-        <h2>Help by listing your freebies!</h2>
-        <br>
+        {% if app.session.get('location') %}
 
-        <h2>Latest Freebies</h2>
+            <h2> All Freebies in {{app.session.get('location')}}</h2>
+
+        {% else %}
+            
+            <h2>All Freebies in UK</h2>
+
+        {% endif %}
 
         {% for freeItem in freeItems %}
 
@@ -48,7 +47,7 @@
             
         {% endfor %}
 
-         <div class="user-review">
+        <div class="user-review">
 
             <h3>Susan from Bristol says:</h3>
             <p>"I am so happy to have found 32collect. I absolutely hate waste. With this site I have managed to save many things from land-fill and saved money in the process on things I would otherwsie have had to buy"</p>

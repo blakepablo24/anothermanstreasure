@@ -52,8 +52,9 @@
                         <div class="burger-menu-links">
 
                         <a class="nav-option-container" href="{{path('admin_main_page')}}"><i class="fas fa-user"></i><h3> My Profile</h3></a>
-                        <a class="nav-option-container" href="{{path('logout')}}"><i class="fas fa-sign-out-alt"></i><h3> Logout</h3></a>
+                        <a class="nav-option-container" href="{{path('reuse_tips')}}"><i class="fas fa-recycle"></i><h3> Reuse Tips</h3></a>
                         <a href="{{path('contact')}}" class="nav-option-container" href=""><i class="far fa-envelope"></i><h3> Contact</h3></a>
+                        <a class="nav-option-container" href="{{path('logout')}}"><i class="fas fa-sign-out-alt"></i><h3> Logout</h3></a>
 
                         </div>
 
@@ -111,6 +112,7 @@
         <script src="{{asset('assets/js/script.js')}}"></script>
         
         {% block javascripts %}{% endblock %}
+        {% block customJavascripts %}{% endblock %}
 
     </body>
 

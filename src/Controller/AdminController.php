@@ -24,6 +24,8 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use App\Service\ItemLocations;
+use App\Entity\Locations;
 
 /**
  * @Route("/admin")
@@ -35,19 +37,35 @@ class AdminController extends AbstractController
     /**
      * @Route("/", name="admin_main_page")
      */
-    public function index()
+    public function index(ItemLocations $itemLocations)
     {
 
         $users = $this->getDoctrine()->getRepository(User::class)->findUsers();
+
+        $numberOfUsers = count($users);
+
+        $userAds = [];
+
+            foreach ($users as $user) {
+                
+                    array_push($userAds, $user->getTotalFreeAds());
+
+            }
+
+            $allTimeAds = array_sum($userAds);
 
         $categories = $this->getDoctrine()->getRepository(Category::class)->findAll();
 
         $freeItems = $this->getDoctrine()->getRepository(FreeItem::class)->findAll();
 
+        $locations = $this->getDoctrine()->getRepository(Locations::class)->findAll();
+
         return $this->render('admin/index.html.twig', [
             'freeItems' => $freeItems,
             'categories' => $categories,
-            'users' => $users
+            'users' => $users,
+            'locations' => $locations,
+            'allTimeAds' => $allTimeAds
         ]);
     }
 
@@ -84,6 +102,27 @@ class AdminController extends AbstractController
 
             $numberOfAds = $user->getTotalFreeAds() + 1;
             $user->setTotalFreeAds($numberOfAds);
+
+            $locationsStat = $this->getDoctrine()->getManager()->getRepository(Locations::class)->findLocation($request->request->get('new_free_item')['location']);
+
+            if($locationsStat)
+            {
+                $noOfAdsIncremented = $locationsStat->getTotalAds();
+                $noOfLiveAdsIncremented = $locationsStat->getLiveAds();
+                $locationsStat->setTotalAds($noOfAdsIncremented + 1);
+                $locationsStat->setLiveAds($noOfLiveAdsIncremented + 1);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($locationsStat);
+            } 
+            else 
+            {
+                $locationsStat = new Locations();
+                $locationsStat->setLocation($request->request->get('new_free_item')['location']);
+                $locationsStat->setTotalAds(1);
+                $locationsStat->setLiveAds(1);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($locationsStat);
+            }
 
             // Does it have any pictures attached to the free Item
             $picture01 = $form->get('picture01')->getData();
@@ -236,9 +275,13 @@ class AdminController extends AbstractController
 
         }
 
+        $locationsStat = $this->getDoctrine()->getManager()->getRepository(Locations::class)->findLocation($freeItem->getLocation());
+        $locationsStat->setLiveAds($locationsStat->getLiveAds() - 1);
+
         // Once pictures have been removed, finally remove the free item and any relates file names in free item pictures
 
         $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($locationsStat);
         $entityManager->remove($freeItem);
         $entityManager->flush();
 
@@ -447,15 +490,30 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/users", name="users", methods={"GET","POST"})
+     * @Route("/users", name="users")
      */
-    public function users(Request $request)
+    public function users()
 
     {
         $users = $this->getDoctrine()->getRepository(User::class)->findUsers();
 
         return $this->render('admin/users.html.twig', [
             'users' => $users
+        ]);
+
+    }
+
+    /**
+     * @Route("/locations", name="locations")
+     */
+    public function locations()
+
+    {
+
+        $locations = $this->getDoctrine()->getRepository(Locations::class)->findBy([], ['totalAds' => 'DESC']);
+
+        return $this->render('admin/locations.html.twig', [
+            'locations' => $locations
         ]);
 
     }

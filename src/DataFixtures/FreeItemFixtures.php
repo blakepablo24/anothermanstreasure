@@ -7,6 +7,7 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\FreeItem;
 use App\Entity\Category;
 use App\Entity\User;
+use App\Entity\Locations;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class FreeItemFixtures extends Fixture implements DependentFixtureInterface
@@ -27,6 +28,26 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
             $free_item->setUser($user_id);
             $free_item->setDate(new \DateTime());
             $free_item->setTime(new \DateTime());
+
+            $locationsStat = $manager->getRepository(Locations::class)->findLocation($location);
+
+            if($locationsStat)
+            {
+                $noOfTotalAdsIncremented = $locationsStat->getTotalAds();
+                $noOfLiveAdsIncremented = $locationsStat->getLiveAds();
+                $locationsStat->setTotalAds($noOfTotalAdsIncremented + 1);
+                $locationsStat->setLiveAds($noOfLiveAdsIncremented + 1);
+                $manager->persist($locationsStat);
+            } 
+            else 
+            {
+                $locationsStat = new Locations();
+                $locationsStat->setLocation($location);
+                $locationsStat->setTotalAds(1);
+                $locationsStat->setLiveAds(1);
+                $manager->persist($locationsStat);
+            }
+
             $manager->persist($free_item);
         }
 
@@ -88,6 +109,7 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
         {
             return array(
                 UserFixtures::class,
+                LocationFixtures::class
             );
         }
 
