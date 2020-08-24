@@ -2,16 +2,33 @@
 
 {% block main %}
 
-    <main>
+{% if newUser %}
 
-        <h1>Welcome to 32 collect</h1>
-        <br>
-        <h2>Avoid landfills, reuse as much as possible.</h2>
-        <br>
-        <h2>"One person's rubbish is another person's treasure"</h2>
-        <br>
-        <h2>Help by listing your freebies!</h2>
-        <br>
+        <div id="welcome-modal-container">
+
+            <div class="welcome-modal-content">
+
+                <h1>Welcome to</h1>
+                <br>
+                <a class="nav-logo"><img style="width: 35%; border-radius: 5px;" src="assets/images/site-images/32collect-logo.png" alt=""></a>
+                <br>
+                <h2>Avoid landfills, reuse as much as possible.</h2>
+                <br>
+                <h2>"One person's rubbish is another person's treasure"</h2>
+                <br>
+                <h2>Help by listing your freebies!</h2>
+                <br>
+                <h2>Cookies are used on this site!</h2>
+                <br>
+                <a class="post-free-item-button" style="padding: 10px; font-size: 2.5rem;" onclick="acceptCookies()">Accept</a>
+
+            </div>
+
+        </div>
+
+        {% endif %}
+
+    <main>
 
         <h2>Latest Freebies</h2>
 
@@ -64,5 +81,24 @@
         </div>
 
     </main>
+
+{% endblock %}
+
+{% block customJavascripts %}
+
+{% if newUser %}
+
+    <script>
+
+    document.getElementById("welcome-modal-container").style.display = "grid";
+
+    function acceptCookies()
+    {
+        document.getElementById("welcome-modal-container").style.display = "none";
+    }
+
+    </script>
+
+{% endif %}
 
 {% endblock %}

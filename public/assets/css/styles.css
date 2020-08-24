@@ -271,6 +271,25 @@ main {
     letter-spacing: 1px;
 }
 
+/* Welcome modal for first time load */
+
+#welcome-modal-container {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    background: #ccedd2;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center center;
+    padding: 0 10px;
+}
+
+.welcome-modal-container {
+    display: grid;
+    place-items: center center;
+}
+
 /* Front Main Section */
 
 .free-item-container {

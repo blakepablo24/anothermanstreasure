@@ -17,6 +17,8 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use App\Service\ItemLocations;
+use Symfony\Component\HttpFoundation\Cookie;  
+use Symfony\Component\HttpFoundation\Response;
 
 class FrontController extends AbstractController
 {
@@ -24,9 +26,11 @@ class FrontController extends AbstractController
     /**
      * @Route("/", name="main_page")
      */
-    public function index(ItemLocations $itemLocations)
+    public function index(ItemLocations $itemLocations, Request $request)
 
     {
+
+        $newUser = $this->checkVisitStatus($request);
 
         $allLocations = $itemLocations->locations();
 
@@ -43,7 +47,9 @@ class FrontController extends AbstractController
 
         return $this->render('front/index.html.twig', [
         'freeItems' => $freeItems,
-        'allLocations' => $allLocations]);
+        'allLocations' => $allLocations, 
+        'newUser' => $newUser
+        ]);
     }
 
     /**
@@ -386,4 +392,36 @@ class FrontController extends AbstractController
         return explode(' ', $query);
 
     }
+
+    public function checkVisitStatus($request) 
+    {
+
+        if(!$request->cookies->get('32collect-visited-before'))
+        {
+            $newUser = true;
+
+            $cookie = new Cookie(
+                '32collect-visited-before',
+                'yes',
+                time() + ( 2 * 365 * 24 * 60 * 60)  // Expires 2 years.
+            );
+    
+            $res = new Response();
+            $res->headers->setCookie( $cookie );
+            $res->send();
+            
+            return $newUser;
+
+        } 
+        else 
+        {
+        
+            $newUser = false;
+
+            return $newUser;
+
+        }
+
+    }
+
 }
