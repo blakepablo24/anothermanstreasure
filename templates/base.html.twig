@@ -107,7 +107,7 @@
                             
                     </div>  
 
-                    <form method="GET" class="find-items-search" action="{{path('user_selected_location')}}">
+                    <form id="locationInput" method="GET" class="find-items-search" action="{{path('user_selected_location')}}">
 
                         {% if app.session.get('location') %}
 

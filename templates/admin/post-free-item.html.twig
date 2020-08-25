@@ -26,10 +26,10 @@
 
             <h2>Free Item Listing</h2>
 
-            {{ form_widget(form.title, {'attr': {'class': 'post-free-item-field', 'placeholder': 'Title'}}) }}
+            {{ form_widget(form.title, {'attr': {'class': 'post-free-item-field post-free-item-title', 'placeholder': 'Title'}}) }}
             {{form_errors(form.title)}}
 
-            {{ form_widget(form.description, {'attr': {'class': 'post-free-item-field', 'cols': '30', 'rows': '10', 'placeholder': 'Description'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'post-free-item-field'}}) }}
             {{form_errors(form.description)}}
 
             <div class="post-free-item-pic-upload-container">

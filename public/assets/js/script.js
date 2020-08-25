@@ -46,6 +46,7 @@ function autocomplete(inp, arr) {
                 /*close the list of autocompleted values,
                 (or any other open lists of autocompleted values:*/
                 closeAllLists();
+                document.forms["locationInput"].submit();
             });
             a.appendChild(b);
           }
@@ -101,6 +102,7 @@ function autocomplete(inp, arr) {
         x[i].parentNode.removeChild(x[i]);
       }
     }
+
   }
   /*execute a function when someone clicks in the document:*/
   document.addEventListener("click", function (e) {

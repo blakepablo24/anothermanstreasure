@@ -378,6 +378,10 @@ main {
     padding: 10px 0;
 }
 
+.post-free-item-title {
+    margin-bottom: 20px;
+}
+
 .free-item-single-share {
     place-self: end end;
     width: 30%;

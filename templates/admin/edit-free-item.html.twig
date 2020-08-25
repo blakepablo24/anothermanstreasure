@@ -47,10 +47,10 @@
     
         {{ form_start(form, {'attr':{'class': 'post-free-item-container'}}) }}
 
-            {{ form_widget(form.title, {'attr': {'class': 'post-free-item-field'}}) }}
+            {{ form_widget(form.title, {'attr': {'class': 'post-free-item-field post-free-item-title'}}) }}
             {{form_errors(form.title)}}
 
-            {{ form_widget(form.description, {'attr': {'class': 'post-free-item-field', 'cols': '30', 'rows': '10', 'placeholder': 'Description'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'post-free-item-field', 'placeholder': 'Description'}}) }}
             {{form_errors(form.description)}}
 
             {{ form_widget(form.category, {'attr': {'class': 'post-free-item-field'}}) }}
