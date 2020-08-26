@@ -263,7 +263,7 @@ class AdminController extends AbstractController
     {   
         // Look to see if the free item has any images
 
-        $images = $this->getDoctrine()->getRepository(FreeItemPictures::class)->findAll($freeItem);
+        $images = $freeItem->getFreeItemPictures();
 
         // Loop through any images and delete each one where needed
 

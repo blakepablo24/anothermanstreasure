@@ -247,14 +247,13 @@ main {
     grid-area: main;
     display: grid;
     place-items: start center;
-    grid-row-gap: 3px;
 }
 
 .user-review {
     margin-top: 10px;
     border: 0.5px solid #655c56;
     background: #ffffff;
-    width: 99%;
+    width: 95%;
     display: grid;
     place-items: center center;
     border-radius: 5px;
@@ -299,6 +298,8 @@ main {
     width: 95%;
     border-radius: 5px;
     padding: 5px;
+    box-shadow: 2.5px 5px 9px #888888;
+    margin-top: 7.5px;
 }
 
 .free-item-info {
@@ -373,13 +374,26 @@ main {
 
 .free-item-single-container {
     display: grid;
-    grid: 0.5fr 6fr 1.5fr 0.5fr 0.5fr 0.5fr 0.5fr/ 1fr;
+    grid: auto auto auto auto auto auto auto / 1fr;
     place-items: center center;
     padding: 10px 0;
+    width: 100%;
 }
 
-.post-free-item-title {
+.free-item-single-title, .free-item-single-description {
     margin-bottom: 20px;
+    padding: 10px 0;
+    width: 95%;
+    letter-spacing: 1.5px;
+    background: #f8f6f6;
+    border-radius: 5px;
+    box-shadow: 2.5px 5px 9px #888888;
+}
+
+.free-item-single-description {
+    font-size: 1.25rem;
+    padding: 30px 0;
+    margin: 10px 0;
 }
 
 .free-item-single-share {
@@ -393,6 +407,19 @@ main {
 .free-item-single-share i {
     color: #655c56;
 }
+
+.sharethis-inline-share-buttons {
+    margin: 10px 0;
+}
+
+.free-item-single-location {
+    display: grid;
+    grid: 1fr / 1fr 1fr;
+    place-items: center center;
+    font-size: 1.5rem;
+    margin: 10px 0;
+}
+
 
 /* Single Free Item Slideshow container */
 

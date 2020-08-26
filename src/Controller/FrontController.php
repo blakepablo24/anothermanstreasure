@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
 use App\Entity\FreeItem;
+use App\Entity\FreeItemPictures;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\ContactType;
@@ -53,7 +54,7 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/free-item-lis-all", name="free_item_list_all")
+     * @Route("/free-item-list-all", name="free_item_list_all")
      */
     public function freeItemListAll(ItemLocations $itemLocations)
 
