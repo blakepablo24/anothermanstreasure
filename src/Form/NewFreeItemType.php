@@ -28,7 +28,15 @@ class NewFreeItemType extends AbstractType
                 'label' => false,
                 'config' => array(
                     'toolbar' => 'my_toolbar_1',
+                    'extraPlugins' => 'confighelper',
+                    'placeholder' => 'Item Description Here ...',
                 ),
+                'plugins' => array(
+                    'confighelper' => array(
+                        'path' => '/bundles/confighelper/',
+                        'filename' => 'plugin.js',
+                    ),
+                )
             ])
 
             ->add(
