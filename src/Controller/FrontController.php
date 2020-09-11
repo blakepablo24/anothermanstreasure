@@ -10,6 +10,9 @@ use App\Entity\FreeItemPictures;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Form\ContactType;
+use App\Entity\FreeItemConversation;
+use App\Entity\ConversationMessage;
+use App\Form\NewMessageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -282,16 +285,93 @@ class FrontController extends AbstractController
     }
 
     /**
-     * @Route("/free-item-single/{id}", name="free_item_single", methods={"GET"})
+     * @Route("/free-item-single/{id}", name="free_item_single", methods={"GET","POST"})
      */
     public function freeItemSingle(ItemLocations $itemLocations, FreeItem $freeItem, Request $request, MailerInterface $mailer)
 
     {
         $allLocations = $itemLocations->locations();
 
+        $messagedBefore = false;
+
+        $user = $this->getUser();
+
+        $conversations = $this->getDoctrine()->getRepository(FreeItemConversation::class)->findBy(['FreeItem' => $freeItem]);
+
+        if($conversations)
+        
+        {
+
+            foreach ($conversations as $conversation) {
+                $messages = $conversation->getConversationMessages();
+            }
+
+            foreach ($messages as $message) {
+
+                if ($message->getUser() == $user) 
+                {
+
+                    $messagedBefore = $message->getConversation();
+
+                }
+            }
+        
+        }
+
+        $form = $this->createForm(NewMessageType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        
+        {
+
+            $freeItemConversation = new FreeItemConversation();
+            $freeItemConversation->setFreeItem($freeItem);
+
+            $templatedOnwingUserMessage = new ConversationMessage();
+            $templatedOnwingUserMessage->setConversation($freeItemConversation);
+            $templatedOnwingUserMessage->setDate(new \DateTime());
+            $templatedOnwingUserMessage->setTime(new \DateTime());
+            $templatedOnwingUserMessage->setUser($freeItem->getUser());
+            $templatedOnwingUserMessage->setMessage('My Free Item Messages');
+
+            $conversationMessage = new ConversationMessage();
+            $conversationMessage->setConversation($freeItemConversation);
+            $conversationMessage->setDate(new \DateTime());
+            $conversationMessage->setTime(new \DateTime());
+            $conversationMessage->setUser($user);
+            $conversationMessage->setMessage($request->request->get('new_message')['Message']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($freeItemConversation);
+            $entityManager->persist($templatedOnwingUserMessage);
+            $entityManager->persist($conversationMessage);
+            $entityManager->flush();
+
+            $email = (new TemplatedEmail())
+            ->from('info@32collect.djbagsofun.co.uk')
+            ->to($freeItem->getUser()->getEmail())
+            ->subject('Your 32collect ad '.$freeItem->getTitle().' has a response')
+            ->htmlTemplate('emails/new-free-item-message.html.twig')
+            ->context([
+                'name' => $freeItem->getUser()->getName(),
+                'freeItemTitle' => $freeItem->getTitle()
+            ]);
+            
+            /** @var Symfony\Component\Mailer\SentMessage $sentEmail */
+            $sentEmail = $mailer->send($email);
+
+            $this->addFlash('free_item_message_sent', 'Your has been successfully sent');
+
+            return $this->redirectToRoute('free_item_single', ['id' => $freeItem->getId()]);
+
+        }
+
         return $this->render('front/free-item-single.html.twig', [
             'freeItem' => $freeItem,
-            'allLocations' => $allLocations
+            'allLocations' => $allLocations,
+            'messagedBefore' => $messagedBefore,
+            'form' => $form->createView(),
         ]);
 
     }

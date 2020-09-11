@@ -1,0 +1,53 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block header %}
+{% endblock %}
+
+{% block main %}
+
+    <main style="grid-row: 1 / 4; place-self: start center">
+
+        <div class="all-categories-nav">
+
+            <a href="{{path('admin_main_page')}}"><i class="fas fa-arrow-circle-left"></i> Back to profile</a>
+
+        </div>
+
+        <h2>My Messages</h2>
+
+        
+
+        {% for conversation in conversations %}
+
+            <a href="{{path('user_conversation', {'id':conversation.conversation.id})}}" class="user-conversations-container">
+                
+                <div class="user-conversation">
+
+                    <div class="user-conversation-content">
+
+                        <h3>{{conversation.conversation.freeItem.title}}</h3>
+                        <h3>{{conversation.message|slice(0, 20)}}. . . . .</h3>
+                        <h4>Date: {{conversation.date|date('D d/m/y')}} @ {{conversation.time|date('H')}}:{{conversation.time|date('i')}}</h4>
+
+                    </div>
+                    
+                    {% for freeItemPicture in conversation.conversation.freeItem.freeItemPictures|slice(0, 1) %}
+
+                        <img src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">                 
+
+                    {% endfor %}
+
+                </div>
+                
+            
+
+            </a>
+
+        {% endfor %}
+
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

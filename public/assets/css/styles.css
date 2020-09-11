@@ -337,6 +337,82 @@ main {
     border-radius: 2.5px;
 }
 
+/* User messages Page */
+
+.user-conversations-container, .user-conversation {
+    display: grid;
+    place-items: center center;
+    width: 100%;
+    height: 15vh;
+}
+
+.user-conversations-container {
+    color: #655c56;
+    background: #ffffff;
+    border: 2.5px solid #a0c334;
+    margin-bottom: 1vh;
+}
+
+.user-conversation {
+    grid: 1fr / 8fr 2fr;
+}
+
+.user-conversation img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* User conversation Page */
+
+.user-messages-header-container {
+    width: 99%;
+    display: grid;
+    grid: 1fr / 3fr 1fr;
+    place-items: center center;
+    padding: 2.5px 0;
+    background: #f8f6f6;
+    border-radius: 5px;
+    box-shadow: 2.5px 5px 9px #888888;
+}
+
+.user-messages-header-container img {
+    border-radius: 2.5px;
+    width: 95%;
+}
+
+.user-message-container, .not-user-message-container {
+    width: 95%;
+    display: grid;   
+}
+
+.user-message-container p, .not-user-message-container p {
+    width: 60%;
+}
+
+.user-message-container p {
+    place-self: center start;
+    text-align: left;
+    border-radius: 2.5px;
+    background: #655c56;
+    color: #effcef;
+    padding: 5px 0 5px 5px;
+}
+
+.user-message-container h4, .user-message-container h6 {
+    place-self: center start;
+    text-align: left;
+}
+
+.not-user-message-container p {
+    place-self: center end;
+    text-align: right;
+}
+
+.not-user-message-container h4, .not-user-message-container h6 {
+    place-self: center end;
+    
+}
+
 /* All Categories Page */
 
 .all-categories-container {
@@ -420,6 +496,38 @@ main {
     margin: 10px 0;
 }
 
+.free-item-single-user {
+    margin: 10px 0;
+}
+
+.send-free-item-message {
+    width: 95%;
+    display: grid;
+    grid: 10vh / 8fr 2fr;
+    place-items: center center;
+}
+
+.send-free-item-message input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-size: 1.25rem;
+}
+
+.send-free-item-message-button {
+    width: 100%;
+    height: 100%;
+    background:  #ffffff;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.send-free-item-message-button i {
+    color: #a8df65;
+}
 
 /* Single Free Item Slideshow container */
 

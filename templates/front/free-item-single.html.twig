@@ -45,6 +45,14 @@
             </div>
 
         {% endfor %}
+
+        {% for message in app.flashes('free_item_message_sent') %}
+
+            <div class="flash-message-success">
+                {{ message }}
+            </div>
+
+        {% endfor %}
         
         <div class="free-item-single-container">
 
@@ -136,9 +144,24 @@
 
                 {% if freeItem.user.id == app.user.id %}
                 
+                {% elseif messagedBefore %}
+
+                    <a class="post-free-item-button" href="{{path('user_conversation', {'id':messagedBefore.id})}}">Continue Conversation</a>
+
                 {% else %}
+
                     <a class="free-item-single-user">Contact {{freeItem.user.name}}</a>
-                    <input class="post-free-item-field" value="Hi, when can I collect?">
+
+                    {{ form_start(form, {'attr':{'class': 'send-free-item-message'}}) }}
+
+                        {{form_widget(form.Message, {'attr': {'value': 'Hi, when can I collect?'}}) }}
+                        {{form_errors(form.Message)}}
+                        
+                        <button class="send-free-item-message-button"><i class="fas fa-paper-plane fa-2x"></i></button>
+                        
+                    {{ form_end(form) }}
+
+                    </form>
 
                 {% endif %}
                 

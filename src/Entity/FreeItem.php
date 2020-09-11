@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\Index as Index;
 
 /**
  * @ORM\Entity(repositoryClass=FreeItemRepository::class)
- * @ORM\Table(name="freeitems", indexes={@Index(name="title_idx", columns={"title"})})
+ * @ORM\Table(name="free_items", indexes={@Index(name="title_idx", columns={"title"})})
  */
 class FreeItem
 {
@@ -67,9 +67,14 @@ class FreeItem
      */
     private $state;
 
+    /**
+     * @ORM\OneToMany(targetEntity=FreeItemConversation::class, mappedBy="FreeItem")
+     */
+    private $freeItemConversations;
+
     public function __construct()
     {
-        $this->freeItemPictures = new ArrayCollection();
+        $this->freeItemConversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,6 +205,37 @@ class FreeItem
     public function setState(string $state): self
     {
         $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FreeItemConversation[]
+     */
+    public function getFreeItemConversations(): Collection
+    {
+        return $this->freeItemConversations;
+    }
+
+    public function addFreeItemConversation(FreeItemConversation $freeItemConversation): self
+    {
+        if (!$this->freeItemConversations->contains($freeItemConversation)) {
+            $this->freeItemConversations[] = $freeItemConversation;
+            $freeItemConversation->setFreeItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFreeItemConversation(FreeItemConversation $freeItemConversation): self
+    {
+        if ($this->freeItemConversations->contains($freeItemConversation)) {
+            $this->freeItemConversations->removeElement($freeItemConversation);
+            // set the owning side to null (unless already changed)
+            if ($freeItemConversation->getFreeItem() === $this) {
+                $freeItemConversation->setFreeItem(null);
+            }
+        }
 
         return $this;
     }

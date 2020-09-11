@@ -9,12 +9,16 @@ use App\Entity\Category;
 use App\Entity\FreeItem;
 use App\Entity\FreeItemPictures;
 use App\Entity\User;
+use App\Entity\Locations;
+use App\Entity\FreeItemConversation;
+use App\Entity\ConversationMessage;
 use App\Form\NewFreeItemType;
 use App\Form\NewFreePictureItemType;
 use App\Form\EditFreeItemType;
 use App\Form\AddNewCategoryType;
 use App\Form\EditCategoryType;
 use App\Form\EditUserDetailsType;
+use App\Form\NewMessageType;
 // Image uploads and removals
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -25,7 +29,6 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use App\Service\ItemLocations;
-use App\Entity\Locations;
 
 /**
  * @Route("/admin")
@@ -363,6 +366,119 @@ class AdminController extends AbstractController
         ]);
 
     }
+
+    // User Messages
+
+    /**
+     * @Route("/user-messages/{id}", name="user_messages", methods={"GET"})
+     */
+    public function userMessages(Request $request, User $user)
+
+    {
+        if($user != $this->getUser())
+        {
+            return $this->redirectToRoute('admin_main_page');
+        }
+
+        $messages = $this->getDoctrine()->getRepository(ConversationMessage::class)->findBy(['User' => $user]);
+
+        $conversations = [];
+
+        foreach ($messages as $message) 
+        {
+                
+            if (!in_array($message->getConversation(), $conversations)) {
+                array_push($conversations, $message->getConversation());
+            }
+
+        }
+
+        $lastMessageInConversations = [];
+
+        foreach ($conversations as $conversation) 
+        {
+
+            if (!in_array($conversation->getConversationMessages()->last(), $lastMessageInConversations)) {
+                array_push($lastMessageInConversations, $conversation->getConversationMessages()->last());
+            }
+        }
+
+        return $this->render('admin/user-messages.html.twig', [
+            'conversations' => $lastMessageInConversations
+        ]);
+
+    }
+
+    /**
+     * @Route("/user-conversation/{id}", name="user_conversation", methods={"GET","POST"})
+     */
+    public function userConversation(Request $request, FreeItemConversation $conversation, MailerInterface $mailer)
+
+    {
+        $user = $this->getUser();
+
+        $otherUsers = [];
+            
+        $messages = $conversation->getConversationMessages();
+
+        foreach ($messages as $message) 
+        {
+
+            if ($message->getUser() != $user) 
+            {
+                
+                if (!in_array($message->getUser(), $otherUsers)) {
+                    array_push($otherUsers, $message->getUser());
+                }
+
+            }
+
+        }
+
+        $form = $this->createForm(NewMessageType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        
+        {
+            
+            $conversationMessage = new ConversationMessage();
+            $conversationMessage->setConversation($conversation);
+            $conversationMessage->setDate(new \DateTime());
+            $conversationMessage->setTime(new \DateTime());
+            $conversationMessage->setUser($user);
+            $conversationMessage->setMessage($request->request->get('new_message')['Message']);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($conversationMessage);
+            $entityManager->flush();
+
+            $email = (new TemplatedEmail())
+            ->from('info@32collect.djbagsofun.co.uk')
+            ->to($otherUsers[0]->getEmail())
+            ->subject('Your 32collect message has a new response')
+            ->htmlTemplate('emails/new-free-item-message.html.twig')
+            ->context([
+                'name' => $otherUsers[0]->getName(),
+                'freeItemTitle' => $conversation->getfreeItem()->getTitle()
+            ]);
+            
+            /** @var Symfony\Component\Mailer\SentMessage $sentEmail */
+            $sentEmail = $mailer->send($email);
+
+            $this->addFlash('free_item_message_sent', 'Your has been successfully sent');
+
+            return $this->redirectToRoute('user_conversation', ['id' => $conversation->getId()]);
+
+        }
+
+        return $this->render('admin/user-Conversation.html.twig', [
+            'conversation' => $conversation,
+            'form' => $form->createView()
+        ]);
+
+    }
+    
 
     // Function to deal with picture uploads
 

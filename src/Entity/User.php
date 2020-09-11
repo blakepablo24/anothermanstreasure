@@ -111,9 +111,20 @@ class User implements UserInterface
      */
     private $start_time;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ConversationMessage::class, mappedBy="User")
+     */
+    private $conversationMessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity=FreeItemConversation::class, mappedBy="enquiring_user")
+     */
+    private $freeItemConversations;
+
     public function __construct()
     {
-        $this->freeItems = new ArrayCollection();
+        $this->conversationMessages = new ArrayCollection();
+        $this->freeItemConversations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -365,6 +376,68 @@ class User implements UserInterface
     public function setStartTime(\DateTimeInterface $start_time): self
     {
         $this->start_time = $start_time;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ConversationMessage[]
+     */
+    public function getConversationMessages(): Collection
+    {
+        return $this->conversationMessages;
+    }
+
+    public function addConversationMessage(ConversationMessage $conversationMessage): self
+    {
+        if (!$this->conversationMessages->contains($conversationMessage)) {
+            $this->conversationMessages[] = $conversationMessage;
+            $conversationMessage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversationMessage(ConversationMessage $conversationMessage): self
+    {
+        if ($this->conversationMessages->contains($conversationMessage)) {
+            $this->conversationMessages->removeElement($conversationMessage);
+            // set the owning side to null (unless already changed)
+            if ($conversationMessage->getUser() === $this) {
+                $conversationMessage->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FreeItemConversation[]
+     */
+    public function getFreeItemConversations(): Collection
+    {
+        return $this->freeItemConversations;
+    }
+
+    public function addFreeItemConversation(FreeItemConversation $freeItemConversation): self
+    {
+        if (!$this->freeItemConversations->contains($freeItemConversation)) {
+            $this->freeItemConversations[] = $freeItemConversation;
+            $freeItemConversation->setEnquiringUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFreeItemConversation(FreeItemConversation $freeItemConversation): self
+    {
+        if ($this->freeItemConversations->contains($freeItemConversation)) {
+            $this->freeItemConversations->removeElement($freeItemConversation);
+            // set the owning side to null (unless already changed)
+            if ($freeItemConversation->getEnquiringUser() === $this) {
+                $freeItemConversation->setEnquiringUser(null);
+            }
+        }
 
         return $this;
     }
