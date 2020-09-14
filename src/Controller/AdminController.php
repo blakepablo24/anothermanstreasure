@@ -454,13 +454,15 @@ class AdminController extends AbstractController
             $entityManager->flush();
 
             $email = (new TemplatedEmail())
-            ->from('info@32collect.djbagsofun.co.uk')
+            ->from('no-reply@32collect.djbagsofun.co.uk')
             ->to($otherUsers[0]->getEmail())
-            ->subject('Your 32collect message has a new response')
-            ->htmlTemplate('emails/new-free-item-message.html.twig')
+            ->subject('Your 32collect ad '.$conversation->getfreeItem()->getTitle().' has a reply')
+            ->htmlTemplate('emails/reply-free-item-message.html.twig')
             ->context([
                 'name' => $otherUsers[0]->getName(),
-                'freeItemTitle' => $conversation->getfreeItem()->getTitle()
+                'freeItemTitle' => $conversation->getfreeItem()->getTitle(),
+                'messagingUserName' => $user->getName(),
+                'message' => $request->request->get('new_message')['Message']
             ]);
             
             /** @var Symfony\Component\Mailer\SentMessage $sentEmail */
@@ -472,7 +474,7 @@ class AdminController extends AbstractController
 
         }
 
-        return $this->render('admin/user-Conversation.html.twig', [
+        return $this->render('admin/user-conversation.html.twig', [
             'conversation' => $conversation,
             'form' => $form->createView()
         ]);

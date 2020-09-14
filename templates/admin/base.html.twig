@@ -72,12 +72,12 @@
 
                 <div class="find-items-container">
                 
-                    <div class="find-items-categories">
+                    <a href="{{path('logout')}}" class="find-items-categories">
 
-                        <a href="{{path('logout')}}"><i style="color:#40bad5;" class="fas fa-sign-out-alt"></i> Logout</a>
+                        <p><i style="color:#40bad5;" class="fas fa-sign-out-alt"></i> Logout</p>
                         
                             
-                    </div>
+                    </a>
                     
                     {% if is_granted('ROLE_ADMIN')%}
 

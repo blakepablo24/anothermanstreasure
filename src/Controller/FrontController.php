@@ -8,6 +8,7 @@ use App\Entity\Category;
 use App\Entity\FreeItem;
 use App\Entity\FreeItemPictures;
 use App\Entity\User;
+use App\Entity\Locations;
 use App\Form\UserType;
 use App\Form\ContactType;
 use App\Entity\FreeItemConversation;
@@ -208,6 +209,32 @@ class FrontController extends AbstractController
     }
 
     /**
+     * @Route("/all-locations", name="all_locations")
+     */
+    public function allLocations(ItemLocations $itemLocations)
+
+    {
+        $allLocations = $itemLocations->locations();
+
+        return $this->render('front/all-locations.html.twig', [
+            'allLocations' => $allLocations
+        ]);
+
+    }
+
+    public function locations()
+
+    {   
+
+        $locations = $this->getDoctrine()->getRepository(Locations::class)->findAll();
+
+        return $this->render('front/includes/_locations.html.twig', [
+            'locations' => $locations
+        ]);
+
+    }
+
+    /**
      * @Route("/free-item-list-category/category/{categoryname},{id}", methods={"GET"}, name="free_item_list_category")
      */
     public function freeItemListCategory(ItemLocations $itemLocations, Category $category, Request $request)
@@ -349,13 +376,15 @@ class FrontController extends AbstractController
             $entityManager->flush();
 
             $email = (new TemplatedEmail())
-            ->from('info@32collect.djbagsofun.co.uk')
+            ->from('no-reply@32collect.djbagsofun.co.uk')
             ->to($freeItem->getUser()->getEmail())
             ->subject('Your 32collect ad '.$freeItem->getTitle().' has a response')
             ->htmlTemplate('emails/new-free-item-message.html.twig')
             ->context([
                 'name' => $freeItem->getUser()->getName(),
-                'freeItemTitle' => $freeItem->getTitle()
+                'freeItemTitle' => $freeItem->getTitle(),
+                'messagingUserName' => $user->getName(),
+                'message' => $request->request->get('new_message')['Message']
             ]);
             
             /** @var Symfony\Component\Mailer\SentMessage $sentEmail */

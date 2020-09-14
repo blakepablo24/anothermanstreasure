@@ -154,7 +154,7 @@
 
                     {{ form_start(form, {'attr':{'class': 'send-free-item-message'}}) }}
 
-                        {{form_widget(form.Message, {'attr': {'value': 'Hi, when can I collect?'}}) }}
+                        {{form_widget(form.Message, {'attr': {'value': 'Hi, when can I collect?', 'autocomplete': 'off'}}) }}
                         {{form_errors(form.Message)}}
                         
                         <button class="send-free-item-message-button"><i class="fas fa-paper-plane fa-2x"></i></button>

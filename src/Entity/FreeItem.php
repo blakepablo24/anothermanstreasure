@@ -68,7 +68,7 @@ class FreeItem
     private $state;
 
     /**
-     * @ORM\OneToMany(targetEntity=FreeItemConversation::class, mappedBy="FreeItem")
+     * @ORM\OneToMany(targetEntity=FreeItemConversation::class, mappedBy="FreeItem", orphanRemoval=true)
      */
     private $freeItemConversations;
 

@@ -1,0 +1,7 @@
+{# <a href="{{path('free_item_list_all')}}">All UK</a> #}
+    
+    {% for location in locations %}
+
+        <a href="{{path('user_selected_location', {'myLocation':location.location})}}">{{location.location}} ({{location.totalAds}})</a>
+        
+    {% endfor %}

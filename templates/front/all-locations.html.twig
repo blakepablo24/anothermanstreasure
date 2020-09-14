@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block header %}
+
+{% endblock %}
+
+{% block main %}
+
+    <main style="grid-row: 1 / 4; place-self: center center;">
+
+        <div class="all-categories-container">
+            
+            <div class="all-categories-nav">
+
+                <a href="{{path('main_page')}}"><i class="fas fa-arrow-circle-left"></i> Go Back</a>
+
+            </div>
+                
+            <h2>3-2-Collect Locations</h2>         
+
+            <div class="all-categories-list">
+
+                {{
+                    render(controller("App\\Controller\\FrontController::locations"))
+                }}
+
+            </div>
+
+        </div>
+    
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

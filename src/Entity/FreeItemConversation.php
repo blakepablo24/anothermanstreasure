@@ -27,7 +27,7 @@ class FreeItemConversation
     private $FreeItem;
 
     /**
-     * @ORM\OneToMany(targetEntity=ConversationMessage::class, mappedBy="Conversation")
+     * @ORM\OneToMany(targetEntity=ConversationMessage::class, mappedBy="Conversation", orphanRemoval=true)
      */
     private $conversationMessages;
 

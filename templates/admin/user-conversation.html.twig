@@ -53,7 +53,7 @@
 
             {{ form_start(form, {'attr':{'class': 'send-free-item-message', 'style': 'place-self: end center; margin-bottom: 10px;'}}) }}
 
-                {{form_widget(form.Message, {'attr': {'placeholder': 'Type new message here?'}}) }}
+                {{form_widget(form.Message, {'attr': {'placeholder': 'Type new message here?', 'autocomplete': 'off'}}) }}
                 {{form_errors(form.Message)}}
                 
                 <button class="send-free-item-message-button"><i class="fas fa-paper-plane fa-2x"></i></button>

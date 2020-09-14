@@ -58,8 +58,8 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
 
-            ['Single Bed', 'blah blah blah', 2, 1],
-            ['Wardrobe', 'blah blah blah', 2, 1],
+            ['Single Bed', 'Good condition. No longer needed.', 2, 1],
+            ['Wardrobe', 'A few marks but good condition.', 2, 1],
             ['Chest of Draws', 'blah blah blah', 2, 1],
 
             ['Compost', 'blah blah blah', 2, 2],
@@ -67,7 +67,7 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
             ['Shed', 'blah blah blah', 2, 2],
 
             ['Lego', 'blah blah blah', 2, 3],
-            ['Board games', 'blah blah blah', 2, 3],
+            ['Board games', 'blah blah blah', 4, 3],
             ['Action Fugures', 'blah blah blah', 2, 3],
 
             ['Boxing Stuff', 'blah blah blah', 2, 4],
@@ -79,7 +79,7 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
             ['AV Receiver', 'blah blah blah', 2, 5],
 
             ['Blu Rays', 'blah blah blah', 3, 6],
-            ['Cds', 'blah blah blah', 3, 6],
+            ['Cds', 'blah blah blah', 4, 6],
             ['Books', 'blah blah blah', 3, 6],
 
             ['Collectables', 'blah blah blah', 3, 7],
@@ -91,7 +91,7 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
             ['Tins of Beans', 'blah blah blah', 3, 8],
 
             ['Roof Rack', 'blah blah blah', 3, 9],
-            ['Corsa Bumper', 'blah blah blah', 3, 9],
+            ['Corsa Bumper', 'blah blah blah', 4, 9],
             ['Windcreen Wipers', 'blah blah blah', 3, 9],
 
             ['Work Bench', 'blah blah blah', 3, 10],
@@ -100,7 +100,7 @@ class FreeItemFixtures extends Fixture implements DependentFixtureInterface
 
             ['Jiffy Bags', 'blah blah blah', 3, 11],
             ['Bubble Wrap', 'blah blah blah', 3, 11],
-            ['Very Bags', 'blah blah blah', 3, 11]
+            ['Very Bags', 'blah blah blah', 4, 11]
 
         ];
     }

@@ -84,15 +84,15 @@
 
                 <div class="find-items-container">
                 
-                    <div class="find-items-categories">
+                    <a href="{{path('all_categories')}}" class="find-items-categories">
 
-                        <a href="{{path('all_categories')}}">Categories</a>
+                        <p>categories</p>
                             
-                    </div>
+                    </a>
                     
                     <form method="GET" class="find-items-search" action="{{path('search_results')}}">
 
-                        <input name="search" type="text">
+                        <input name="search" type="text" placeholder="search for ....">
                         <button class="find-items-search-bar-button"><i class="fas fa-search fa-2x"></i></button>
 
                     </form>
@@ -101,11 +101,11 @@
 
                 <div class="find-items-container">
                 
-                    <div class="">
+                    <a href="{{path('all_locations')}}" class="find-items-categories">
 
-                        <h3>Location</h3>
+                        <p>locations</p>
                             
-                    </div>  
+                    </a>
 
                     <form id="locationInput" method="GET" class="find-items-search" action="{{path('user_selected_location')}}">
 
@@ -115,7 +115,7 @@
 
                         {% else %}
                             
-                            <input id="myInput" type="text" name="myLocation" autocomplete="off">
+                            <input id="myInput" type="text" name="myLocation" autocomplete="off" placeholder="located in ....">
 
                         {% endif %}
                         

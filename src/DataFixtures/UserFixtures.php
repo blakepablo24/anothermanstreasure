@@ -44,9 +44,10 @@ class UserFixtures extends Fixture
     private function getUserData(): array
     {
         return [
-            ['Paul', 'Robson', 'blakepablo24@gmail.com', '12345', ['ROLE_ADMIN'], '', '', '', '', '', '', '', 0],
-            ['Claire', 'Harvey', 'ionaharvey89@outlook.com', '12345', ['ROLE_USER'], '07787406501', '61 Headley Park Avenue', 'Headley Park', '', 'Bristol', 'Avon', 'BS137NW', 15],
-            ['Lucky', 'Singh', 'lionsingh89@hotmail.com', '12345', ['ROLE_USER'], '07775516275', '56 Buccleuch Road', '', '', 'Selkirk', '', 'TD75DN', 18]
+            ['Dutch', 'Schaefer', 'dutch@32collect.co.uk', '12345', ['ROLE_ADMIN'], '', '', '', '', '', '', '', 0],
+            ['Iona', 'Harvey', 'ionaharvey89@outlook.com', '12345', ['ROLE_USER'], '07787406501', '61 Headley Park Avenue', 'Headley Park', '', 'Bristol', 'Avon', 'BS137NW', 14],
+            ['Paul', 'Robson', 'paul_robson_is@hotmail.com', '12345', ['ROLE_USER'], '07775516275', '56 Buccleuch Road', '', '', 'Selkirk', '', 'TD75DN', 15],
+            ['Blake', 'Douglas', 'blakepablo24@gmail.com', '12345', ['ROLE_USER'], '07775516275', '28 Buccleuch Road', '', '', 'Kirkcaldy', '', 'KY2 6LU', 4]
         ];
 
     }
