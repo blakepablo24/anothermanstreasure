@@ -39,7 +39,7 @@ class FrontController extends AbstractController
 
         $allLocations = $itemLocations->locations();
 
-        $location = $this->get('session')->get('location');
+        $location = $request->cookies->get('32collect-selected-location');
 
         if ($location) 
         {
@@ -94,6 +94,16 @@ class FrontController extends AbstractController
         $session = $this->get('session');
 
         $session->set('location', $userSelectedLocation);
+
+        $cookie = new Cookie(
+            '32collect-selected-location',
+            $userSelectedLocation,
+            time() + ( 2 * 365 * 24 * 60 * 60)  // Expires 2 years.
+        );
+
+        $res = new Response();
+        $res->headers->setCookie( $cookie );
+        $res->send();
 
         return $this->redirectToRoute('all_categories');
 

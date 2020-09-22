@@ -31,6 +31,9 @@
         "symfony/var-dumper": "5.0.*"
     },
     "config": {
+        "platform": {
+            "php": "7.3"
+        },
         "preferred-install": {
             "*": "dist"
         },

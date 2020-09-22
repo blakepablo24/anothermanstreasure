@@ -15,31 +15,27 @@
 
         <h2>My Messages</h2>
 
-        
-
         {% for conversation in conversations %}
 
-            <a href="{{path('user_conversation', {'id':conversation.conversation.id})}}" class="user-conversations-container">
-                
-                <div class="user-conversation">
+            <a class="user-conversation-container" href="{{path('user_conversation', {'id':conversation.conversation.id})}}">
 
-                    <div class="user-conversation-content">
+                <div class="user-conversation-content-container">
 
-                        <h3>{{conversation.conversation.freeItem.title}}</h3>
-                        <h3>{{conversation.message|slice(0, 20)}}. . . . .</h3>
-                        <h4>Date: {{conversation.date|date('D d/m/y')}} @ {{conversation.time|date('H')}}:{{conversation.time|date('i')}}</h4>
-
-                    </div>
-                    
-                    {% for freeItemPicture in conversation.conversation.freeItem.freeItemPictures|slice(0, 1) %}
-
-                        <img src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">                 
-
-                    {% endfor %}
+                    <h4>{{conversation.conversation.freeItem.title}}</h4>
+                    <h4>{{conversation.message|slice(0, 20)}}. . . . .</h4>
+                    <h5>Date: {{conversation.date|date('D d/m/y')}} @ {{conversation.time|date('H')}}:{{conversation.time|date('i')}}</h5>
 
                 </div>
                 
-            
+                <div class="user-conversation-image-container">
+
+                    {% for freeItemPicture in conversation.conversation.freeItem.freeItemPictures|slice(0, 1) %}
+
+                        <img class="user-conversation-image" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">                 
+
+                    {% endfor %}
+                
+                </div>    
 
             </a>
 

@@ -39,7 +39,7 @@
 
                     <a href="{{path('post_free_item')}}" class="post-free-item-main-button">post free item</a>
 
-                    <a class="nav-logo" href="{{path('main_page')}}"><img width="50%" src="{{asset('assets/images/site-images/32collect-logo.png')}}" alt=""></a>
+                    <a class="nav-logo" href="{{path('main_page')}}"><img style="max-height: 9.5vh;" src="{{asset('assets/images/site-images/32collect-logo.png')}}" alt=""></a>
 
                     <div id="burger-menu-overlay">
 
@@ -93,7 +93,7 @@
                     <form method="GET" class="find-items-search" action="{{path('search_results')}}">
 
                         <input name="search" type="text" placeholder="search for ....">
-                        <button class="find-items-search-bar-button"><i class="fas fa-search fa-2x"></i></button>
+                        <button class="find-items-search-bar-button"><i class="fas fa-search"></i></button>
 
                     </form>
 
@@ -109,9 +109,9 @@
 
                     <form id="locationInput" method="GET" class="find-items-search" action="{{path('user_selected_location')}}">
 
-                        {% if app.session.get('location') %}
+                        {% if app.request.cookies.get('32collect-selected-location') %}
 
-                            <input id="myInput" type="text" name="myLocation" value="{{app.session.get('location')}}" autocomplete="off">
+                            <input id="myInput" type="text" name="myLocation" value="{{app.request.cookies.get('32collect-selected-location')}}" autocomplete="off">
 
                         {% else %}
                             
@@ -119,7 +119,7 @@
 
                         {% endif %}
                         
-                        <button class="find-items-search-bar-button"><i class="fas fa-map-marker-alt fa-2x"></i></button>
+                        <button class="find-items-search-bar-button"><i class="fas fa-map-marker-alt"></i></button>
 
                     </form>
 
@@ -136,9 +136,20 @@
             
             <footer>
 
-                <i class="far fa-envelope fa-2x"></i>
-                <i class="fab fa-facebook-f fa-2x"></i>
-                <i class="fab fa-twitter fa-2x"></i>
+                <div class="footer-images-container">
+
+                    <img width="50%" src="{{asset('assets/images/site-images/rrr.png')}}" alt="">
+                    <img width="95%" src="{{asset('assets/images/site-images/no-landfill.png')}}" alt="">
+                
+                </div>
+
+                <div class="footer-links-container">
+
+                    <i class="far fa-envelope fa-2x"></i>
+                    <i class="fab fa-facebook-f fa-2x"></i>
+                    <i class="fab fa-twitter fa-2x"></i>
+
+                </div>
 
             </footer>
 
