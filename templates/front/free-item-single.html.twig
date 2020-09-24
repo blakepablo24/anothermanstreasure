@@ -63,15 +63,15 @@
 
                     {% if freeItem.freeItemPictures|length < 1 %}
                     
-                        <img class="free-item-single-image" src="" alt="No Images for this Free Item :(">
+                        <img class="free-item-single-image" src="{{asset('assets/images/site-images/32collect-no-image-template.png')}}" alt="No Images for this Free Item :(">
                     
                     {% else %}
                         
                         {% for freeItemPicture in freeItem.freeItemPictures %}
                             
-                            <div class="mySlides fade">
+                            <div class="mySlides">
 
-                                <img id="myImg" class="myImages free-item-single-image" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
+                                <img id="myImg" class="myImages free-item-single-image" src="{{asset('assets/images/free-item-images/snippet' ~ freeItemPicture.name)}}">
 
                             </div>
 
@@ -79,10 +79,12 @@
 
                         {% if freeItem.freeItemPictures|length > 1 %}
                             
-                            <!-- Next and previous buttons -->
-                            <div class="image-control-container">
-                                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                            <!-- Next and previous buttons if more than 1 pic -->
+                            <div class="image-control-container" style="bottom: 25%;">
+
+                                <a onclick="plusSlides(-1)" class="image-control-prev fas fa-chevron-left fa-3x"></a>
+                                <a onclick="plusSlides(1)"class="image-control-next fas fa-chevron-right fa-3x"></a>
+                                
                             </div>
 
                         {% endif %}
@@ -91,49 +93,39 @@
 
                 </div>
 
-                {# Modal for image enlargement #}
+                {# Modal for image enlargement hidden by default #}
 
-                        <div id="myModal" class="modal">
+                <div id="myModal" class="modal">
 
-                                {% if freeItem.freeItemPictures|length > 1 %}
-
-                                    <div class="modal-image-control-container">  
-
-                                        <a class="prev" onclick="plusEnlargedSlides(-1)">&#10094;</a>
-                                        <i class="close fas fa-times fa-2x"></i>
-                                        <a class="next" onclick="plusEnlargedSlides(1)">&#10095;</a>
-
-                                    </div>
-
-                                {% else %}
-
-                                        <i class="close fas fa-times fa-2x"></i>
-
-                                {% endif %}
-
-                                {% if freeItem.freeItemPictures|length < 1 %}
+                    <i class="close fas fa-times fa-3x"></i>
                         
-                                    <img class="free-item-single-image" src="" alt="No Images for this Free Item :(">
-                                
-                                {% else %}
-                                    
-                                    {% for freeItemPicture in freeItem.freeItemPictures %}
-                                        
-                                        <div class="myEnlargedSlides">
+                    {% for freeItemPicture in freeItem.freeItemPictures %}
+                        
+                        <div class="myEnlargedSlides">
 
-                                            <img class="myEnlargedImages modal-content" id="myImg" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
-
-                                        </div>
-
-                                    {% endfor %}
-
-                                {% endif %}
+                            <img id="myImg" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">
 
                         </div>
+
+                    {% endfor %}
+
+                    {% if freeItem.freeItemPictures|length > 1 %}
+
+                        <!-- Next and previous buttons -->
+                        <div class="image-control-container">
+
+                            <a onclick="plusEnlargedSlides(-1)" class="image-control-prev fas fa-chevron-left fa-3x"></a>
+                            <a onclick="plusEnlargedSlides(1)"class="image-control-next fas fa-chevron-right fa-3x"></a>
+                            
+                        </div>
+
+                    {% endif %}
+
+                </div>
         
             <div class="free-item-single-description">{{freeItem.description|raw}}</div>
             <div class="free-item-single-location"><i class="fas fa-map-marker-alt"></i><h3>{{freeItem.location}}</h3></div>
-            <div class="sharethis-inline-share-buttons" style="z-index: 0;"></div>
+            <div class="sharethis-inline-share-buttons"></div>
             <a href="{{path('free_item_list_user', {'id':freeItem.user.id})}}"><h4 class="free-item-single-date">Listed By: {{freeItem.user.name}} on {{freeItem.date|date('D d/m/y')}} @ {{freeItem.time|date('H')}}:{{freeItem.time|date('i')}}</h4></a>
             
             {% if not app.user %}
@@ -217,6 +209,8 @@ for (var i = 0; i < images.length; i++) {
   // and attach our click listener for this image.
   img.onclick = function(evt) {
     modal.style.display = "grid";
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${window.scrollY}px`;
   }
 }
 
@@ -224,6 +218,8 @@ var span = document.getElementsByClassName("close")[0];
 
 span.onclick = function() {
   modal.style.display = "none";
+  document.body.style.position = '';
+document.body.style.top = '';
 }
 
 // Single Item Modal Slide Show container

@@ -32,38 +32,7 @@
 
         <h2>Latest Freebies</h2>
 
-        {% for freeItem in freeItems %}
-
-            <a href="{{path('free_item_single', {'id':freeItem.id})}}" class="free-item-container">
-
-                    <div class="free-item-info">
-                        
-                        {% for freeItemPicture in freeItem.freeItemPictures|slice(0, 1) %}
-
-                            <img class="free-item-info-image" src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}" alt="No Image :(">
-                            
-                        {% endfor %}
-                        
-                        <div class="free-item-info-upload">
-
-                            <h6 class="free-item-info-upload-user">{{freeItem.time|date('H')}} : {{freeItem.time|date('i')}}</h6>
-                            <h6 class="free-item-info-upload-date">{{freeItem.date|date('D d/m/y')}}</h6>
-
-                        </div>
-
-                    </div>
-
-                    <div class="free-item-details">
-
-                        <h3 class="free-item-details-title">{{freeItem.title}}</h3>
-                        <p class="free-item-details-description">{{freeItem.category.name}}</p>
-                        <h4 class="free-item-details-location"><i class="fas fa-map-marker-alt"></i> {{freeItem.location}}</h4>
-
-                    </div>
-
-                </a>
-            
-        {% endfor %}
+        {% include 'front/includes/_free-item-snippets.html.twig' %}
 
          <div class="user-review">
 

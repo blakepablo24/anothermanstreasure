@@ -36,33 +36,16 @@
 
                     <a href="{{path('post_free_item')}}" class="post-free-item-main-button">post free item</a>
 
-                    <a class="nav-logo" href="{{path('main_page')}}"><img src="{{asset('assets/images/site-images/32collect-logo.png')}}" alt=""></a>
+                    <a class="nav-logo" href="{{path('main_page')}}"><img style="max-height: 9.5vh;" src="{{asset('assets/images/site-images/32collect-logo.png')}}" alt=""></a>
 
-                    <div id="burger-menu-overlay">
+                    <div id="my-burger-menu-overlay" class="burger-menu-overlay">
+                            
+                        <i onclick="closeBurgerMenu()" class="fas fa-times-circle fa-2x"></i>
 
-                        <div class="burger-menu-headers">
-
-                            <div onclick="closeBurgerMenu()">
-                                <h4>Close Menu</h4>
-                                <i class="fas fa-times-circle fa-2x"></i>
-                            </div>
-
-                        </div>
-
-                        <div class="burger-menu-links">
-
-                        <a class="nav-option-container" href="{{path('admin_main_page')}}"><i class="fas fa-user"></i><h3> My Profile</h3></a>
-                        <a class="nav-option-container" href="{{path('reuse_tips')}}"><i class="fas fa-recycle"></i><h3> Reuse Tips</h3></a>
-                        <a href="{{path('contact')}}" class="nav-option-container" href=""><i class="far fa-envelope"></i><h3> Contact</h3></a>
-                        <a class="nav-option-container" href="{{path('logout')}}"><i class="fas fa-sign-out-alt"></i><h3> Logout</h3></a>
-
-                        </div>
-
-                        <div class="burger-menu-footers">
-
-                            <a href=""><i class="fab fa-paypal"></i> Donate</a>
-
-                        </div>
+                        <a href="{{path('admin_main_page')}}">My&nbsp;Profile</a>
+                        <a href="{{path('reuse_tips')}}">Reuse&nbsp;Tips</a>
+                        <a href="{{path('contact')}}">Contact</a>
+                        <a href="{{path('logout')}}">Logout</a>
 
                     </div>
 
@@ -101,9 +84,20 @@
             
             <footer>
 
-                <i class="far fa-envelope fa-2x"></i>
-                <i class="fab fa-facebook-f fa-2x"></i>
-                <i class="fab fa-twitter fa-2x"></i>
+                <div class="footer-images-container">
+
+                    <img width="50%" src="{{asset('assets/images/site-images/rrr.png')}}" alt="">
+                    <img width="95%" src="{{asset('assets/images/site-images/no-landfill.png')}}" alt="">
+                
+                </div>
+
+                <div class="footer-links-container">
+
+                    <i class="far fa-envelope fa-2x"></i>
+                    <i class="fab fa-facebook-f fa-2x"></i>
+                    <i class="fab fa-twitter fa-2x"></i>
+
+                </div>
 
             </footer>
 

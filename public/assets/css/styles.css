@@ -117,6 +117,7 @@ header {
     grid: 10vh 7vh 7vh / 100vw;
     place-items: center center;
     position: fixed;
+    z-index: 2;
     background: #ccedd2;
 }
 
@@ -154,40 +155,29 @@ header {
     place-items: center center;
 }
 
-/* Header Burger Menu */
+/* Burger Menu overlay and links */
 
-#burger-menu-overlay {
-    width: 0%;
+.burger-menu-overlay {
     height: 100%;
+    width: 0%;
     position: fixed;
-    z-index: 1;
+    z-index: 4;
+    top: 0;
+    left: 0;
     background: #a0c334;
-    transition: 0.5s;
+    transition: 0.75s;
     overflow-x: hidden;
     display: grid;
-    grid: 1fr 8fr 1fr / 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10vh;
     place-items: center center;
+    padding-bottom: 50vh;
+    font-size: 1.5rem;
 }
 
-.burger-menu-links {
-    place-self: start center;
-    width: 95%;
-}
-
-.burger-menu-links a {
-    text-align: left;
-    padding: 2.5px;
-    font-size: 1.3rem;
-}
-
-.nav-option-container {
-    display: grid;
-    place-items: center start;
-    grid: 1fr / 2.5fr 7.5fr;
-}
-
-.nav-option-container i {
-    margin-right: 5px;
+.burger-menu-overlay i {
+    place-self: start end;
+    margin: 10px 10px 0 0;
 }
 
 .find-items-container {
@@ -280,45 +270,35 @@ main {
     place-items: center center;
 }
 
-/* Front Main Section */
+/* Free Item container snippet */
 
-.free-item-container {
+.free-item-container, .free-item-info-upload, .free-item-details {
     display: grid;
-    grid: 1fr / 1fr 2fr;
-    background: #ffffff;
-    width: 95%;
-    border-radius: 5px;
-    padding: 5px;
-    box-shadow: 2.5px 5px 9px #888888;
-    margin-top: 7.5px;
+    place-items: center center;
+    width: 100%;
 }
 
-.free-item-info {
-    display: grid;
-    grid: 1fr auto / 1fr;
-    place-items: center center;
+.free-item-container {
+    grid: 26vh / 1fr 1fr;
+    background: #ffffff;
+    box-shadow: 2.5px 1.5px 2.5px 0.5px #3f3e3e;
+    margin-top: 7.5px;
+    padding-left: 1vw;
+}
+
+.free-item-container img {
+    max-width: 100%;
+    max-height: 25vh;
+    border-radius: 1.5px;
 }
 
 .free-item-info-upload {
-    display: grid;
     grid: 1fr / 1fr 1fr;
-    width: 100%;
-    place-items: center center;
-}
-
-.free-item-info-image {
-    width: 100%;
-    border-radius: 5px;
 }
 
 .free-item-details {
-    display: grid;
-    grid: auto 1fr auto / 1fr;
-    place-items: center center;
-}
-
-.free-item-details-description {
-    font-size: 0.90rem;
+    height: 100%;
+    grid: auto auto auto auto / 1fr;
 }
 
 .login-signup a {
@@ -328,36 +308,39 @@ main {
     border-radius: 2.5px;
 }
 
-/* User messages Page */
+/* User message snippets Page */
 
-.user-conversation-container {
+.user-message-snippet-container, .user-message-snippet-content-container, .user-message-snippet-image-container {
     width: 100%;
     display: grid;
-    grid: 1fr / 8fr 2fr;
     place-items: center center;
+}
+
+.user-message-snippet-container {
+    padding-right: 1vw;
+    grid: 20vh / 7fr 3fr;
     color: #655c56;
     background: #ffffff;
     border-bottom: 2.5px solid #a0c334;
 }
 
-.user-conversation-content-container {
-    display: grid;
-    place-items: center center;
-    width: 100%;
+.user-message-snippet-content-container {
+    height: 100%;
 }
 
-.user-conversation-image-container {
-    width: 100%;
-    display: grid;
-    place-items: center center;
-}
-
-.user-conversation-image {
- max-height: 99%;
- max-width: 100%;
+.user-message-snippet-container img {
+    max-width: 100%;
+    max-height: 19.9vh;
+    border-radius: 1.5px;
 }
 
 /* User conversation Page */
+
+.user-conversation-container {
+    display: grid;
+    grid: 5vh minmax(10vh, auto) minmax(75vh, auto) 10vh / 100vw;
+    place-items: center center;
+}
 
 .user-messages-header-container {
     width: 99%;
@@ -366,46 +349,40 @@ main {
     place-items: center center;
     padding: 2.5px 0;
     background: #f8f6f6;
-    border-radius: 5px;
-    box-shadow: 2.5px 5px 9px #888888;
+    border-radius: 1.25px;
+    box-shadow: 1px 2px 3px #888888;
 }
 
 .user-messages-header-container img {
-    border-radius: 2.5px;
+    border-radius: 1.25px;
+    max-width: 100%;
+    max-height: 9.5vh;
+}
+
+.messages-container {
+    height: 100%;
     width: 95%;
 }
 
 .user-message-container, .not-user-message-container {
-    width: 95%;
-    display: grid;   
-}
-
-.user-message-container p, .not-user-message-container p {
     width: 60%;
+    display: grid;
 }
 
 .user-message-container p {
-    place-self: center start;
-    text-align: left;
-    border-radius: 2.5px;
+    border-radius: 1.25px;
     background: #655c56;
     color: #effcef;
-    padding: 5px 0 5px 5px;
+    padding: 5px;
 }
 
-.user-message-container h4, .user-message-container h6 {
-    place-self: center start;
+.user-message-container {
     text-align: left;
 }
 
-.not-user-message-container p {
-    place-self: center end;
+.not-user-message-container {
+    margin-left: 40%;
     text-align: right;
-}
-
-.not-user-message-container h4, .not-user-message-container h6 {
-    place-self: center end;
-    
 }
 
 /* All Categories Page */
@@ -467,18 +444,6 @@ main {
     margin: 10px 0;
 }
 
-.free-item-single-share {
-    place-self: end end;
-    width: 30%;
-    display: grid;
-    grid: 1fr / 1fr 1fr;
-    place-items: center center;
-}
-
-.free-item-single-share i {
-    color: #655c56;
-}
-
 .sharethis-inline-share-buttons {
     margin: 10px 0;
 }
@@ -529,8 +494,12 @@ main {
 .slideshow-container {
     border-radius: 5px;
     width: 100%;
-    display: grid;
-    grid: 35vh 8vh / 1fr;
+}
+
+.free-item-single-image {
+    border-radius: 2.5px;
+    width: 99.5%;
+    place-self: center center;
 }
   
   /* Hide the images by default */
@@ -539,67 +508,61 @@ main {
     place-items: center center;
   }
 
-  .free-item-single-image {
-      border-radius: 5px;
-      max-width: 100%;
-      max-height: 35vh;
-  }
-
-.image-control-container, .modal-image-control-container {
-    width: 100%;
+.image-control-container {
     display: grid;
     grid: 1fr / 1fr 1fr;
-    place-items: center center;
+    position: absolute;
+    width: 100%;
 }
 
-.image-control-container a, .modal-image-control-container a {
-    border-radius: 5px;
-    width: 40%;
-    font-size: 2rem;
-    font-weight: bold;
-    background: #655c56;
-    color: #effcef;
+.image-control-next, .image-control-prev, .close {
+    border-radius: 50%;
+    padding: 5px;
+    background: #655c5675;
+    color: #ccedd2;
 }
 
+.image-control-next {
+    place-self: center end;
+    margin-right: 2.5vw;
+    padding-left: 2.5vw;
+}
+
+.image-control-prev {
+    place-self: center start;
+    margin-left: 2.5vw;
+    padding-right: 2.5vw;
+}
 /* Slide Show Modal for larger image */
   
-  /* The Modal (background) */
   .modal {
-    display: none; /* Hidden by default */
-    grid: 7.5vh 92.5vh / 1fr;
+    display: none;
     place-items: center center;
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    position: fixed;
+    z-index: 3;
+    overflow-y: hidden;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    background-color: rgb(0,0,0); /* Fallback color */
-  }
-
-  .modal-image-control-container {
-    grid: 1fr / 1fr 1fr 1fr;
-  }
- .modal-image-control-container a {
-    background: none;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
   }
 
   .myEnlargedSlides {
-    height: 92.5vh;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    place-items: center center;
   }
   
-  /* Modal Content (Image) */
-  .modal-content {
-    max-width: 99vw;
-    max-height: 92vh;
-    place-self: center center;
+  .myEnlargedSlides img {
+    max-height: 100%;
+    max-width: 99.5%;
   }
-  
-  /* The Close Button */
+
   .close {
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
+      position: absolute;
+      top: 10%;
   }
 
 /* Post New Free Item */
@@ -697,7 +660,7 @@ main {
     place-items: center center;
     background: rgb(204, 237, 210);
     position: fixed;
-    z-index: 10;
+    z-index: 5;
     height: 100%;
     width: 100%;
 }

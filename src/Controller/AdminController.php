@@ -272,10 +272,13 @@ class AdminController extends AbstractController
 
         foreach ($images as $image) {
 
-            $path=$this->getParameter('pictures_directory').'/'.$image->getName();
+            $imagePath = $this->getParameter('pictures_directory').'/'.$image->getName();
             $fs = new FileSystem();
-            $fs->remove($path);
-
+            $fs->remove($imagePath);
+            $imageSnippetPath = $this->getParameter('pictures_directory').'/snippet'.$image->getName();
+            $fs = new FileSystem();
+            $fs->remove($imageSnippetPath);
+            
         }
 
         $locationsStat = $this->getDoctrine()->getManager()->getRepository(Locations::class)->findLocation($freeItem->getLocation());
@@ -306,10 +309,11 @@ class AdminController extends AbstractController
 
         // Remove actual picture file
 
-            $path=$this->getParameter('pictures_directory').'/'.$freeItemPicture->getName();
+            $imagePath = $this->getParameter('pictures_directory').'/'.$freeItemPicture->getName();
+            $imageSnippetPath = $this->getParameter('pictures_directory').'/snippet'.$freeItemPicture->getName();
             $fs = new FileSystem();
-            $fs->remove($path);
-
+            $fs->remove($imagePath);
+            $fs->remove($imageSnippetPath);
 
         // Once picture have been removed
 
@@ -403,7 +407,7 @@ class AdminController extends AbstractController
             }
         }
 
-        return $this->render('admin/user-messages.html.twig', [
+        return $this->render('admin/user-message-snippets.html.twig', [
             'conversations' => $lastMessageInConversations
         ]);
 
@@ -494,6 +498,7 @@ class AdminController extends AbstractController
         $newFilename = $safeFilename.'-'.uniqid().'.'.$picture->guessExtension();
         
         $img = Image::make($picture)->orientate();
+        $imgSnippet = Image::make($picture)->orientate();
 
         try {
             $directory = $this->getParameter('pictures_directory');
@@ -501,9 +506,9 @@ class AdminController extends AbstractController
                 $constraint->aspectRatio();
                 $constraint->upsize();
             });
-            $img->save(
-                $directory.'/'.$newFilename.'.jpg'
-            );    
+            $img->save($directory.'/'.$newFilename.'.jpg');
+            $imgSnippet->fit(500);
+            $imgSnippet->save($directory.'/snippet'.$newFilename.'.jpg');     
 
         } catch (FileException $e) {
             // ... handle exception if something happens during file upload

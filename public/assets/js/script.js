@@ -1,9 +1,9 @@
 function openBurgerMenu() {
-    document.getElementById("burger-menu-overlay").style.width = "50%";
+    document.getElementById("my-burger-menu-overlay").style.width = "66%";
 }
 
 function closeBurgerMenu() {
-    document.getElementById("burger-menu-overlay").style.width = "0%";
+    document.getElementById("my-burger-menu-overlay").style.width = "0%";
 }
 
 function loader() {

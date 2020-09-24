@@ -1,0 +1,36 @@
+{% for freeItem in freeItems %}
+
+    <a href="{{path('free_item_single', {'id':freeItem.id})}}" class="free-item-container">         
+
+            {% if freeItem.freeItemPictures|length > 0 %}
+    
+                {% for freeItemPicture in freeItem.freeItemPictures|slice(0, 1) %}
+
+                    <img src="{{asset('assets/images/free-item-images/snippet' ~ freeItemPicture.name)}}" alt="No Image :(">
+                
+                {% endfor %}
+
+            {% else %}
+                    
+                    <img src="{{asset('assets/images/site-images/32collect-no-image-template.png')}}">                 
+            
+            {% endif %}
+
+        <div class="free-item-details">
+
+            <h3 class="free-item-details-title">{{freeItem.title}}</h3>
+            <p class="free-item-details-description">{{freeItem.category.name}}</p>
+            <h4 class="free-item-details-location"><i class="fas fa-map-marker-alt"></i> {{freeItem.location}}</h4>
+
+            <div class="free-item-info-upload">
+
+                <h6 class="free-item-info-upload-user">{{freeItem.time|date('H')}} : {{freeItem.time|date('i')}}</h6>
+                <h6 class="free-item-info-upload-date">{{freeItem.date|date('D d/m/y')}}</h6>
+
+            </div>
+
+        </div>
+
+    </a>
+    
+{% endfor %}    

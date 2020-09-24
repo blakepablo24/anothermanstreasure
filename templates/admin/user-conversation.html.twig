@@ -7,59 +7,72 @@
 
     <main style="grid-row: 1 / 4;">
 
-        <div class="all-categories-nav">
+        <div class="user-conversation-container">
 
-            <a href="{{path('user_messages', {'id':app.user.id})}}"><i class="fas fa-arrow-circle-left"></i> Back to all messages</a>
+            <div class="all-categories-nav">
 
-        </div>
+                <a href="{{path('user_messages', {'id':app.user.id})}}"><i class="fas fa-arrow-circle-left"></i> Back to all messages</a>
 
+            </div>
 
-            <a href="{{path('free_item_single', {'id':conversation.freeItem.id})}}" class="user-messages-header-container">
-            
-                <h2>{{conversation.freeItem.title}}</h2>
-
-                {% for freeItemPicture in conversation.freeItem.freeItemPictures|slice(0, 1) %}
-
-                    <img src="{{asset('assets/images/free-item-images/' ~ freeItemPicture.name)}}">                 
-
-                {% endfor %}
-            
-            </a>
-
-
-            {% for conversationMessage in conversation.conversationMessages|slice(1) %}
+                <a class="user-messages-header-container" href="{{path('free_item_single', {'id':conversation.freeItem.id})}}">
                 
-                    {% if app.user.id == conversationMessage.user.id %}
+                    <h2>{{conversation.freeItem.title}}</h2>
 
-                        <div class="user-message-container">                    
+                    {% if conversation.freeItem.freeItemPictures|length > 0 %}
+                    
+                        {% for freeItemPicture in conversation.freeItem.freeItemPictures|slice(0, 1) %}
 
-                            <h4>You:</h4>
-                            <p>{{conversationMessage.message}}</p>
-                            <h6>{{conversationMessage.date|date('D d/m/y')}} @ {{conversationMessage.time|date('H')}}:{{conversationMessage.time|date('i')}}</h6>
+                            <img src="{{asset('assets/images/free-item-images/snippet' ~ freeItemPicture.name)}}">                 
 
-                        </div>
+                        {% endfor %}
 
                     {% else %}
-
-                        <div class="not-user-message-container">    
-                            <h4>{{conversationMessage.user.name}}:</h4>                
-                            <p>{{conversationMessage.message}}</p>
-                            <h6>{{conversationMessage.date|date('D d/m/y')}} @ {{conversationMessage.time|date('H')}}:{{conversationMessage.time|date('i')}}</h6>
-                        </div>
-
-                    {% endif %} 
+                            
+                            <img src="{{asset('assets/images/site-images/32collect-no-image-template.png')}}">                 
+                    
+                    {% endif %}
                 
-            {% endfor %}
+                </a>
 
-            {{ form_start(form, {'attr':{'class': 'send-free-item-message', 'style': 'place-self: end center; margin-bottom: 10px;'}}) }}
+                <div class="messages-container">
 
-                {{form_widget(form.Message, {'attr': {'placeholder': 'Enter new message here?', 'autocomplete': 'off'}}) }}
-                {{form_errors(form.Message)}}
-                
-                <button class="send-free-item-message-button"><i class="fas fa-paper-plane fa-2x"></i></button>
-                
-            {{ form_end(form) }}
+                    {% for conversationMessage in conversation.conversationMessages|slice(1) %}
+                        
+                        {% if app.user.id == conversationMessage.user.id %}
 
+                            <div class="user-message-container">                    
+
+                                <h5><small>You:</small></h5>                
+                                <p>{{conversationMessage.message}}</p>
+                                <h6><small>{{conversationMessage.date|date('D d/m/y')}} @ {{conversationMessage.time|date('H')}}:{{conversationMessage.time|date('i')}}</small></h6>
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="not-user-message-container">    
+                                <h5><small>{{conversationMessage.user.name}}:</small></h5>                
+                                <p>{{conversationMessage.message}}</p>
+                                <h6><small>{{conversationMessage.date|date('D d/m/y')}} @ {{conversationMessage.time|date('H')}}:{{conversationMessage.time|date('i')}}</small></h6>
+                            </div>
+
+                        {% endif %} 
+                        
+                    {% endfor %}
+
+                </div>
+
+                {{ form_start(form, {'attr':{'class': 'send-free-item-message', 'style': 'place-self: end center; margin-bottom: 10px;'}}) }}
+
+                    {{form_widget(form.Message, {'attr': {'placeholder': 'Enter new message here?', 'autocomplete': 'off'}}) }}
+                    {{form_errors(form.Message)}}
+                    
+                    <button class="send-free-item-message-button"><i class="fas fa-paper-plane fa-2x"></i></button>
+                    
+                {{ form_end(form) }}
+
+        </div>
 
     </main>
 
